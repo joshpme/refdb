@@ -51,7 +51,7 @@ class ReferenceController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
         $search = $manager->getRepository(Reference::class)
-            ->createQueryBuilder("r");
+            ->createQueryBuilder("r")->orderBy("r.hits", "DESC");
 
         if ($form->isSubmitted() && $form->isValid()) {
             $terms = mb_strtolower($form->get('terms')->getData());
@@ -126,7 +126,6 @@ class ReferenceController extends AbstractController
 
         $paperService = new PaperService();
         $update = $paperService->check($reference);
-
 
         if ($update || $reference->__toString() !== $reference->getCache()) {
             $reference->setCache($reference->__toString());

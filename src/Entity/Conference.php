@@ -38,6 +38,19 @@ class Conference implements \JsonSerializable
     private $code;
 
     /**
+     * Start of conference (e.g. 18 March 2018)
+     * @var DateTime
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $conferenceStart;
+
+    /**
+     * Last day of conference (e.g. 21 March 2018)
+     * @var DateTime
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $conferenceEnd;
+    /**
      * This is the date of the conference, Eg. May 2018
      * @var string
      * @ORM\Column(name="year", type="string", length=255, nullable=true)
@@ -422,12 +435,29 @@ class Conference implements \JsonSerializable
         return $this->issn;
     }
 
+    public function getIssnFormatted() {
+        $issn = $this->getIssn();
+        $result = substr($issn, 0, 4) . "-";
+        $result .= substr($issn, 4, 8);
+        return $result;
+    }
+
     public function setIssn($issn){
         $this->issn = $issn;
     }
 
     public function getIsbn(){
         return $this->isbn;
+    }
+
+    public function getIsbnFormatted() {
+        $isbn = $this->getIsbn();
+        $result = substr($isbn, 0, 3) . "-";
+        $result .= substr($isbn, 3, 1) . "-";
+        $result .= substr($isbn, 4, 2) . "-";
+        $result .= substr($isbn, 6, 6) . "-";
+        $result .= substr($isbn, 12, 1);
+        return $result;
     }
 
     public function setIsbn($isbn){
@@ -448,5 +478,21 @@ class Conference implements \JsonSerializable
 
     public function setPubYear($pubYear){
         $this->pubYear = $pubYear;
+    }
+
+    public function getConferenceStart(){
+        return $this->conferenceStart;
+    }
+
+    public function setConferenceStart($conferenceStart){
+        $this->conferenceStart = $conferenceStart;
+    }
+
+    public function getConferenceEnd(){
+        return $this->conferenceEnd;
+    }
+
+    public function setConferenceEnd($conferenceEnd){
+        $this->conferenceEnd = $conferenceEnd;
     }
 }
