@@ -32,10 +32,6 @@ services:
     resource: "../src/Controller/"
     tags: ["controller.service_arguments"]
 
-  Doctrine\DBAL\Event\Listeners\OracleSessionInit:
-    tags:
-      - { name: "doctrine.event_listener", event: postConnect }
-
   Fvozar\Twig\OrdinalNumberExtension:
     tags:
       - { name: twig.extension }

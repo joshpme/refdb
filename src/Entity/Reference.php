@@ -33,7 +33,7 @@ class Reference implements \JsonSerializable
     /**
      * The original imported author string to help aid with correcting errors.
      * @var string
-     * @ORM\Column(type="string", length=4000, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $originalAuthors;
 
@@ -52,7 +52,7 @@ class Reference implements \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=2000, nullable=true)
+     * @ORM\Column(name="title", type="string", length=500, nullable=true)
      */
     private $title;
 
@@ -60,7 +60,7 @@ class Reference implements \JsonSerializable
      * Author string component
      * @var string
      *
-     * @ORM\Column(name="author", type="string", length=4000, nullable=true)
+     * @ORM\Column(name="author", type="string", length=500, nullable=true)
      */
     private $author;
 
@@ -107,7 +107,7 @@ class Reference implements \JsonSerializable
      * Cached reference for string representation purposes.
      * @var string
      *
-     * @ORM\Column(name="cache", type="string", length=4000, nullable=true)
+     * @ORM\Column(name="cache", type="string", length=600, nullable=true)
      */
     private $cache;
 
@@ -123,7 +123,7 @@ class Reference implements \JsonSerializable
      * URL To paper
      * @var string
      *
-     * @ORM\Column(type="string", length=1000, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $customDoi;
 
@@ -131,7 +131,7 @@ class Reference implements \JsonSerializable
      * URL To paper
      * @var string
      *
-     * @ORM\Column(type="string", length=1000, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     private $paperUrl;
 
