@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 /**
  * Conference
@@ -391,12 +392,28 @@ class Conference implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        return ["name"=> $this->getName(),
-            "code" => $this->getCode(),
-            "location" => $this->getLocation(),
-            "date" => $this->getYear(),
+        $start = $this->getConferenceStart();
+        $end = $this->getConferenceEnd();
+        return [
             "id"=>$this->getId(),
-            "url" => $this->getBasedUrl()];
+            "name"=> $this->getName(),
+            "code" => $this->getCode(),
+            "start"=> $start ? $this->getConferenceStart()->format("Y-m-d") : null,
+            "end"=> $end ? $end->format("Y-m-d") : null,
+            "year" => $this->getYear(),
+            "series" => $this->getSeries(),
+            "series_number" => $this->getSeriesNumber(),
+            "issn" => $this->getIssn(),
+            "isbn" => $this->getIsbn(),
+            "pub_year" => $this->getPubYear(),
+            "pub_month" => $this->getPubMonth(),
+            "doi_code" => $this->getDoiCode(),
+            "use_doi" => $this->isUseDoi(),
+            "base_url" => $this->getBaseUrl(),
+            "location" => $this->getLocation(),
+            "is_published" => $this->isPublished(),
+            "import_url" => $this->getImportUrl()
+        ];
     }
 
     /**
@@ -494,5 +511,61 @@ class Conference implements \JsonSerializable
 
     public function setConferenceEnd($conferenceEnd){
         $this->conferenceEnd = $conferenceEnd;
+    }
+    
+    public function updateFromDto($dto) {
+        if (isset($dto['name'])) {
+            $this->setName($dto['name']);
+        }
+        if (isset($dto['code'])) {
+            $this->setCode($dto['code']);
+        }
+        if (isset($dto['start'])) {
+            $startDate = DateTime::createFromFormat("Y-m-d", $dto['start']);
+            $this->setConferenceStart($startDate);
+        }
+        if (isset($dto['end'])) {
+            $endDate = DateTime::createFromFormat("Y-m-d", $dto['end']);
+            $this->setConferenceEnd($endDate);
+        }
+        if (isset($dto['year'])) {
+            $this->setYear($dto['year']);
+        }
+        if (isset($dto['series'])) {
+            $this->setSeries($dto['series']);
+        }
+        if (isset($dto['series_number'])) {
+            $this->setSeriesNumber($dto['series_number']);
+        }
+        if (isset($dto['issn'])) {
+            $this->setIssn($dto['issn']);
+        }
+        if (isset($dto['isbn'])) {
+            $this->setIsbn($dto['isbn']);
+        }
+        if (isset($dto['pub_year'])) {
+            $this->setPubYear($dto['pub_year']);
+        }
+        if (isset($dto['pub_month'])) {
+            $this->setPubMonth($dto['pub_month']);
+        }
+        if (isset($dto['doi_code'])) {
+            $this->setDoiCode($dto['doi_code']);
+        }
+        if (isset($dto['use_doi'])) {
+            $this->setUseDoi($dto['use_doi']);
+        }
+        if (isset($dto['base_url'])) {
+            $this->setBaseUrl($dto['base_url']);
+        }
+        if (isset($dto['location'])) {
+            $this->setLocation($dto['location']);
+        }
+        if (isset($dto['is_published'])) {
+            $this->setIsPublished($dto['is_published']);
+        }
+        if (isset($dto['import_url'])) {
+            $this->setImportUrl($dto['import_url']);
+        }
     }
 }

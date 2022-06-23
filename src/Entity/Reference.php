@@ -226,7 +226,7 @@ class Reference implements \JsonSerializable
     /**
      * Set conference
      *
-     * @param string $conference
+     * @param Conference $conference
      *
      * @return Reference
      */
@@ -549,12 +549,35 @@ class Reference implements \JsonSerializable
         $this->cache = $cache;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize($full = false)
     {
-        return [
-            "id" => $this->getId(),
-            "name" => $this->getCache()
+        $response = [
+            "id" => $this->getId()
         ];
+
+        if ($full) {
+            $response['original_authors'] = $this->getOriginalAuthors();
+            $response['contribution_id'] = $this->getContributionId();
+            $response['paper_id'] = $this->getPaperId();
+            $response['title'] = $this->getTitle();
+            $response['author'] = $this->getAuthor();
+            $response['authors'] = [];
+            foreach ($this->getAuthors() as $auth) {
+                $response['authors'][] = $auth->jsonSerialize();
+            }
+            $response['conference'] = $this->getConference()->getId();
+            $response['position'] = $this->getPosition();
+            $response['in_proc'] = $this->getInProc();
+            $response['et_al'] = $this->getEtAl();
+            $response['doi_verified'] = $this->isDoiVerified();
+            $response['custom_doi'] = $this->getCustomDoi();
+            $response['paper_url'] = $this->getPaperUrl();
+            $response['confirmed_in_proc'] = $this->getConfirmedInProc();
+        } else {
+            $response["name"] = $this->getCache();
+        }
+
+        return $response;
     }
 
     /**
@@ -683,5 +706,44 @@ class Reference implements \JsonSerializable
 
     public function setConfirmedInProc($confirmed) {
         $this->confirmedInProc = $confirmed;
+    }
+
+    public function updateFromDto($dto) {
+        if (isset($dto['original_authors'])) {
+            $this->setOriginalAuthors($dto['original_authors']);
+        }
+        if (isset($dto['contribution_id'])) {
+            $this->setContributionId($dto['contribution_id']);
+        }
+        if (isset($dto['paper_id'])) {
+            $this->setPaperId($dto['paper_id']);
+        }
+        if (isset($dto['title'])) {
+            $this->setTitle($dto['title']);
+        }
+        if (isset($dto['author'])) {
+            $this->setAuthor($dto['author']);
+        }
+        if (isset($dto['position'])) {
+            $this->setPosition($dto['position']);
+        }
+        if (isset($dto['in_proc'])) {
+            $this->setInProc($dto['in_proc']);
+        }
+        if (isset($dto['et_al'])) {
+            $this->setEtAl($dto['et_al']);
+        }
+        if (isset($dto['doi_verified'])) {
+            $this->setDoiVerified($dto['doi_verified']);
+        }
+        if (isset($dto['custom_doi'])) {
+            $this->setCustomDoi($dto['custom_doi']);
+        }
+        if (isset($dto['paper_url'])) {
+            $this->setPaperUrl($dto['paper_url']);
+        }
+        if (isset($dto['confirmed_in_proc'])) {
+            $this->setConfirmedInProc($dto['confirmed_in_proc']);
+        }
     }
 }

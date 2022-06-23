@@ -14,6 +14,15 @@ use Doctrine\ORM\Query\Expr\Join;
  */
 class ReferenceRepository extends EntityRepository
 {
+
+    public function findWithAuthors($conference) {
+        $query = $this->createQueryBuilder("r");
+        $query->leftJoin("r.authors", "a");
+        $query->where("r.conference = :conference")
+            ->setParameter("conference", $conference);
+        return $query->getQuery()->getResult();
+    }
+
     public function search(Search $search) {
         $query = $this->createQueryBuilder("r");
 
