@@ -398,21 +398,21 @@ class Conference implements \JsonSerializable
             "id"=>$this->getId(),
             "name"=> $this->getName(),
             "code" => $this->getCode(),
-            "start"=> $start ? $this->getConferenceStart()->format("Y-m-d") : null,
-            "end"=> $end ? $end->format("Y-m-d") : null,
+            "conferenceStart"=> $start ? $this->getConferenceStart()->format("Y-m-d") : null,
+            "conferenceEnd"=> $end ? $end->format("Y-m-d") : null,
             "year" => $this->getYear(),
             "series" => $this->getSeries(),
-            "series_number" => $this->getSeriesNumber(),
+            "seriesNumber" => $this->getSeriesNumber(),
             "issn" => $this->getIssn(),
             "isbn" => $this->getIsbn(),
-            "pub_year" => $this->getPubYear(),
-            "pub_month" => $this->getPubMonth(),
-            "doi_code" => $this->getDoiCode(),
-            "use_doi" => $this->isUseDoi(),
-            "base_url" => $this->getBaseUrl(),
+            "pubYear" => $this->getPubYear(),
+            "pubMonth" => $this->getPubMonth(),
+            "doiCode" => $this->getDoiCode(),
+            "useDoi" => $this->isUseDoi(),
+            "baseUrl" => $this->getBaseUrl(),
             "location" => $this->getLocation(),
-            "is_published" => $this->isPublished(),
-            "import_url" => $this->getImportUrl()
+            "isPublished" => $this->isPublished(),
+            "importUrl" => $this->getImportUrl()
         ];
     }
 
@@ -520,12 +520,12 @@ class Conference implements \JsonSerializable
         if (isset($dto['code'])) {
             $this->setCode($dto['code']);
         }
-        if (isset($dto['start'])) {
-            $startDate = DateTime::createFromFormat("Y-m-d", $dto['start']);
+        if (isset($dto['conferenceStart'])) {
+            $startDate = DateTime::createFromFormat("Y-m-d", $dto['conferenceStart']);
             $this->setConferenceStart($startDate);
         }
-        if (isset($dto['end'])) {
-            $endDate = DateTime::createFromFormat("Y-m-d", $dto['end']);
+        if (isset($dto['conferenceEnd'])) {
+            $endDate = DateTime::createFromFormat("Y-m-d", $dto['conferenceEnd']);
             $this->setConferenceEnd($endDate);
         }
         if (isset($dto['year'])) {
@@ -534,8 +534,8 @@ class Conference implements \JsonSerializable
         if (isset($dto['series'])) {
             $this->setSeries($dto['series']);
         }
-        if (isset($dto['series_number'])) {
-            $this->setSeriesNumber($dto['series_number']);
+        if (isset($dto['seriesNumber'])) {
+            $this->setSeriesNumber($dto['seriesNumber']);
         }
         if (isset($dto['issn'])) {
             $this->setIssn($dto['issn']);
@@ -543,29 +543,29 @@ class Conference implements \JsonSerializable
         if (isset($dto['isbn'])) {
             $this->setIsbn($dto['isbn']);
         }
-        if (isset($dto['pub_year'])) {
-            $this->setPubYear($dto['pub_year']);
+        if (isset($dto['pubYear'])) {
+            $this->setPubYear($dto['pubYear']);
         }
-        if (isset($dto['pub_month'])) {
-            $this->setPubMonth($dto['pub_month']);
+        if (isset($dto['pubMonth'])) {
+            $this->setPubMonth($dto['pubMonth']);
         }
-        if (isset($dto['doi_code'])) {
-            $this->setDoiCode($dto['doi_code']);
+        if (isset($dto['doiCode'])) {
+            $this->setDoiCode($dto['doiCode']);
         }
-        if (isset($dto['use_doi'])) {
-            $this->setUseDoi($dto['use_doi']);
+        if (isset($dto['useDoi'])) {
+            $this->setUseDoi($dto['useDoi']);
         }
-        if (isset($dto['base_url'])) {
-            $this->setBaseUrl($dto['base_url']);
+        if (isset($dto['baseUrl'])) {
+            $this->setBaseUrl($dto['baseUrl']);
         }
         if (isset($dto['location'])) {
             $this->setLocation($dto['location']);
         }
-        if (isset($dto['is_published'])) {
-            $this->setIsPublished($dto['is_published']);
+        if (isset($dto['isPublished'])) {
+            $this->setIsPublished($dto['isPublished']);
         }
-        if (isset($dto['import_url'])) {
-            $this->setImportUrl($dto['import_url']);
+        if (isset($dto['importUrl'])) {
+            $this->setImportUrl($dto['importUrl']);
         }
     }
 }

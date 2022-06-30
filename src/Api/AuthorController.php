@@ -2,41 +2,29 @@
 
 namespace App\Api;
 
-use App\Entity\Conference;
+use App\Entity\Author;
 use App\Entity\Reference;
-use App\Form\ConferenceType;
+use App\Form\AuthorType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
- * Conference controller.
+ * Author controller.
  *
- * @Route("api/conferences", name="api_conference")
+ * @Route("api/authors", name="api_author")
  */
-class ConferenceController extends ApiController
+class AuthorController extends ApiController
 {
     /**
-     * @Route("/", name="_list", methods={"GET"})
-     * @return JsonResponse
-     */
-    public function listAction()
-    {
-        $conferenceDb = $this->getDoctrine()->getManager()->getRepository(Conference::class)->findAll();
-        $response = new JsonResponse($conferenceDb);
-        $response->setEncodingOptions( $response->getEncodingOptions() | JSON_PRETTY_PRINT );
-        return $response;
-    }
-
-    /**
      * @Route("/{id}", name="_get", methods={"GET"})
-     * @param Conference $conference
+     * @param Author $author
      * @return JsonResponse
      */
-    public function getAction(Conference $conference)
+    public function getAction(Author $author)
     {
-        $response = new JsonResponse($conference);
+        $response = new JsonResponse($author);
         $response->setEncodingOptions( $response->getEncodingOptions() | JSON_PRETTY_PRINT );
         return $response;
     }
@@ -51,18 +39,18 @@ class ConferenceController extends ApiController
         $dto = $this->getDto($request);
 
         $manager = $this->getDoctrine()->getManager();
-        $conference = new Conference();
+        $author = new Author();
 
-        $form = $this->createForm(ConferenceType::class, $conference, ["csrf_protection"=>false]);
+        $form = $this->createForm(AuthorType::class, $author, ["csrf_protection"=>false]);
         $form->submit($dto);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($conference);
+            $manager->persist($author);
             $manager->flush();
             return $this->respondSuccess(
                 ApiController::CREATED_CODE,
-                $conference,
-                "api_conference_get");
+                $author,
+                "api_author_get");
         }
         return $this->responseFormErrors($form);
     }
@@ -71,55 +59,36 @@ class ConferenceController extends ApiController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="_put", methods={"PUT"})
      * @param Request $request
-     * @param Conference $conference
+     * @param Author $author
      * @return Response
      */
-    public function putAction(Request $request, Conference $conference) {
+    public function putAction(Request $request, Author $author) {
         $dto = $this->getDto($request);
 
         $manager = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(ConferenceType::class, $conference, ["csrf_protection"=>false]);
+        $form = $this->createForm(AuthorType::class, $author, ["csrf_protection"=>false]);
         $form->submit($dto);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
             return $this->respondSuccess(
                 ApiController::UPDATE_CODE,
-                $conference,
-                "api_conference_get");
+                $author,
+                "api_author_get");
         }
         return $this->responseFormErrors($form);
     }
 
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="_patch", methods={"PATCH"})
-     * @param Conference $conference
-     * @param Request $request
-     * @return Response
-     */
-    public function patchAction(Request $request, Conference $conference) {
-        $dto = $this->getDto($request);
-        $conference->updateFromDto($dto);
-        $this->getDoctrine()->getManager()->flush();
-
-        return $this->respondSuccess(
-            ApiController::UPDATE_CODE,
-            $conference,
-            "api_conference_get");
-    }
-
-    /**
-     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="_delete", methods={"DELETE"})
-     * @param Conference $conference
-     * @param Request $request
+     * @param Author $author
      * @return Response
      */
-    public function deleteAction(Conference $conference) {
+    public function deleteAction(Author $author) {
         $manager = $this->getDoctrine()->getManager();
-        $manager->remove($conference);
+        $manager->remove($author);
         $manager->flush();
 
         return $this->respondSuccess(ApiController::DELETE_CODE);
@@ -127,16 +96,12 @@ class ConferenceController extends ApiController
 
     /**
      * @Route("/{id}/references", name="_list_references", methods={"GET"})
-     * @param Conference $conference
+     * @param Author $author
      * @return JsonResponse
      */
-    public function referencesAction(Conference $conference)
+    public function referencesAction(Author $author)
     {
-        $references = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository(Reference::class)
-            ->findWithAuthors($conference);
+        $references = $author->getReferences();
         $output = [];
         /** @var Reference $ref */
         foreach ($references as $ref) {

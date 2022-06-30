@@ -10,6 +10,7 @@ namespace App\Api;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -20,6 +21,11 @@ class ApiController extends AbstractController
      * @var integer HTTP status code - 200 (OK) by default
      */
     protected $statusCode = 200;
+
+    const DELETE_CODE = 204;
+    const CREATED_CODE = 201;
+    const UPDATE_CODE = 200;
+
 
     /**
      * Gets the value of statusCode.
@@ -67,32 +73,8 @@ class ApiController extends AbstractController
      */
     public function respondWithErrors($errors, $headers = [])
     {
-        $data = [
-            'status' => $this->getStatusCode(),
-            'errors' => $errors,
-        ];
-
-        return new JsonResponse($data, $this->getStatusCode(), $headers);
+        return new JsonResponse($errors, $this->getStatusCode(), $headers);
     }
-
-
-    /**
-     * Sets an error message and returns a JSON response
-     *
-     * @param string $success
-     * @param $headers
-     * @return JsonResponse
-     */
-    public function respondWithSuccess($success, $headers = [])
-    {
-        $data = [
-            'status' => $this->getStatusCode(),
-            'success' => $success,
-        ];
-
-        return new JsonResponse($data, $this->getStatusCode(), $headers);
-    }
-
 
     /**
      * Returns a 401 Unauthorized http response
@@ -133,13 +115,22 @@ class ApiController extends AbstractController
     /**
      * Returns a 201 Created
      *
-     * @param array $data
-     *
+     * @param $code
+     * @param null $entity
+     * @param null $getRoute
      * @return JsonResponse
      */
-    public function respondCreated($data = [])
+    public function respondSuccess($code, $entity = null, $getRoute = null)
     {
-        return $this->setStatusCode(201)->response($data);
+        if (!is_array($entity) && $entity instanceof \JsonSerializable) {
+            $entity = $entity->jsonSerialize();
+        }
+        $headers = [];
+        if ($entity != null && $getRoute != null) {
+            $headers = ["Location" => $this->generateUrl($getRoute, ["id"=>$entity['id']])];
+        }
+
+        return $this->setStatusCode($code)->response($entity, $headers);
     }
 
     // this method allows us to accept JSON payloads in POST requests
@@ -159,4 +150,33 @@ class ApiController extends AbstractController
     }
 
 
+    protected function getErrorsFromForm(FormInterface $form)
+    {
+        $errors = array();
+        foreach ($form->getErrors() as $field => $error) {
+            $errors[] = $error->getMessage();
+
+        }
+        foreach ($form->all() as $childForm) {
+
+            if ($childForm instanceof FormInterface) {
+                if ($childErrors = $this->getErrorsFromForm($childForm)) {
+                    $errors[$childForm->getName()] = $childErrors;
+                }
+            }
+        }
+        return $errors;
+    }
+
+    protected function responseFormErrors($form) {
+        return $this->respondValidationError($this->getErrorsFromForm($form));
+    }
+
+    protected function getDto($request) {
+        $dto = [];
+        if ($content = $request->getContent()) {
+            $dto = json_decode($content, true);
+        }
+        return $dto;
+    }
 }

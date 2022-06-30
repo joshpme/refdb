@@ -5,48 +5,27 @@ namespace App\Api;
 use App\Entity\Author;
 use App\Entity\Conference;
 use App\Entity\Reference;
+use App\Form\ConferenceType;
+use App\Form\ReferenceType;
+use App\Form\Type\TagsAsInputType;
 use App\Repository\AuthorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Conference controller.
  *
- * @Route("api", name="api_reference")
+ * @Route("api/references", name="api_reference")
  */
-class ReferenceController extends AbstractController
+class ReferenceController extends ApiController
 {
     /**
-     * @Route("/conference/{id}/references", name="_by_conference", methods={"GET"})
-     * @param Conference $conference
-     * @return JsonResponse
-     */
-    public function conferenceAction(Conference $conference)
-    {
-        $references = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository(Reference::class)
-            ->findWithAuthors($conference);
-        $output = [];
-        /** @var Reference $ref */
-        foreach ($references as $ref) {
-            $output[] = $ref->jsonSerialize(true);
-        }
-        $response = new JsonResponse($output);
-        $response->setEncodingOptions( $response->getEncodingOptions() | JSON_PRETTY_PRINT );
-        return $response;
-    }
-
-    /**
-     * @Route("/reference/{id}", name="_get", methods={"GET"})
+     * @Route("/{id}", name="_get", methods={"GET"})
      * @param Reference $reference
      * @return JsonResponse
      */
@@ -59,71 +38,94 @@ class ReferenceController extends AbstractController
 
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/reference/", name="_post", methods={"POST"})
+     * @Route("/", name="_post", methods={"POST"})
      * @param Request $request
      * @return Response
      */
     public function postAction(Request $request) {
-
+        $dto = $this->getDto($request);
+        $dto['authors'] = json_encode($dto['authors']);
         $manager = $this->getDoctrine()->getManager();
-        $referenceDto = [];
-        if ($content = $request->getContent()) {
-            $referenceDto = json_decode($content, true);
-        }
         $reference = new Reference();
-        $reference->updateFromDto($referenceDto);
 
-        /** @var AuthorRepository $authorRepo */
-        $authorRepo = $this->getDoctrine()->getManager()->getRepository(Author::class);
+        $form = $this->createForm(ReferenceType::class, $reference, ["csrf_protection"=>false])
+            ->add('authors', TagsAsInputType::class, [
+                "entity_class"=> Author::class,
+                "data_source" => "author_search",
+                "label"=> "Associated Authors (un-ordered)"]);;
+        $form->submit($dto);
 
-        if (isset($referenceDto['authors'])) {
-            $authors = new ArrayCollection();
-            foreach ($referenceDto['authors'] as $author) {
-                $id = $author['id'] ?? null;
-                $name = $author['name'] ?? null;
-                $author = $authorRepo->findOrCreate($id, $name);
-                $authors->add($author);
-                $manager->persist($author);
-            }
-            $reference->setAuthors($authors);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($reference);
+            $manager->flush();
+            return $this->respondSuccess(
+                ApiController::CREATED_CODE,
+                $reference->jsonSerialize(true),
+                "api_reference_get");
         }
-
-        if (isset($referenceDto['conference'])) {
-            /** @var Conference $conference */
-            $conference = $this->getDoctrine()->getManager()->getRepository(Conference::class)->find($referenceDto['conference']);
-            if ($conference === null) {
-                return new JsonResponse(["error"=> "Conference not found"], 404);
-            }
-            $reference->setConference($conference);
-        }
-
-        $manager->persist($reference);
-        $manager->flush();
-
-        return new JsonResponse($reference->jsonSerialize(true));
+        return $this->responseFormErrors($form);
     }
 
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/reference/{id}", name="_patch", methods={"PATCH"})
-     * @param Reference $reference
+     * @Route("/{id}", name="_put", methods={"PUT"})
      * @param Request $request
+     * @param Reference $reference
      * @return Response
      */
-    public function patchAction(Reference $reference, Request $request) {
-
+    public function putAction(Request $request, Reference $reference) {
+        $dto = $this->getDto($request);
+        $dto['authors'] = json_encode($dto['authors']);
         $manager = $this->getDoctrine()->getManager();
-        $referenceDto = [];
-        if ($content = $request->getContent()) {
-            $referenceDto = json_decode($content, true);
-        }
-        $reference->updateFromDto($referenceDto);
-        /** @var AuthorRepository $authorRepo */
-        $authorRepo = $this->getDoctrine()->getManager()->getRepository(Author::class);
 
-        if (isset($referenceDto['authors'])) {
+        $form = $this->createForm(ReferenceType::class, $reference, ["csrf_protection"=>false])
+            ->add('authors', TagsAsInputType::class, [
+                "entity_class"=> Author::class,
+                "data_source" => "author_search",
+                "label"=> "Associated Authors (un-ordered)"]);;
+        $form->submit($dto);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+            return $this->respondSuccess(
+                ApiController::UPDATE_CODE,
+                $reference->jsonSerialize(true),
+                "api_reference_get");
+        }
+        return $this->responseFormErrors($form);
+    }
+
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/{id}", name="_patch", methods={"PATCH"})
+     * @param Request $request
+     * @param Reference $reference
+     * @return Response
+     */
+    public function patchAction(Request $request, Reference $reference) {
+        $manager =
+            $this->getDoctrine()
+            ->getManager();
+
+        $dto = $this->getDto($request);
+
+        $reference->updateFromDto($dto);
+
+        if (isset($dto['conference'])) {
+            $conference =
+                $manager
+                    ->getRepository(Conference::class)
+                    ->find($dto['conference']);
+            if ($conference === null) {
+                return new JsonResponse(["error"=> "Conference not found"], 404);
+            }
+        }
+
+        if (isset($dto['authors'])) {
+            /** @var AuthorRepository $authorRepo */
+            $authorRepo = $manager->getRepository(Author::class);
             $authors = new ArrayCollection();
-            foreach ($referenceDto['authors'] as $author) {
+            foreach ($dto['authors'] as $author) {
                 $id = $author['id'] ?? null;
                 $name = $author['name'] ?? null;
                 $author = $authorRepo->findOrCreate($id, $name);
@@ -133,17 +135,25 @@ class ReferenceController extends AbstractController
             $reference->setAuthors($authors);
         }
 
-        if (isset($referenceDto['conference'])) {
-            /** @var Conference $conference */
-            $conference = $this->getDoctrine()->getManager()->getRepository(Conference::class)->find($referenceDto['conference']);
-            if ($conference === null) {
-                return new JsonResponse(["error"=> "Conference not found"], 404);
-            }
-            $reference->setConference($conference);
-        }
-
         $this->getDoctrine()->getManager()->flush();
 
-        return new JsonResponse($reference->jsonSerialize(true));
+        return $this->respondSuccess(
+            ApiController::UPDATE_CODE,
+            $reference->jsonSerialize(true),
+            "api_conference_get");
+    }
+
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/{id}", name="_delete", methods={"DELETE"})
+     * @param Reference $reference
+     * @return Response
+     */
+    public function deleteAction(Reference $reference) {
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($reference);
+        $manager->flush();
+
+        return $this->respondSuccess(ApiController::DELETE_CODE);
     }
 }
