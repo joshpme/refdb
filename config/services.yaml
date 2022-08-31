@@ -32,6 +32,10 @@ services:
     resource: "../src/Controller/"
     tags: ["controller.service_arguments"]
 
+  App\Api\:
+    resource: "../src/Api/"
+    tags: ["controller.service_arguments"]
+
   Fvozar\Twig\OrdinalNumberExtension:
     tags:
       - { name: twig.extension }

@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Author;
+use App\Entity\Conference;
 use App\Entity\Search;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -14,6 +16,18 @@ use Doctrine\ORM\Query\Expr\Join;
  */
 class ReferenceRepository extends EntityRepository
 {
+    public function findWithAuthors($conference) {
+        $query = $this->createQueryBuilder("r");
+        $query->leftJoin("r.authors", "a");
+
+        if ($conference instanceof Conference) {
+            $query->where("r.conference = :conference")
+                ->setParameter("conference", $conference);
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
     public function search(Search $search) {
         $query = $this->createQueryBuilder("r");
 

@@ -226,7 +226,7 @@ class Reference implements \JsonSerializable
     /**
      * Set conference
      *
-     * @param string $conference
+     * @param Conference $conference
      *
      * @return Reference
      */
@@ -549,13 +549,32 @@ class Reference implements \JsonSerializable
         $this->cache = $cache;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize($full = false)
     {
-        return [
-            "id" => $this->getId(),
-            "name" => $this->getCache()
+        $response = [
+            "id" => $this->getId()
         ];
+
+        if ($full) {
+            $response['author'] = $this->getAuthor();
+            $response['title'] = $this->getTitle();
+            $response['inProc'] = $this->getInProc();
+            $response['conference'] = $this->getConference()->getId();
+            $response['paperId'] = $this->getPaperId();
+            $response['position'] = $this->getPosition();
+            $response['customDoi'] = $this->getCustomDoi();
+            $response['paperUrl'] = $this->getPaperUrl();
+            $response['authors'] = [];
+            foreach ($this->getAuthors() as $auth) {
+                $response['authors'][] = $auth->jsonSerialize();
+            }
+        } else {
+            $response["name"] = $this->getCache();
+        }
+
+        return $response;
     }
+
 
     /**
      * @return bool
@@ -683,5 +702,29 @@ class Reference implements \JsonSerializable
 
     public function setConfirmedInProc($confirmed) {
         $this->confirmedInProc = $confirmed;
+    }
+
+    public function updateFromDto($dto) {
+        if (isset($dto['author'])) {
+            $this->setAuthor($dto['author']);
+        }
+        if (isset($dto['title'])) {
+            $this->setTitle($dto['title']);
+        }
+        if (isset($dto['inProc'])) {
+            $this->setInProc($dto['inProc']);
+        }
+        if (isset($dto['paperId'])) {
+            $this->setPaperId($dto['paperId']);
+        }
+        if (isset($dto['position'])) {
+            $this->setPosition($dto['position']);
+        }
+        if (isset($dto['customDoi'])) {
+            $this->setCustomDoi($dto['customDoi']);
+        }
+        if (isset($dto['paperUrl'])) {
+            $this->setPaperUrl($dto['paperUrl']);
+        }
     }
 }

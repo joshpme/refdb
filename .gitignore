@@ -17,7 +17,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-
+/config/jwt/*
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
@@ -36,3 +36,7 @@
 /vendor/
 ###< symfony/framework-bundle ###
 /.env.local
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
