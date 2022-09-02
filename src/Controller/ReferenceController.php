@@ -59,8 +59,7 @@ class ReferenceController extends AbstractController
 
             $search
                 ->add('where', 'MATCH_AGAINST(r.cache, :terms) > 0.8')
-                ->setParameter("terms", $terms)
-                ->orderBy("MATCH_AGAINST (r.cache, :terms)", 'desc');
+                ->setParameter("terms", $terms);
         }
 
         $pagination = $paginator->paginate(
