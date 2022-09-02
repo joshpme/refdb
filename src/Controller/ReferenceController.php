@@ -49,6 +49,7 @@ class ReferenceController extends AbstractController
         $form = $this->createForm(BasicSearchType::class, null, ["method"=>"GET"]);
         $form->handleRequest($request);
 
+
         $manager = $this->getDoctrine()->getManager();
         $search = $manager->getRepository(Reference::class)
             ->createQueryBuilder("r")
@@ -57,19 +58,23 @@ class ReferenceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $terms = $form->get('terms')->getData();
 
-            $search
+            $pagination = $search
                 ->addSelect("MATCH_AGAINST(r.cache, :terms) as HIDDEN score")
                 ->add('where', 'MATCH_AGAINST(r.cache, :terms) > 0.8')
                 ->setParameter("terms", $terms)
                 ->orderBy("score", "desc")
-                ;
+                ->setMaxResults(50)
+                ->getQuery()
+                ->getResult();
+        } else {
+            $pagination = $paginator->paginate(
+                $search->getQuery(),
+                $request->query->getInt('page', 1),
+                10
+            );
         }
 
-        $pagination = $paginator->paginate(
-            $search->getQuery(),
-            $request->query->getInt('page', 1),
-            10
-        );
+
 
         return $this->render('reference/index.html.twig', array(
             'pagination' => $pagination,
