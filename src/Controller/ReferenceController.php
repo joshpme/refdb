@@ -51,15 +51,16 @@ class ReferenceController extends AbstractController
 
         $manager = $this->getDoctrine()->getManager();
         $search = $manager->getRepository(Reference::class)
-            ->createQueryBuilder("r")->orderBy("r.hits", "DESC");
+            ->createQueryBuilder("r")
+            ->orderBy("r.hits", "DESC");
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $terms = mb_strtolower($form->get('terms')->getData());
-            $terms = str_replace("’","'",$terms);
+            $terms = $form->get('terms')->getData();
 
             $search
-                ->where('LOWER(r.cache) LIKE :terms')
-                ->setParameter("terms", '%' . $terms . "%");
+                ->add('where', 'MATCH_AGAINST(r.cache, :terms) > 0.8')
+                ->setParameter("terms", $terms)
+                ->orderBy("MATCH_AGAINST (r.cache, :terms 'IN NATURAL MODE')", 'desc');
         }
 
         $pagination = $paginator->paginate(
