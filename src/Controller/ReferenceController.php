@@ -58,8 +58,11 @@ class ReferenceController extends AbstractController
             $terms = $form->get('terms')->getData();
 
             $search
+                ->addSelect("MATCH_AGAINST(r.cache, :terms) as HIDDEN score")
                 ->add('where', 'MATCH_AGAINST(r.cache, :terms) > 0.8')
-                ->setParameter("terms", $terms);
+                ->setParameter("terms", $terms)
+                ->orderBy("score", "desc")
+                ;
         }
 
         $pagination = $paginator->paginate(
