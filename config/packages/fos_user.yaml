@@ -7,7 +7,7 @@ fos_user:
   firewall_name: main
   user_class: App\Entity\User
   service:
-    mailer: fos_user.mailer.twig_swift
+    mailer: App\Service\FOSUserMailer
   from_email:
     address: "%env(resolve:FROM_ADDRESS)%"
     sender_name: "%env(resolve:FROM_ADDRESS)%"

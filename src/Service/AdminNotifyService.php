@@ -11,8 +11,10 @@ namespace App\Service;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use FOS\UserBundle\Mailer\MailerInterface;
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Component\Mime\Email;
 use Twig\Environment;
 
 class AdminNotifyService
@@ -23,7 +25,7 @@ class AdminNotifyService
     private $fromAddress;
     private $rootDir;
 
-    public function __construct(EntityManagerInterface $objectManager, Swift_Mailer $mailer, $fromAddress, Environment $twig, $rootDir)
+    public function __construct(EntityManagerInterface $objectManager, MailerInterface $mailer, $fromAddress, Environment $twig, $rootDir)
     {
         $this->mailer = $mailer;
         $this->manager = $objectManager;
@@ -41,26 +43,20 @@ class AdminNotifyService
     }
 
     public function sendMessage($to, $title, $content) {
-
-        // Send emails
-        $logoPath = $this->rootDir. "/../web/images/jacow_image.png";
-        $message = new Swift_Message();
-        $logoID =  $message->embed(\Swift_Image::fromPath($logoPath));
-        $message
-            ->setSubject("JaCoW Reference Search - Admin Notification [SEC=UNCLASSIFIED]")
-            ->setFrom($this->fromAddress)
-            ->setTo($to)
-            ->setBody(
-                $this->twig->render(
-                    'email/email.html.twig', array(
-                        'logoID' => $logoID,
-                        'title' => $title,
-                        'content' => $content
-                    )
-                ), 'text/html'
-            );
+        $email = (new Email())
+            ->from($this->fromAddress)
+            ->to($to)
+            ->subject("JaCoW Reference Search - Admin Notification")
+            ->embedFromPath($this->rootDir. "/../web/images/jacow_image.png", "logo")
+            ->html($this->twig->render(
+                'email/email.html.twig', array(
+                    'logoID' => "cid:logo",
+                    'title' => $title,
+                    'content' => $content
+                )
+            ));
         try {
-            $this->mailer->send($message);
+            $this->mailer->send($email);
         } catch(Exception $exception) {
 
         }
