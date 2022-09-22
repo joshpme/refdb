@@ -62,9 +62,13 @@ class RefreshCommand extends Command
                     $message = " Failed updating " . $conference . "\n\n " . $exception->getMessage();
                     $this->adminNotificationService->sendAll("Automatic Import Failed", $message);
                     $output->writeln($message);
+
+                    return Command::FAILURE;
                 }
 
             }
         }
+
+        return Command::SUCCESS;
     }
 }
