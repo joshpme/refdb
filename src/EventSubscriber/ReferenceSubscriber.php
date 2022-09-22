@@ -4,7 +4,6 @@ namespace App\EventSubscriber;
 use App\Entity\Reference;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 
 class ReferenceSubscriber implements EventSubscriber
@@ -17,7 +16,7 @@ class ReferenceSubscriber implements EventSubscriber
         ];
     }
 
-    public function preUpdate(PreUpdateEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getObject();
         if ($entity instanceof Reference) {
