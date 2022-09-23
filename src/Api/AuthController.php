@@ -22,6 +22,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class AuthController extends ApiController
 {
     /**
+     * @Route("/publickey", name="api_public_key")
+     * @param $publicKeyPath
+     * @return Response
+     */
+    public function getPublicKey($publicKeyPath)
+    {
+        return new Response(file_get_contents($publicKeyPath));
+    }
+
+    /**
      * @Route("/api/login_check", name="api_login_check")
      * @param UserInterface $user
      * @param JWTTokenManagerInterface $JWTManager
