@@ -63,6 +63,7 @@
     },
     "scripts": {
         "auto-scripts": {
+            "lexik:jwt:generate-keypair":  "symfony-cmd",
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
