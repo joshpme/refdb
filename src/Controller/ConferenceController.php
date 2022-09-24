@@ -7,11 +7,15 @@ use App\Entity\Conference;
 use App\Entity\Reference;
 use App\Form\BasicSearchType;
 use App\Http\CsvResponse;
+use App\Service\AdminNotifyService;
 use App\Service\CurrentConferenceService;
+use App\Service\ImportService;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -303,5 +307,39 @@ class ConferenceController extends AbstractController
         $results = $this->getDoctrine()->getManager()->getRepository(Conference::class)
             ->search($query, $type);
         return new JsonResponse($results);
+    }
+
+    /**
+     * @Route("/update_all", name="update_all")
+     * @param EntityManagerInterface $manager
+     * @param AdminNotifyService $adminNotificationService
+     * @param ImportService $importService
+     * @return Response
+     */
+    public function updateConference(EntityManagerInterface $manager, AdminNotifyService $adminNotificationService, ImportService $importService) {
+        $conferences = $manager
+            ->getRepository(Conference::class)
+            ->createQueryBuilder("c")
+            ->andWhere("c.isPublished = false")
+            ->getQuery()->getResult();
+
+        $output = "";
+        /** @var Conference $conference */
+        foreach ($conferences as $conference) {
+            if ($conference->getImportUrl() !== null) {
+                $output .= "Re-importing " . $conference . "\n";
+                try {
+                    $written = $importService->merge($conference->getImportUrl(), $conference);
+                    $output .= $written . " references created" . "\n";
+                } catch (\Exception $exception) {
+                    $message = " Failed updating " . $conference . "\n\n " . $exception->getMessage();
+                    $adminNotificationService->sendAll("Automatic Import Failed", $message);
+                    $output .= $message . "\n";
+
+                    return new Response($output, 500);
+                }
+            }
+        }
+        return new Response($output);
     }
 }
