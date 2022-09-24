@@ -48,6 +48,20 @@ class ReferenceController extends ApiController
         $manager = $this->getDoctrine()->getManager();
         $reference = new Reference();
 
+        if (isset($dto['authors'])) {
+            $originalList = json_decode($dto['authors'], true);
+            $newList = [];
+            /** @var AuthorRepository $authorRepo */
+            $authorRepo = $manager->getRepository(Author::class);
+            foreach ($originalList as $author) {
+                $id = $author['id'] ?? null;
+                $name = $author['name'] ?? null;
+                $author = $authorRepo->findOrCreate($id, $name);
+                $newList[] = $author->jsonSerialize();
+            }
+            $dto['authors'] = json_encode($newList);
+        }
+
         $form = $this->createForm(ReferenceType::class, $reference, ["csrf_protection"=>false])
             ->add('authors', TagsAsInputType::class, [
                 "entity_class"=> Author::class,
@@ -77,6 +91,20 @@ class ReferenceController extends ApiController
         $dto = $this->getDto($request);
         $dto['authors'] = json_encode($dto['authors']);
         $manager = $this->getDoctrine()->getManager();
+
+        if (isset($dto['authors'])) {
+            $originalList = json_decode($dto['authors'], true);
+            $newList = [];
+            /** @var AuthorRepository $authorRepo */
+            $authorRepo = $manager->getRepository(Author::class);
+            foreach ($originalList as $author) {
+                $id = $author['id'] ?? null;
+                $name = $author['name'] ?? null;
+                $author = $authorRepo->findOrCreate($id, $name);
+                $newList[] = $author->jsonSerialize();
+            }
+            $dto['authors'] = json_encode($newList);
+        }
 
         $form = $this->createForm(ReferenceType::class, $reference, ["csrf_protection"=>false])
             ->add('authors', TagsAsInputType::class, [
