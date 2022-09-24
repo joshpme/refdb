@@ -33,7 +33,7 @@ class Reference implements \JsonSerializable
     /**
      * The original imported author string to help aid with correcting errors.
      * @var string
-     * @ORM\Column(type="string", length=4000, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $originalAuthors;
 
@@ -52,7 +52,7 @@ class Reference implements \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=2000, nullable=true)
+     * @ORM\Column(name="title", type="string", length=500, nullable=true)
      */
     private $title;
 
@@ -60,7 +60,7 @@ class Reference implements \JsonSerializable
      * Author string component
      * @var string
      *
-     * @ORM\Column(name="author", type="string", length=4000, nullable=true)
+     * @ORM\Column(name="author", type="string", length=500, nullable=true)
      */
     private $author;
 
@@ -107,7 +107,7 @@ class Reference implements \JsonSerializable
      * Cached reference for string representation purposes.
      * @var string
      *
-     * @ORM\Column(name="cache", type="string", length=4000, nullable=true)
+     * @ORM\Column(name="cache", type="string", length=600, nullable=true)
      */
     private $cache;
 
@@ -123,7 +123,7 @@ class Reference implements \JsonSerializable
      * URL To paper
      * @var string
      *
-     * @ORM\Column(type="string", length=1000, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $customDoi;
 
@@ -131,7 +131,7 @@ class Reference implements \JsonSerializable
      * URL To paper
      * @var string
      *
-     * @ORM\Column(type="string", length=1000, nullable=true)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
     private $paperUrl;
 
@@ -226,7 +226,7 @@ class Reference implements \JsonSerializable
     /**
      * Set conference
      *
-     * @param string $conference
+     * @param Conference $conference
      *
      * @return Reference
      */
@@ -549,13 +549,32 @@ class Reference implements \JsonSerializable
         $this->cache = $cache;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize($full = false)
     {
-        return [
-            "id" => $this->getId(),
-            "name" => $this->getCache()
+        $response = [
+            "id" => $this->getId()
         ];
+
+        if ($full) {
+            $response['author'] = $this->getAuthor();
+            $response['title'] = $this->getTitle();
+            $response['inProc'] = $this->getInProc();
+            $response['conference'] = $this->getConference()->getId();
+            $response['paperId'] = $this->getPaperId();
+            $response['position'] = $this->getPosition();
+            $response['customDoi'] = $this->getCustomDoi();
+            $response['paperUrl'] = $this->getPaperUrl();
+            $response['authors'] = [];
+            foreach ($this->getAuthors() as $auth) {
+                $response['authors'][] = $auth->jsonSerialize();
+            }
+        } else {
+            $response["name"] = $this->getCache();
+        }
+
+        return $response;
     }
+
 
     /**
      * @return bool
@@ -683,5 +702,29 @@ class Reference implements \JsonSerializable
 
     public function setConfirmedInProc($confirmed) {
         $this->confirmedInProc = $confirmed;
+    }
+
+    public function updateFromDto($dto) {
+        if (isset($dto['author'])) {
+            $this->setAuthor($dto['author']);
+        }
+        if (isset($dto['title'])) {
+            $this->setTitle($dto['title']);
+        }
+        if (isset($dto['inProc'])) {
+            $this->setInProc($dto['inProc']);
+        }
+        if (isset($dto['paperId'])) {
+            $this->setPaperId($dto['paperId']);
+        }
+        if (isset($dto['position'])) {
+            $this->setPosition($dto['position']);
+        }
+        if (isset($dto['customDoi'])) {
+            $this->setCustomDoi($dto['customDoi']);
+        }
+        if (isset($dto['paperUrl'])) {
+            $this->setPaperUrl($dto['paperUrl']);
+        }
     }
 }

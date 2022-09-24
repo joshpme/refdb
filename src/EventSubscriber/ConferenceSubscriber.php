@@ -7,6 +7,7 @@ use App\Entity\Reference;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 
 class ConferenceSubscriber implements EventSubscriber
@@ -18,13 +19,13 @@ class ConferenceSubscriber implements EventSubscriber
         ];
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(PreUpdateEventArgs $args)
     {
         $this->index($args);
     }
 
 
-    public function index(LifecycleEventArgs $args)
+    public function index(PreUpdateEventArgs $args)
     {
         // re-generate cache for all sub items
         $entity = $args->getObject();

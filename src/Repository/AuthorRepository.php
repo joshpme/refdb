@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Author;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -13,6 +14,32 @@ use Doctrine\ORM\EntityRepository;
 class AuthorRepository extends EntityRepository
 {
 
+    public function findOrCreate($id, $name) {
+
+        if ($id !== null) {
+            $author = $this->find($id);
+            if ($author !== null) {
+                return $author;
+            }
+        }
+
+        if ($name !== null) {
+            $author = $this->createQueryBuilder('a')
+                ->where("LOWER(a.name) LIKE :query")
+                ->setParameter('query', mb_strtolower($name))
+                ->getQuery()
+                ->getSingleResult();
+
+            if ($author !== null) {
+                return $author;
+            }
+        }
+
+        $author = new Author();
+        $author->setName($name);
+
+        return $author;
+    }
     public function search($term) {
         $query = $this->createQueryBuilder("a");
 

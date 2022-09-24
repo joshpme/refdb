@@ -34,7 +34,7 @@ class ImportService
         $contents = $this->csvService->open($filename);
 
         $contentsWithoutExcluded = array_filter($contents, function ($data) {
-            return !in_array(trim($data[5]),["4","5"]);
+            return isset($data[5]) && !in_array(trim($data[5]),["4","5"]);
         });
 
         /** @var Reference[] $references */

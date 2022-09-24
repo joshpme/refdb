@@ -16,6 +16,7 @@ services:
       $rootDir: "%env(DOCUMENT_ROOT)%"
       $fromAddress: "%env(FROM_ADDRESS)%"
       $defaultConference: "%env(DEFAULT_CONFERENCE)%"
+      $publicKeyPath: "%env(resolve:JWT_PUBLIC_KEY)%"
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
   App\:
@@ -32,9 +33,9 @@ services:
     resource: "../src/Controller/"
     tags: ["controller.service_arguments"]
 
-  Doctrine\DBAL\Event\Listeners\OracleSessionInit:
-    tags:
-      - { name: "doctrine.event_listener", event: postConnect }
+  App\Api\:
+    resource: "../src/Api/"
+    tags: ["controller.service_arguments"]
 
   Fvozar\Twig\OrdinalNumberExtension:
     tags:
@@ -54,4 +55,20 @@ services:
           name: "doctrine.event_subscriber",
           connection: "default",
           priority: 10,
+        }
+
+  App\Service\FOSUserMailer:
+    arguments:
+      - '@mailer'
+      - '@router'
+      - '@twig'
+      - {
+          template: {
+            confirmation: "%fos_user.registration.confirmation.template%",
+            resetting: "%fos_user.registration.confirmation.template%"
+          },
+          from_email: {
+            confirmation: "%fos_user.registration.confirmation.from_email%",
+            resetting: "%fos_user.resetting.email.from_email%"
+          }
         }
