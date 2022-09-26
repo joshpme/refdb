@@ -28,7 +28,8 @@ class ReferenceSubscriber implements EventSubscriber
     {
         $entity = $args->getObject();
         if ($entity instanceof Reference) {
-            $entity->setCache($entity->__toString());
+            $entity->setCache(substr($entity->__toString(),0,750));
+            // Max length 750
         }
     }
 }
