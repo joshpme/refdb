@@ -171,15 +171,14 @@ class ImportService
                 ->getQuery()
                 ->getResult();
 
-            if (count($dbAuthors) == 1) {
+            if (count($dbAuthors) >= 1) {
                 $dbAuthor = $dbAuthors[0];
+                /** @var Reference $reference */
                 foreach ($newAuthorRefs as $reference) {
                     if (!$dbAuthor->getReferences()->contains($reference)) {
                         $dbAuthor->addReference($reference);
                     }
                 }
-            } elseif (count($dbAuthors) > 1) {
-                throw new Exception("Multiple authors found: " . $name);
             } else {
                 $newAuthor = new Author();
                 $newAuthor->setName($name);

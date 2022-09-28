@@ -549,7 +549,7 @@ class Reference implements \JsonSerializable
         $this->cache = $cache;
     }
 
-    public function jsonSerialize($full = false)
+    public function jsonSerialize($full = false): array
     {
         $response = [
             "id" => $this->getId()
