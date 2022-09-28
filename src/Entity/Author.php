@@ -113,7 +113,7 @@ class Author implements \JsonSerializable
         $this->references->removeElement($reference);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             "id"=>$this->getId(),

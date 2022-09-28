@@ -390,7 +390,7 @@ class Conference implements \JsonSerializable
         }
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $start = $this->getConferenceStart();
         $end = $this->getConferenceEnd();
