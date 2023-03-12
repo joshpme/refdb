@@ -164,6 +164,49 @@ class ReferenceController extends AbstractController
         ));
     }
 
+
+    /**
+     * Generates word reference
+     *
+     * @Route("/show/{id}/word", name="reference_word", options={"expose"=true})
+     * @param Reference $reference
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function wordAction(Reference $reference)
+    {
+        return $this->render('reference/word.html.twig', array(
+            'reference' => $reference
+        ));
+    }
+
+    /**
+     * Generates latex reference
+     *
+     * @Route("/show/{id}/latex", name="reference_latex", options={"expose"=true})
+     * @param Reference $reference
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function latexAction(Reference $reference)
+    {
+        return $this->render('reference/latex.html.twig', array(
+            'reference' => $reference
+        ));
+    }
+
+    /**
+     * Generates bibtex reference
+     *
+     * @Route("/show/{id}/bibtex", name="reference_bibtex", options={"expose"=true})
+     * @param Reference $reference
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function bibtexAction(Reference $reference)
+    {
+        return $this->render('reference/bibtex.html.twig', array(
+            'reference' => $reference
+        ));
+    }
+
     /**
      * Displays a form to edit an existing reference entity.
      * @IsGranted("ROLE_ADMIN")
