@@ -28,6 +28,7 @@ class ReferenceType extends AbstractType
             ->add('position', null, array("label"=>"pp."))
             ->add('customDoi', TextType::class, ['required'=>false, 'label'=>"Custom DOI (excluding doi: prefix)"])
             ->add('paperUrl', UrlType::class, ['required'=>false, 'label'=>"Paper URL"])
+            ->add('contributionId')
         ;
     }
 

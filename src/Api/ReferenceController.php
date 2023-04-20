@@ -57,8 +57,13 @@ class ReferenceController extends ApiController
                 $id = $author['id'] ?? null;
                 $name = $author['name'] ?? null;
                 $author = $authorRepo->findOrCreate($id, $name);
+                if ($author->getId() == null) {
+                    $manager->persist($author);
+                    $manager->flush();
+                }
                 $newList[] = $author->jsonSerialize();
             }
+
             $dto['authors'] = json_encode($newList);
         }
 
@@ -101,6 +106,10 @@ class ReferenceController extends ApiController
                 $id = $author['id'] ?? null;
                 $name = $author['name'] ?? null;
                 $author = $authorRepo->findOrCreate($id, $name);
+                if ($author->getId() == null) {
+                    $manager->persist($author);
+                    $manager->flush();
+                }
                 $newList[] = $author->jsonSerialize();
             }
             $dto['authors'] = json_encode($newList);
