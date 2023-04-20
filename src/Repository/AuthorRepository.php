@@ -28,6 +28,7 @@ class AuthorRepository extends EntityRepository
                 ->where("LOWER(a.name) LIKE :query")
                 ->setParameter('query', mb_strtolower($name))
                 ->getQuery()
+                ->setMaxResults(1)
                 ->getSingleResult();
 
             if ($author !== null) {
