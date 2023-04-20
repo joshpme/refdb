@@ -44,11 +44,13 @@ class ReferenceController extends ApiController
      */
     public function postAction(Request $request) {
         $dto = $this->getDto($request);
-        $dto['authors'] = json_encode($dto['authors']);
+
         $manager = $this->getDoctrine()->getManager();
         $reference = new Reference();
 
         if (isset($dto['authors'])) {
+            $dto['authors'] = json_encode($dto['authors']);
+
             $originalList = json_decode($dto['authors'], true);
             $newList = [];
             /** @var AuthorRepository $authorRepo */
@@ -76,6 +78,10 @@ class ReferenceController extends ApiController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($reference);
+            /** @var Author $author */
+            foreach ($reference->getAuthors() as $author) {
+                $author->addReference($reference);
+            }
             $manager->flush();
             return $this->respondSuccess(
                 ApiController::CREATED_CODE,
@@ -146,6 +152,7 @@ class ReferenceController extends ApiController
 
         $dto = $this->getDto($request);
 
+        $original_authors = clone $reference->getAuthors();
         $reference->updateFromDto($dto);
 
         if (isset($dto['conference'])) {
@@ -168,8 +175,22 @@ class ReferenceController extends ApiController
                 $author = $authorRepo->findOrCreate($id, $name);
                 $authors->add($author);
                 $manager->persist($author);
+                $manager->flush();
             }
             $reference->setAuthors($authors);
+        }
+        /** @var Author $author */
+        foreach ($reference->getAuthors() as $author) {
+            if (!$author->getReferences()->contains($reference)) {
+                $author->addReference($reference);
+            }
+        }
+
+        /** @var Author $author */
+        foreach ($original_authors as $author) {
+            if (!$reference->getAuthors()->contains($author)) {
+                $author->removeReference($reference);
+            }
         }
 
         $this->getDoctrine()->getManager()->flush();
