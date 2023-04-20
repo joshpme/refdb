@@ -24,15 +24,15 @@ class AuthorRepository extends EntityRepository
         }
 
         if ($name !== null) {
-            $author = $this->createQueryBuilder('a')
+            $authors = $this->createQueryBuilder('a')
                 ->where("LOWER(a.name) LIKE :query")
                 ->setParameter('query', mb_strtolower($name))
                 ->getQuery()
                 ->setMaxResults(1)
-                ->getSingleResult();
+                ->getResult();
 
-            if ($author !== null) {
-                return $author;
+            if (count($authors) > 0) {
+                return $authors[0];
             }
         }
 
