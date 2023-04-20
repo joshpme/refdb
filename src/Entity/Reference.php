@@ -564,6 +564,7 @@ class Reference implements \JsonSerializable
             $response['position'] = $this->getPosition();
             $response['customDoi'] = $this->getCustomDoi();
             $response['paperUrl'] = $this->getPaperUrl();
+            $response['contributionId'] = $this->getContributionId();
             $response['authors'] = [];
             foreach ($this->getAuthors() as $auth) {
                 $response['authors'][] = $auth->jsonSerialize();
