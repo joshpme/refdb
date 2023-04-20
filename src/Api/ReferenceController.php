@@ -67,10 +67,6 @@ class ReferenceController extends ApiController
             $dto['authors'] = json_encode($newList);
         }
 
-        if (isset($dto['contributionId'])) {
-            $reference->setContributionId($dto['contributionId']);
-        }
-
         $form = $this->createForm(ReferenceType::class, $reference, ["csrf_protection"=>false])
             ->add('authors', TagsAsInputType::class, [
                 "entity_class"=> Author::class,
