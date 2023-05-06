@@ -15,10 +15,12 @@
     {{ "pages = {" ~ reference.position|replace({"-": "--"}) ~ "}," }}
 {% endif %}
     {{ "paper = {" ~ reference.paperId ~ "}," }}
+{% if this_conference is not defined %}
 {% if reference.conference.pubYear is null and reference.conference.pubMonth is null %}
     {{ "venue = {" ~ reference.conference.location ~ ", " ~ reference.conference.year ~ "}," }}
 {% else %}
     {{ "venue = {" ~ reference.conference.location ~ "}," }}
+{% endif %}
 {% endif %}
 {% if not reference.conference.isPublished or not reference.inProc %}
     {{ "intype = {presented at the},"}}
@@ -26,7 +28,7 @@
 {% if reference.conference.series %}
     {{ "series = {" ~ reference.conference.series ~ "}," }}
 {% endif %}
-{% if reference.conference.seriesNumber %}
+{% if reference.conference.seriesNumber and this_conference is not defined %}
     {{ "number = {" ~ reference.conference.seriesNumber ~ "}," }}
 {% endif %}
     {{ "publisher = {JACoW Publishing, Geneva, Switzerland}," }}
