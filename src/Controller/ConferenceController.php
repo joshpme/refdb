@@ -39,8 +39,11 @@ class ConferenceController extends AbstractController
         $lines = explode("\n", $content);
         $data = [];
         foreach ($lines as $line) {
-            [$key, $value] = explode("=", $line, 2);
-            $data[trim($key)] = trim($value);
+            $contents = explode("=", $line, 2);
+            if (count($contents) == 2) {
+                [$key, $value] = $contents;
+                $data[trim($key)] = trim($value);
+            }
         }
 
         return new JsonResponse($data);
