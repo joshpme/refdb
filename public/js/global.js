@@ -157,10 +157,10 @@ function monthYear(date) {
     };
 }
 
-$(".conference-date").blur(function(){ 
+function produceConfDate() {
     start = monthYear(toDate($(".conference-date-start").val()));
     end = monthYear(toDate($(".conference-date-end").val()));
-    
+
     if (!isNaN(end.year) && !isNaN(start.year)) {
         newDate = "";
         if (start.month != end.month) {
@@ -174,4 +174,68 @@ $(".conference-date").blur(function(){
         }
         $(".conference-date-formatted").val(newDate);
     }
+}
+$(".conference-date").blur(function(){
+    produceConfDate();
+});
+
+
+function format_date(content) {
+    let date = new Date(Date.parse(content));
+    return date.getUTCDate() + "/" +
+        (date.getUTCMonth()+1) + "/" +
+        date.getUTCFullYear();
+}
+
+$("#pre-fill-action").click(function(){
+    let content = $("#pre-fill-content").val();
+
+    $.post(Routing.generate("conference_parser"), {"content": content},
+        function(response) {
+
+            if (typeof response.conference_titleshrt !== 'undefined') {
+                $("#appbundle_conference_name").val(response.conference_titleshrt);
+            }
+
+            if (typeof response.conference_series !== 'undefined') {
+                $("#appbundle_conference_series").val(response.conference_series);
+            }
+            if (typeof response.conference_series !== 'undefined') {
+                $("#appbundle_conference_seriesNumber").val(response.conference_number);
+            }
+            if (typeof response.conference_site !== 'undefined') {
+                $("#appbundle_conference_location").val(response.conference_site);
+            }
+
+            if (typeof response.conference_date !== 'undefined') {
+                let conference_dates = response.conference_date.split("/");
+                let start = new Date(Date.parse(conference_dates[0]));
+                let end = new Date(Date.parse(conference_dates[1]));
+                $("#appbundle_conference_conferenceStart").val(format_date(start));
+                $("#appbundle_conference_conferenceEnd").val(format_date(end));
+                produceConfDate();
+            }
+
+            if (typeof response.conference_isbn !== 'undefined') {
+                $("#appbundle_conference_isbn").val(response.conference_isbn);
+            }
+            if (typeof response.series_issn !== 'undefined') {
+                $("#appbundle_conference_issn").val(response.series_issn);
+
+            }
+            if (typeof response.conference_pub_date !== 'undefined') {
+                let pub_date = new Date(Date.parse(response.conference_pub_date));
+                $("#appbundle_conference_isPublished").prop("checked", true);
+                $("#appbundle_conference_pubMonth").val(pub_date.getUTCFullYear());
+                $("#appbundle_conference_pubYear").val(pub_date.getUTCMonth()+1);
+            }
+
+            if (typeof response.conference_url !== 'undefined') {
+                $("#appbundle_conference_baseUrl").val(response.conference_url);
+            }
+
+            if (typeof response.conference_name !== 'undefined') {
+                $("#appbundle_conference_doiCode").val(response.conference_name);
+            }
+        });
 });
