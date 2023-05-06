@@ -226,8 +226,8 @@ $("#pre-fill-action").click(function(){
             if (typeof response.conference_pub_date !== 'undefined') {
                 let pub_date = new Date(Date.parse(response.conference_pub_date));
                 $("#appbundle_conference_isPublished").prop("checked", true);
-                $("#appbundle_conference_pubMonth").val(pub_date.getUTCFullYear());
-                $("#appbundle_conference_pubYear").val(pub_date.getUTCMonth()+1);
+                $("#appbundle_conference_pubYear").val(pub_date.getUTCFullYear());
+                $("#appbundle_conference_pubMonth").val(pub_date.getUTCMonth()+1);
             }
 
             if (typeof response.conference_url !== 'undefined') {
@@ -236,6 +236,7 @@ $("#pre-fill-action").click(function(){
 
             if (typeof response.conference_name !== 'undefined') {
                 $("#appbundle_conference_doiCode").val(response.conference_name);
+                $("#appbundle_conference_useDoi").val(1);
             }
         });
 });
