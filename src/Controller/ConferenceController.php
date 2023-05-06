@@ -29,6 +29,23 @@ class ConferenceController extends AbstractController
     private $safeRef = "/^((?!\/\/)[a-zA-Z0-9\/._])+$/";
 
     /**
+     * @Route("/parser", name="conference_parser", options={"expose"=true})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function parserAction(Request $request): JsonResponse
+    {
+        $content = $request->request->get('content');
+        $lines = explode("\n", $content);
+        $data = [];
+        foreach ($lines as $line) {
+            [$key, $value] = explode("=", $line, 2);
+            $data[trim($key)] = trim($value);
+        }
+
+        return new JsonResponse($data);
+    }
+    /**
      * Dismiss the notification for current conference.
      *
      * @Route("/dismiss", name="conference_dismiss")

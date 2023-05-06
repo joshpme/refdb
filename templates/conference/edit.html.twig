@@ -11,6 +11,9 @@
 {% endblock %}
 
 {% block body %}
+
+    {% include "conference/prefill.html.twig" %}
+
     <div class="float-right btn-group">
         <button class="btn btn-danger btn-modal" type="button" data-href="{{ path('conference_delete', { 'id': conference.id }) }}"><i class="fas fa-trash"></i> Delete</button>
     </div>

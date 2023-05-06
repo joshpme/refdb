@@ -8,17 +8,21 @@
     $(":input").inputmask();
     });
     </script>
+
 {% endblock %}
 
 {% block body %}
-    <h2>Add Conference</h2>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <br />
-    <input type="submit" value="Create" class="btn btn-primary btn-lg btn-block" />
-    {{ form_end(form) }}
+    {% include "conference/prefill.html.twig" %}
 
+    <div>
+        <h2>Add Conference</h2>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <br />
+        <input type="submit" value="Create" class="btn btn-primary btn-lg btn-block" />
+        {{ form_end(form) }}
+    </div>
     <br />
     <a href="{{ path('conference_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i> Back to the list</a>
     <br /><br />
