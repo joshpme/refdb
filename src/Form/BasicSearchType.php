@@ -15,7 +15,7 @@ class BasicSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('terms', TextType::class, ['label'=>"Search", "required"=>false]);
+            ->add('terms', TextType::class, ['label'=>"Search", "required"=>false, "attr"=>["autofocus"=>true]]);
     }/**
      * {@inheritdoc}
      */
