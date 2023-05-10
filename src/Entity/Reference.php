@@ -388,6 +388,9 @@ class Reference implements \JsonSerializable
     }
 
     public function doi() {
+        if (!$this->getConference()->isPublished()) {
+            return false;
+        }
         if ($this->getCustomDoi() !== null && $this->getCustomDoi() !== "") {
             return 'https://doi.org/' . $this->getCustomDoi();
         } elseif ($this->getInProc() && $this->getConference()->isUseDoi()) {
