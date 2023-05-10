@@ -120,8 +120,8 @@ class ReferenceController extends AbstractController
     public function showAction(Reference $reference)
     {
         $warning = "";
-        if (($reference->getConference()->isPublished() && $reference->getInProc() && $reference->getConference()->isUseDoi() && !$reference->isDoiVerified()) ||
-            ($reference->getConference()->isPublished() && $reference->getCustomDoi() !== null && $reference->getCustomDoi() !== "" && !$reference->isDoiVerified())) {
+        if ($reference->getConference()->isPublished() && (($reference->getInProc() && $reference->getConference()->isUseDoi() && !$reference->isDoiVerified()) ||
+            ($reference->getCustomDoi() !== null && $reference->getCustomDoi() !== "" && !$reference->isDoiVerified()))) {
             $doiService = new DoiService();
             
             $valid = $doiService->check($reference);
