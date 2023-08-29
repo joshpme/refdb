@@ -20,7 +20,7 @@ class FormService
     }
 
     public function getSession() {
-        return $this->requestStack->getCurrentRequest()->getSession();
+        return $this->requestStack->getCurrentRequest()?->getSession();
     }
 
     public function setShort() {
@@ -40,6 +40,9 @@ class FormService
     }
 
     public function getForm() {
+        if ($this->getSession() === null) {
+            return "short";
+        }
         if (!$this->getSession()->has("form")) {
             return "short";
         }

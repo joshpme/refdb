@@ -41,47 +41,6 @@ class ReferenceController extends AbstractController
 
 
     /**
-     * Lists all reference entities.
-     * @Route("/", name="reference_index")
-     */
-    public function indexAction(Request $request, PaginatorInterface $paginator)
-    {
-        $form = $this->createForm(BasicSearchType::class, null, ["method"=>"GET"]);
-        $form->handleRequest($request);
-
-
-        $manager = $this->getDoctrine()->getManager();
-        $search = $manager->getRepository(Reference::class)
-            ->createQueryBuilder("r")
-            ->orderBy("r.hits", "DESC");
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $terms = $form->get('terms')->getData();
-
-            $pagination = $search
-                ->addSelect("MATCH_AGAINST(r.cache, :terms) as HIDDEN score")
-                ->add('where', 'MATCH_AGAINST(r.cache, :terms) > 0.8')
-                ->setParameter("terms", $terms)
-                ->orderBy("score", "desc")
-                ->setMaxResults(50)
-                ->getQuery()
-                ->getResult();
-        } else {
-            $pagination = $paginator->paginate(
-                $search->getQuery(),
-                $request->query->getInt('page', 1),
-                10
-            );
-        }
-
-
-
-        return $this->render('reference/index.html.twig', array(
-            'pagination' => $pagination,
-            "search"=>$form->createView()));
-    }
-
-    /**
      * Creates a new reference entity.
      * @IsGranted("ROLE_ADMIN")
      * @Route("/new/{id}", name="reference_new", defaults={"id": null})
@@ -273,7 +232,7 @@ class ReferenceController extends AbstractController
             $em->flush();
             return new JsonResponse([
                 "success" => true,
-                "redirect" => $this->generateUrl("reference_index")]);
+                "redirect" => $this->generateUrl("homepage")]);
         }
 
         return $this->render("reference/delete.html.twig", array("delete_form"=>$form->createView()));

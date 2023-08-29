@@ -17,6 +17,7 @@ services:
       $fromAddress: "%env(FROM_ADDRESS)%"
       $defaultConference: "%env(DEFAULT_CONFERENCE)%"
       $publicKeyPath: "%env(resolve:JWT_PUBLIC_KEY)%"
+      $searchDb: "%env(resolve:SEARCH_DB)%"
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
   App\:

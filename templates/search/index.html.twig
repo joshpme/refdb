@@ -1,74 +1,77 @@
 {% extends 'base.html.twig' %}
 
-
-{% block javascripts %}
-   {{ parent() }}
-   <script>
-      var favourites = {{ favourites|json_encode }};
-   </script>
-   <script src="{{ asset('js/favourite.js') }}" async></script>
-   <script src="{{ asset('js/search.js') }}" async></script>
-{% endblock %}
 {% block body %}
-   <div class="row">
-      <div class="col-sm">
-         <h2>Search by</h2>
 
-         <br />
-         {{ form_start(form) }}
+    <h2>Search References</h2>
 
-         {{ form_widget(form) }}
-         <br />
-         <button type="submit" class="btn btn-primary btn-block btn-lg">Search</button>
-         <button type="reset" class="btn btn-light btn-block btn-lg">Clear Filters</button>
-         {{ form_end(form) }}
+    <br/>
+    {{ form_start(form) }}
 
-      </div>
-      <div class="col-sm results-section">
-         <h2>Results</h2>
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.query, {"label": "Search Terms (e.g. Author, Paper Title, Conference)", "attr": {"placeholder": "Mass Spectrometry France"}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.formatType) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Search</button>
+        </div>
+    </div>
+    <br/>
 
-         <br />
-         <em style="display:none;" id="searching"><i class="fa fa-spinner fa-spin"></i> Searching</em>
-         <em id="no-results"
-                 {% if references|length != 0 %}
-            style="display:none"
-                 {% endif %}>No results found.</em>
+    {{ form_end(form) }}
 
-         <div id="some-results">
-            <ul id="results">
-               {% for reference in references %}
-                  <li><a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a><a class="item" href="{{ path("reference_show", {"id": reference.id }) }}">{{ reference.cache|latin }}</a></li>
-               {% endfor %}
-            </ul>
+    {% if searched %}
+        <div class="results-section">
+            <h2>Results</h2>
+            <br/>
 
-            
-            <p class="show-total" style="{% if references|length >= total %}display:none{% endif %}">
-            
-            <em>Showing <span id="current-total">{{ references|length }}</span> results of total <span id="overall-total">{{ total }}</span></em>
-            <br /><br />
-            <a href="javascript:prevPage()" style='display:none;' class='prev-page'>&laquo; Previous</a>
-            <span>Page <span class='page-number'>1</span></span>
-            <a href="javascript:nextPage()" class='next-page'>Next &raquo;</a>
-            </p>
+            {% if references|length == 0 %}
+                <em id="no-results">No results found.</em>
+            {% else %}
+                <div id="some-results">
+                    {% if format != 'word' %}
+                        <div style="display:flex; flex-direction: column; gap: 0.5rem;">
+                            {% for reference in references %}
+                                <div style="display:flex;gap: 0.5rem;">
+                                    <a class="favourite {{ favourite_service.checkById(reference.ref_id) ? "active" : "" }}" href="{{ path("favourite_toggle_redirect", {"id": reference.ref_id, "ref": path("homepage", {"query": query})}) }}"><i class="far fa-star"></i></a>
+                                    <textarea class="form-control latex-ref" style="flex-grow: 1;">
+                                        {{- reference[format]|raw -}}
+                                    </textarea>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="card">
+                            <div class="card-body" style="display:flex; flex-direction: column;	gap: 0.5rem;">
+                                {% for reference in references %}
+                                    {{ reference[format]|raw }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
 
+    <div class="partnership">
 
-         </div>
-      </div>
-   </div>
+        <p>Created in partnership with
+            <br class="break">
+            <a target="_blank" href="https://ansto.gov.au/">
+                <img alt="ANSTO Logo" src="{{ asset("images/ansto_logo.jpg") }}"/>
+            </a>
+            <br class="break">
+            as part of
+            <br class="break">
+            <a target="_blank" href="https://ipac19.org/"><img alt="IPAC Logo"
+                                                               src="{{ asset("images/ipac_logo.jpg") }}"/></a>
+        </p>
 
-   <div class="partnership">
-
-      <p>Created in partnership with
-      <br class="break">
-      <a target="_blank" href="https://ansto.gov.au/">
-         <img alt="ANSTO Logo" src="{{ asset("images/ansto_logo.jpg") }}" />
-      </a>
-      <br class="break">
-      as part of
-      <br class="break">
-      <a target="_blank" href="https://ipac19.org/"><img alt="IPAC Logo" src="{{ asset("images/ipac_logo.jpg") }}" /></a>
-      </p>
-
-   </div>
+    </div>
 
 {% endblock %}

@@ -34,7 +34,7 @@ class CurrentConferenceService
     }
 
     public function getSession() {
-        return $this->requestStack->getCurrentRequest()->getSession();
+        return $this->requestStack->getCurrentRequest()?->getSession();
     }
 
     public function dismiss() {
@@ -46,7 +46,7 @@ class CurrentConferenceService
     }
 
     public function hasCurrent() {
-        return $this->getSession()->get("current", $this->default);
+        return $this->getSession()?->get("current", $this->default) ?? $this->default;
     }
 
     public function clearCurrent() {
@@ -60,6 +60,9 @@ class CurrentConferenceService
     }
 
     public function getCurrent() {
+        if ($this->getSession() === null) {
+            return null;
+        }
         /** @var Conference $conference */
         $conference = $this->manager
             ->getRepository(Conference::class)
