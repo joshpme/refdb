@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var favourites = {{ favourites|json_encode }};
+    </script>
+    <script src="{{ asset('js/favourite.js') }}" async></script>
+    <script src="{{ asset('js/search.js') }}" async></script>
+{% endblock %}
+
 {% block body %}
 
     <h2>Search References</h2>
@@ -33,13 +42,30 @@
                 <em id="no-results">No results found.</em>
             {% else %}
                 <div id="some-results">
-                    {% if format != 'word' %}
+                    {% if format == 'text' %}
+                        <ul id="results">
+                            {% for reference in references %}
+                                <li><a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a><a class="item" href="{{ path("reference_show", {"id": reference.id }) }}">{{ reference.cache|latin }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% elseif format == 'bibtex' %}
                         <div style="display:flex; flex-direction: column; gap: 0.5rem;">
                             {% for reference in references %}
                                 <div style="display:flex;gap: 0.5rem;">
-                                    <a class="favourite {{ favourite_service.checkById(reference.ref_id) ? "active" : "" }}" href="{{ path("favourite_toggle_redirect", {"id": reference.ref_id, "ref": path("homepage", {"query": query})}) }}"><i class="far fa-star"></i></a>
+                                    <a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a>
                                     <textarea class="form-control latex-ref" style="flex-grow: 1;">
-                                        {{- reference[format]|raw -}}
+                                        {%- include "reference/bibtex.html.twig" %}
+                                    </textarea>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% elseif format == 'bibitem' %}
+                        <div style="display:flex; flex-direction: column; gap: 0.5rem;">
+                            {% for reference in references %}
+                                <div style="display:flex;gap: 0.5rem;">
+                                    <a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a>
+                                    <textarea class="form-control latex-ref" style="flex-grow: 1;">
+                                        {%- include "reference/latex.html.twig" %}
                                     </textarea>
                                 </div>
                             {% endfor %}
@@ -48,7 +74,10 @@
                         <div class="card">
                             <div class="card-body" style="display:flex; flex-direction: column;	gap: 0.5rem;">
                                 {% for reference in references %}
-                                    {{ reference[format]|raw }}
+                                <div style="display:flex;gap: 0.5rem;align-items: center;">
+                                    <a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a>
+                                    <div>{%- include "reference/word.html.twig" %}</div>
+                                </div>
                                 {% endfor %}
                             </div>
                         </div>

@@ -5,16 +5,10 @@ namespace App\Controller;
 use App\Entity\Author;
 use App\Entity\Conference;
 use App\Entity\Reference;
-use App\Form\BasicSearchType;
 use App\Form\Type\TagsAsInputType;
-use App\Service\DoiService;
 use App\Service\FormService;
-use App\Service\PaperService;
-use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -57,6 +51,7 @@ class ReferenceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $reference->setCache($reference->__toString());
             $em->persist($reference);
             $em->flush();
 
@@ -76,29 +71,9 @@ class ReferenceController extends AbstractController
      * @param Reference $reference
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Reference $reference)
+    public function showAction(Reference $reference, FormService $formService)
     {
         $warning = "";
-        if ($reference->getConference()->isPublished() && (($reference->getInProc() && $reference->getConference()->isUseDoi() && !$reference->isDoiVerified()) ||
-            ($reference->getCustomDoi() !== null && $reference->getCustomDoi() !== "" && !$reference->isDoiVerified()))) {
-            $doiService = new DoiService();
-            
-            $valid = $doiService->check($reference);
-            if (!$valid) {
-                $warning = "This references DOI could not be verified, so it has been removed.";
-            } else {
-                $reference->setDoiVerified(true);
-            }
-        }
-
-        $paperService = new PaperService();
-        $update = $paperService->check($reference);
-
-        if ($update || $reference->__toString() !== $reference->getCache()) {
-            $reference->setCache($reference->__toString());
-            $this->getDoctrine()->getManager()->flush();
-        }
-
         if ($reference->hasTitleIssue()) {
             $warning .= "This papers title is all uppercase, you must correct this before using this reference.\n\n";
         }
@@ -112,29 +87,33 @@ class ReferenceController extends AbstractController
             $warning .= "* Please report these numbers by clicking on the ‘Fix a problem’ button as an Admin will be able to update this reference for future results.    \n\n";
         }
 
-
-
         $deleteForm = $this->createDeleteForm($reference);
+        $form = $formService->getForm() ?? "short";
 
         return $this->render('reference/show.html.twig', array(
             'reference' => $reference,
             'warning' => $warning,
             'delete_form' => $deleteForm->createView(),
+            'form' => $form,
         ));
     }
-
 
     /**
      * Generates word reference
      *
-     * @Route("/show/{id}/word", name="reference_word", options={"expose"=true})
+     * @Route("/show/{id}/word/{form}", name="reference_word", options={"expose"=true})
      * @param Reference $reference
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function wordAction(Reference $reference)
+    public function wordAction(Reference $reference, string $form = "short")
     {
+        if (!in_array($form, ["short", "long"])) {
+            $form = "short";
+        }
+
         return $this->render('reference/word.html.twig', array(
-            'reference' => $reference
+            'reference' => $reference,
+            'form' => $form,
         ));
     }
 

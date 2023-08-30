@@ -5,7 +5,6 @@ namespace App\Api;
 use App\Entity\Author;
 use App\Entity\Conference;
 use App\Entity\Reference;
-use App\Form\ConferenceType;
 use App\Form\ReferenceType;
 use App\Form\Type\TagsAsInputType;
 use App\Repository\AuthorRepository;
@@ -13,9 +12,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use DateTime;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Conference controller.
@@ -77,11 +73,13 @@ class ReferenceController extends ApiController
         $form->submit($dto);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $manager->persist($reference);
             /** @var Author $author */
             foreach ($reference->getAuthors() as $author) {
                 $author->addReference($reference);
             }
+            $reference->setCache($reference->__toString());
             $manager->flush();
             return $this->respondSuccess(
                 ApiController::CREATED_CODE,

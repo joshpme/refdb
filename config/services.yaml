@@ -42,22 +42,6 @@ services:
     tags:
       - { name: twig.extension }
 
-  App\EventSubscriber\ConferenceSubscriber:
-    tags:
-      - {
-          name: "doctrine.event_subscriber",
-          connection: "default",
-          priority: 2,
-        }
-
-  App\EventSubscriber\ReferenceSubscriber:
-    tags:
-      - {
-          name: "doctrine.event_subscriber",
-          connection: "default",
-          priority: 10,
-        }
-
   App\Service\FOSUserMailer:
     arguments:
       - '@mailer'

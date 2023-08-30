@@ -1,6 +1,6 @@
 {%- if reference.conference.isPublished and reference.inProc -%}
 @inproceedings
-{%- elseif current_conference.hasCurrent and current_conference.current == reference.conference -%}
+{%- elseif reference.thisConference -%}
 {% set this_conference = true %}
 @conference
 {%- else -%}

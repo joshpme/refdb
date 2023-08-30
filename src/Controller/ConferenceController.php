@@ -8,16 +8,14 @@ use App\Entity\Reference;
 use App\Form\BasicSearchType;
 use App\Http\CsvResponse;
 use App\Service\AdminNotifyService;
-use App\Service\CurrentConferenceService;
 use App\Service\ImportService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Conference controller.
@@ -47,48 +45,6 @@ class ConferenceController extends AbstractController
         }
 
         return new JsonResponse($data);
-    }
-    /**
-     * Dismiss the notification for current conference.
-     *
-     * @Route("/dismiss", name="conference_dismiss")
-     * @param Request $request
-     * @param CurrentConferenceService $currentConferenceService
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function dismissAction(Request $request, CurrentConferenceService $currentConferenceService) {
-        // Confirm referral URL is internal only (only contains alpha num and slash)
-        if (preg_match($this->safeRef, $request->get('ref'))) {
-            $currentConferenceService->dismiss();
-            return $this->redirect($request->get('ref'));
-        }
-        return $this->redirectToRoute("homepage");
-    }
-
-    /**
-     * Clear the 'current conference' option
-     *
-     * @Route("/clear/current", name="conference_current_clear")
-     */
-    public function clearAction(Request $request, CurrentConferenceService $currentConferenceService) {
-        if (preg_match($this->safeRef, $request->get('ref'))) {
-            $currentConferenceService->clearCurrent();
-            return $this->redirect($request->get('ref'));
-        }
-        return $this->redirectToRoute("homepage");
-    }
-
-    /**
-     * Make this conference my current conference (changes the way the reference appears)
-     *
-     * @Route("/current/{id}", name="conference_current")
-     */
-    public function currentAction(Request $request, CurrentConferenceService $currentConferenceService, Conference $conference) {
-        if (preg_match($this->safeRef, $request->get('ref'))) {
-            $currentConferenceService->setCurrent($conference);
-            return $this->redirect($request->get('ref'));
-        }
-        return $this->redirectToRoute("homepage");
     }
 
     /**
@@ -346,7 +302,7 @@ class ConferenceController extends AbstractController
         $output = "";
         /** @var Conference $conference */
         foreach ($conferences as $conference) {
-            if ($conference->getImportUrl() !== null) {
+            if ($conference->getImportUrl() !== null && $conference->getConferenceEnd() > new DateTime()) {
                 $output .= "Re-importing " . $conference . "\n";
                 try {
                     $written = $importService->merge($conference->getImportUrl(), $conference);

@@ -2,10 +2,8 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Conference
@@ -50,7 +48,7 @@ class Conference implements \JsonSerializable
      * @var DateTime
      * @ORM\Column(type="date", nullable=true)
      */
-    private $conferenceEnd;
+    private ?DateTime $conferenceEnd;
     /**
      * This is the date of the conference, Eg. May 2018
      * @var string

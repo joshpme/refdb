@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Reference
@@ -330,6 +329,10 @@ class Reference implements \JsonSerializable
 
     }
 
+    public function isThisConference() {
+        return $this->getConference()->getConferenceEnd() !== null && $this->getConference()->getConferenceEnd() > new \DateTime();
+    }
+
     public function format($format = "long") {
         $output = $this->getTitleSection() . "" . $this->getConferenceSection($format);
 
@@ -338,7 +341,11 @@ class Reference implements \JsonSerializable
         }
 
         if ($this->getInProc() == false || $this->getConference()->isPublished() == false) {
-            $output .= ", unpublished";
+            if ($this->isThisConference()) {
+                $output .= ", this conference";
+            } else {
+                $output .= ", unpublished";
+            }
         }
 
         $output .= ".";
@@ -375,8 +382,6 @@ class Reference implements \JsonSerializable
     public function getTitleSection() {
         $author = $this->getAuthorStr();
         $title = $this->getTitleCaseCorrected();
-
-
 
         if ($this->isInProc() && $this->getConference()->isPublished() && $this->getInProc()) {
             $inProc = "in <em>Proc. ";
@@ -549,7 +554,7 @@ class Reference implements \JsonSerializable
      */
     public function setCache($cache)
     {
-        $this->cache = $cache;
+        $this->cache = substr($cache,0,600);
     }
 
     public function jsonSerialize($full = false): array

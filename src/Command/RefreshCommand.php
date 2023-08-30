@@ -11,6 +11,7 @@ namespace App\Command;
 use App\Entity\Conference;
 use App\Service\AdminNotifyService;
 use App\Service\ImportService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -53,7 +54,7 @@ class RefreshCommand extends Command
 
         /** @var Conference $conference */
         foreach ($conferences as $conference) {
-            if ($conference->getImportUrl() !== null) {
+            if ($conference->getImportUrl() !== null && $conference->getConferenceEnd() > new DateTime()) {
                 $output->writeln("Re-importing " . $conference);
                 try {
                     $written = $this->importService->merge($conference->getImportUrl(), $conference);

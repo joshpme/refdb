@@ -30,7 +30,7 @@
         <tbody>
         {% for feedback in pagination %}
             <tr>
-                <td><a href="{{ path('reference_show', { 'id': feedback.reference.id }) }}">{{ feedback.reference|latin }}</a></td>
+                <td><a href="{{ path('reference_show', { 'id': feedback.reference.id }) }}">{{ feedback.reference }}</a></td>
                 <td>{{ feedback.feedback }}</td>
                 {% if filtered %}
                     <td>

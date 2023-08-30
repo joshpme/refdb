@@ -35,15 +35,6 @@ class AppExtension extends AbstractExtension
 
     public function latinReplace($text)
     {
-        if ($this->currentConferenceService->hasCurrent()) {
-            $current = $this->currentConferenceService->getCurrent();
-            // confirm its not just a conference text
-            if ($current !== null && $current->__toString() !== $text && $this->endsWith($text, ".") !== false) {
-                if (strpos($text, $current->getCode()) !== false) {
-                    $text = str_replace(", unpublished", ", this conference", $text);
-                }
-            }
-        }
         $text = strip_tags($text, "<em><sup><sub><br>");
         $text = str_replace(" et al.", " <em>et al.</em>", $text);
         return $text;
