@@ -31,7 +31,7 @@
         "jms/serializer-bundle": "^3.5.0",
         "knplabs/knp-paginator-bundle": "^5.9",
         "lexik/jwt-authentication-bundle": "^2.16",
-        "mongodb/mongodb": "*",
+        "mongodb/mongodb": "1.15.0",
         "nyholm/psr7": "^1.5",
         "sensio/framework-extra-bundle": "^5.0.0",
         "sentry/sentry-symfony": "^4.3",

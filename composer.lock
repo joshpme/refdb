@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6047383153165ec2e0f0e1ea183fcbb7",
+    "content-hash": "4110ff0b3b18cd0ba985cf2b551cbd55",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -2201,16 +2201,16 @@
         },
         {
             "name": "jms/serializer",
-            "version": "3.27.0",
+            "version": "3.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "e8c812460d7b47b15bc0ccd78901276bd44ad452"
+                "reference": "5a5a03a71a28a480189c5a0ca95893c19f1d120c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/e8c812460d7b47b15bc0ccd78901276bd44ad452",
-                "reference": "e8c812460d7b47b15bc0ccd78901276bd44ad452",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/5a5a03a71a28a480189c5a0ca95893c19f1d120c",
+                "reference": "5a5a03a71a28a480189c5a0ca95893c19f1d120c",
                 "shasum": ""
             },
             "require": {
@@ -2222,7 +2222,7 @@
                 "phpstan/phpdoc-parser": "^0.4 || ^0.5 || ^1.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^8.1",
+                "doctrine/coding-standard": "^12.0",
                 "doctrine/orm": "~2.1",
                 "doctrine/persistence": "^1.3.3|^2.0|^3.0",
                 "doctrine/phpcr-odm": "^1.3|^2.0",
@@ -2285,7 +2285,7 @@
             ],
             "support": {
                 "issues": "https://github.com/schmittjoh/serializer/issues",
-                "source": "https://github.com/schmittjoh/serializer/tree/3.27.0"
+                "source": "https://github.com/schmittjoh/serializer/tree/3.28.0"
             },
             "funding": [
                 {
@@ -2293,7 +2293,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-29T22:33:44+00:00"
+            "time": "2023-08-03T14:43:08+00:00"
         },
         {
             "name": "jms/serializer-bundle",
@@ -2863,39 +2863,36 @@
         },
         {
             "name": "mongodb/mongodb",
-            "version": "1.16.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "d4cdf057a67cb99a32db8984a16959bfa7ca7eb5"
+                "reference": "3a681a3b2f2c0ebac227a3b86bb9057d0e6eb8f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/d4cdf057a67cb99a32db8984a16959bfa7ca7eb5",
-                "reference": "d4cdf057a67cb99a32db8984a16959bfa7ca7eb5",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/3a681a3b2f2c0ebac227a3b86bb9057d0e6eb8f8",
+                "reference": "3a681a3b2f2c0ebac227a3b86bb9057d0e6eb8f8",
                 "shasum": ""
             },
             "require": {
                 "ext-hash": "*",
                 "ext-json": "*",
-                "ext-mongodb": "^1.16.0",
-                "jean85/pretty-package-versions": "^2.0.1",
+                "ext-mongodb": "^1.15.0",
+                "jean85/pretty-package-versions": "^1.2 || ^2.0.1",
                 "php": "^7.2 || ^8.0",
-                "symfony/polyfill-php73": "^1.27",
-                "symfony/polyfill-php80": "^1.27",
-                "symfony/polyfill-php81": "^1.27"
+                "symfony/polyfill-php80": "^1.19"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^11.1",
-                "rector/rector": "^0.16.0",
-                "squizlabs/php_codesniffer": "^3.7",
+                "doctrine/coding-standard": "^9.0",
+                "squizlabs/php_codesniffer": "^3.6",
                 "symfony/phpunit-bridge": "^5.2",
                 "vimeo/psalm": "^4.28"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.16.x-dev"
+                    "dev-master": "1.15.x-dev"
                 }
             },
             "autoload": {
@@ -2930,9 +2927,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mongodb/mongo-php-library/issues",
-                "source": "https://github.com/mongodb/mongo-php-library/tree/1.16.0"
+                "source": "https://github.com/mongodb/mongo-php-library/tree/1.15.0"
             },
-            "time": "2023-06-22T11:04:04+00:00"
+            "time": "2022-11-23T04:45:35+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -9784,27 +9781,27 @@
         },
         {
             "name": "twig/extra-bundle",
-            "version": "v3.7.0",
+            "version": "v3.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/twig-extra-bundle.git",
-                "reference": "802cc2dd46ec88285d6c7fa85c26ab7f2cd5bc49"
+                "reference": "f10baafe6eb0ecd615d52d5cbfb713a39f68e8f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/802cc2dd46ec88285d6c7fa85c26ab7f2cd5bc49",
-                "reference": "802cc2dd46ec88285d6c7fa85c26ab7f2cd5bc49",
+                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/f10baafe6eb0ecd615d52d5cbfb713a39f68e8f3",
+                "reference": "f10baafe6eb0ecd615d52d5cbfb713a39f68e8f3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
-                "symfony/framework-bundle": "^4.4|^5.0|^6.0",
-                "symfony/twig-bundle": "^4.4|^5.0|^6.0",
+                "symfony/framework-bundle": "^5.4|^6.0",
+                "symfony/twig-bundle": "^5.4|^6.0",
                 "twig/twig": "^2.7|^3.0"
             },
             "require-dev": {
                 "league/commonmark": "^1.0|^2.0",
-                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0",
+                "symfony/phpunit-bridge": "^5.4|^6.3",
                 "twig/cache-extra": "^3.0",
                 "twig/cssinliner-extra": "^2.12|^3.0",
                 "twig/html-extra": "^2.12|^3.0",
@@ -9842,7 +9839,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.7.0"
+                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.7.1"
             },
             "funding": [
                 {
@@ -9854,7 +9851,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-06T11:11:46+00:00"
+            "time": "2023-07-29T15:34:56+00:00"
         },
         {
             "name": "twig/twig",
@@ -10320,7 +10317,8 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "ext-mysqli": "*"
+        "ext-mysqli": "*",
+        "ext-mongodb": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
