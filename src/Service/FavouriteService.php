@@ -66,6 +66,11 @@ class FavouriteService {
         return array_values($favourites);
     }
 
+    public function checkById(int $refId) {
+        $favourites = $this->getFavourites();
+        return in_array($refId, $favourites);
+    }
+
     public function check(Reference $reference) {
         $favourites = $this->getFavourites();
         return in_array($reference->getId(), $favourites);

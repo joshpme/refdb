@@ -211,6 +211,7 @@ class ImportService
 
         foreach ($references as $reference) {
             $reference->setConference($conference);
+            $reference->setCache($reference->__toString());
             $this->manager->persist($reference);
         }
 

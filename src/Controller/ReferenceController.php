@@ -4,18 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Author;
 use App\Entity\Conference;
+use App\Entity\Feedback;
 use App\Entity\Reference;
-use App\Form\BasicSearchType;
 use App\Form\Type\TagsAsInputType;
 use App\Service\DoiService;
 use App\Service\FormService;
-use App\Service\PaperService;
-use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Reference controller.
@@ -31,7 +30,8 @@ class ReferenceController extends AbstractController
      *
      * @Route("/format", name="conference_format")
      */
-    public function formAction(Request $request, FormService $formService) {
+    public function formAction(Request $request, FormService $formService)
+    {
         if (preg_match($this->safeRef, $request->get('ref'))) {
             $formService->toggleForm();
             return $this->redirect($request->get('ref'));
@@ -39,47 +39,6 @@ class ReferenceController extends AbstractController
         return $this->redirectToRoute("homepage");
     }
 
-
-    /**
-     * Lists all reference entities.
-     * @Route("/", name="reference_index")
-     */
-    public function indexAction(Request $request, PaginatorInterface $paginator)
-    {
-        $form = $this->createForm(BasicSearchType::class, null, ["method"=>"GET"]);
-        $form->handleRequest($request);
-
-
-        $manager = $this->getDoctrine()->getManager();
-        $search = $manager->getRepository(Reference::class)
-            ->createQueryBuilder("r")
-            ->orderBy("r.hits", "DESC");
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $terms = $form->get('terms')->getData();
-
-            $pagination = $search
-                ->addSelect("MATCH_AGAINST(r.cache, :terms) as HIDDEN score")
-                ->add('where', 'MATCH_AGAINST(r.cache, :terms) > 0.8')
-                ->setParameter("terms", $terms)
-                ->orderBy("score", "desc")
-                ->setMaxResults(50)
-                ->getQuery()
-                ->getResult();
-        } else {
-            $pagination = $paginator->paginate(
-                $search->getQuery(),
-                $request->query->getInt('page', 1),
-                10
-            );
-        }
-
-
-
-        return $this->render('reference/index.html.twig', array(
-            'pagination' => $pagination,
-            "search"=>$form->createView()));
-    }
 
     /**
      * Creates a new reference entity.
@@ -98,6 +57,7 @@ class ReferenceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $reference->setCache($reference->__toString());
             $em->persist($reference);
             $em->flush();
 
@@ -117,34 +77,14 @@ class ReferenceController extends AbstractController
      * @param Reference $reference
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Reference $reference)
+    public function showAction(Reference $reference, FormService $formService, EntityManagerInterface $manager)
     {
         $warning = "";
-        if ($reference->getConference()->isPublished() && (($reference->getInProc() && $reference->getConference()->isUseDoi() && !$reference->isDoiVerified()) ||
-            ($reference->getCustomDoi() !== null && $reference->getCustomDoi() !== "" && !$reference->isDoiVerified()))) {
-            $doiService = new DoiService();
-            
-            $valid = $doiService->check($reference);
-            if (!$valid) {
-                $warning = "This references DOI could not be verified, so it has been removed.";
-            } else {
-                $reference->setDoiVerified(true);
-            }
-        }
-
-        $paperService = new PaperService();
-        $update = $paperService->check($reference);
-
-        if ($update || $reference->__toString() !== $reference->getCache()) {
-            $reference->setCache($reference->__toString());
-            $this->getDoctrine()->getManager()->flush();
-        }
-
         if ($reference->hasTitleIssue()) {
             $warning .= "This papers title is all uppercase, you must correct this before using this reference.\n\n";
         }
 
-        if (preg_match_all("/[\[\(\/]+/",$reference->getAuthor(), $matches) || count($reference->getAuthors()) == 0) {
+        if (preg_match_all("/[\[\(\/]+/", $reference->getAuthor(), $matches) || count($reference->getAuthors()) == 0) {
             $warning .= "There is a problem with this papers authors.\n\n";
         }
         if (($reference->getConference()->isPublished() && $reference->getInProc() && $reference->getPosition() != "na" && ($reference->getPosition() === null || $reference->getPosition() == "" || $reference->getPosition() == "99-98"))) {
@@ -153,29 +93,36 @@ class ReferenceController extends AbstractController
             $warning .= "* Please report these numbers by clicking on the ‘Fix a problem’ button as an Admin will be able to update this reference for future results.    \n\n";
         }
 
-
-
         $deleteForm = $this->createDeleteForm($reference);
+        $form = $formService->getForm() ?? "short";
+
+        $feedbacks = $manager->getRepository(Feedback::class)->findBy(["reference" => $reference->getId(), "resolved" => false]);
 
         return $this->render('reference/show.html.twig', array(
             'reference' => $reference,
             'warning' => $warning,
             'delete_form' => $deleteForm->createView(),
+            'form' => $form,
+            'feedbacks' => $feedbacks,
         ));
     }
-
 
     /**
      * Generates word reference
      *
-     * @Route("/show/{id}/word", name="reference_word", options={"expose"=true})
+     * @Route("/show/{id}/word/{form}", name="reference_word", options={"expose"=true})
      * @param Reference $reference
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function wordAction(Reference $reference)
+    public function wordAction(Reference $reference, string $form = "short")
     {
+        if (!in_array($form, ["short", "long"])) {
+            $form = "short";
+        }
+
         return $this->render('reference/word.html.twig', array(
-            'reference' => $reference
+            'reference' => $reference,
+            'form' => $form,
         ));
     }
 
@@ -212,42 +159,55 @@ class ReferenceController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/edit/{id}", name="reference_edit")
      */
-    public function editAction(Request $request, Reference $reference)
+    public function editAction(Request $request, Reference $reference, DoiService $doiService)
     {
+
         $manager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($reference);
         $originalAuthors = clone $reference->getAuthors();
+        $originalCustomDoi = (string)$reference->getCustomDoi();
 
         $editForm = $this->createForm('App\Form\ReferenceType', $reference)
             ->add('authors', TagsAsInputType::class, [
-                "entity_class"=> Author::class,
+                "entity_class" => Author::class,
                 "data_source" => "author_search",
-                "label"=> "Associated Authors (un-ordered)"]);
-
+                "label" => "Associated Authors (un-ordered)"]);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $newAuthors = $reference->getAuthors();
-
-            /** @var Author $author */
-            foreach ($originalAuthors as $author) {
-                if ($newAuthors->contains($author) == false) {
-                    $linkedAuthor = $manager->getRepository(Author::class)->find($author->getId());
-                    $linkedAuthor->removeReference($reference);
+        if ($editForm->isSubmitted()) {
+            if ($reference->getCustomDoi() !== null && $originalCustomDoi !== $reference->getCustomDoi()) {
+                $valid = $doiService->check($reference);
+                if (!$valid) {
+                    $editForm->addError(new \Symfony\Component\Form\FormError("The DOI you have entered is not valid. Please check and try again."));
+                } else {
+                    $reference->setDoiVerified(true);
                 }
             }
 
-            /** @var Author $author */
-            foreach ($newAuthors as $author) {
-                if ($originalAuthors->contains($author) == false) {
-                    $author->addReference($reference);
-                    $manager->persist($author);
+            if ($editForm->isValid()) {
+                $newAuthors = $reference->getAuthors();
+
+                /** @var Author $author */
+                foreach ($originalAuthors as $author) {
+                    if ($newAuthors->contains($author) == false) {
+                        $linkedAuthor = $manager->getRepository(Author::class)->find($author->getId());
+                        $linkedAuthor->removeReference($reference);
+                    }
                 }
+
+                /** @var Author $author */
+                foreach ($newAuthors as $author) {
+                    if ($originalAuthors->contains($author) == false) {
+                        $author->addReference($reference);
+                        $manager->persist($author);
+                    }
+                }
+
+                $reference->setCache($reference->__toString());
+                $manager->flush();
+
+                return $this->redirectToRoute('reference_show', array('id' => $reference->getId()));
             }
-
-            $manager->flush();
-
-            return $this->redirectToRoute('reference_show', array('id' => $reference->getId()));
         }
 
         return $this->render('reference/edit.html.twig', array(
@@ -273,10 +233,10 @@ class ReferenceController extends AbstractController
             $em->flush();
             return new JsonResponse([
                 "success" => true,
-                "redirect" => $this->generateUrl("reference_index")]);
+                "redirect" => $this->generateUrl("homepage")]);
         }
 
-        return $this->render("reference/delete.html.twig", array("delete_form"=>$form->createView()));
+        return $this->render("reference/delete.html.twig", array("delete_form" => $form->createView()));
     }
 
 
@@ -292,7 +252,6 @@ class ReferenceController extends AbstractController
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('reference_delete', array('id' => $reference->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-            ;
+            ->getForm();
     }
 }

@@ -2,18 +2,19 @@
 
 {% block title %}JaCoW Reference Search{% endblock %}
 
-{% block preview %}{{ title }}{% endblock %}
+{% block preview %}Reference Feedback{% endblock %}
 
 {% block logo %}
     <img width="626" height="99" alt="JaCoW" title="JaCoW"
          src="{{ logoID }}" style="height: auto; line-height: 100%; outline: none; text-decoration: none; border: 0 none;">
 {% endblock %}
 
-
 {% block body %}
     <h4 class="text-center" style="margin-top: 0; margin-bottom: 0; font-weight: 500; color: inherit; vertical-align: baseline; font-size: 24px; line-height: 28.8px;" align="center">
-        {{ title }}
+        Feedback Received
     </h4>
 
-    <p class="text-center" align="center">{{ content|nl2br }}</p>
+    <p>Thank you for your feedback we have applied your changes on the following reference.</p>
+
+    <p>{{ reference|latin }}</p>
 {% endblock %}

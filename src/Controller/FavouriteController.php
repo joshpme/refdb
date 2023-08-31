@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Reference;
 use App\Service\DoiService;
 use App\Service\FavouriteService;
+use App\Service\FormService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Author controller.
@@ -23,7 +24,7 @@ class FavouriteController extends AbstractController
      * Lists all author entities.
      * @Route("/show", name="favourite_show")
      */
-    public function indexAction(FavouriteService $favouriteService)
+    public function indexAction(FavouriteService $favouriteService, FormService $formService)
     {
         $favourites = $favouriteService->getFavourites();
 
@@ -32,7 +33,6 @@ class FavouriteController extends AbstractController
         foreach ($favourites as $favourite) {
             $references[] = $manager->getRepository(Reference::class)->find($favourite);
         }
-
 
         $verifyFailed = false;
         $titleIssue = false;
@@ -56,7 +56,7 @@ class FavouriteController extends AbstractController
                 $titleIssue = true;
             }
 
-            if (preg_match_all("/[\[\(\/]+/",$reference->getAuthor(), $matches) || count($reference->getAuthors()) == 0) {
+            if (preg_match_all("/[\[\(\/]+/", $reference->getAuthor(), $matches) || count($reference->getAuthors()) == 0) {
                 $authorIssue = true;
             }
             if (($reference->getConference()->isPublished() && $reference->getInProc() && $reference->getPosition() != "na" && ($reference->getPosition() === null || $reference->getPosition() == "" || $reference->getPosition() == "99-98"))) {
@@ -88,8 +88,13 @@ class FavouriteController extends AbstractController
         }
 
 
+        $form = $formService->getForm() ?? "short";
 
-        return $this->render("favourite/show.html.twig", ["references"=>$references, "warning" => $warning]);
+        return $this->render("favourite/show.html.twig", [
+            "references" => $references,
+            "warning" => $warning,
+            "form" => $form
+        ]);
     }
 
     /**

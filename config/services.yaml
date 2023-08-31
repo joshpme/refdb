@@ -13,10 +13,10 @@ services:
     autowire: true # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     bind:
-      $rootDir: "%env(DOCUMENT_ROOT)%"
+      $rootDir: "%env(ROOT_FOLDER)%"
       $fromAddress: "%env(FROM_ADDRESS)%"
-      $defaultConference: "%env(DEFAULT_CONFERENCE)%"
       $publicKeyPath: "%env(resolve:JWT_PUBLIC_KEY)%"
+      $searchDb: "%env(resolve:SEARCH_DB)%"
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
   App\:
@@ -40,22 +40,6 @@ services:
   Fvozar\Twig\OrdinalNumberExtension:
     tags:
       - { name: twig.extension }
-
-  App\EventSubscriber\ConferenceSubscriber:
-    tags:
-      - {
-          name: "doctrine.event_subscriber",
-          connection: "default",
-          priority: 2,
-        }
-
-  App\EventSubscriber\ReferenceSubscriber:
-    tags:
-      - {
-          name: "doctrine.event_subscriber",
-          connection: "default",
-          priority: 10,
-        }
 
   App\Service\FOSUserMailer:
     arguments:

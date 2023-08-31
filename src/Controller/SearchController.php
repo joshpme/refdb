@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Reference;
 use App\Entity\Search;
-use App\Form\SearchType;
-use App\Service\CurrentConferenceService;
+use App\Enum\FormatType;
 use App\Service\FavouriteService;
+use App\Service\SearchService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  *
@@ -18,116 +18,37 @@ use Symfony\Component\HttpFoundation\Request;
 class SearchController extends AbstractController
 {
     /**
-     * Search page
-     * Page with no javascript functions as expected
      * @Route("/", name="homepage")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request, FavouriteService $favouriteService) {
-        $search = new Search();
-        $form = $this->createForm(SearchType::class, $search);
-        $form->handleRequest($request);
-
-        $totalResults = 0;
-        $references = [];
-        if ($form->isSubmitted() && $form->isValid()) {
-            $query = $this->getDoctrine()->getManager()
-                ->getRepository(Reference::class)->search($search)->orderBy('r.hits', 'DESC');
-
-            if ($query !== false) {
-                $references = $query->setMaxResults(5)
-                    ->getQuery()
-                    ->getResult();
-
-                $query = $this->getDoctrine()->getManager()
-                    ->getRepository(Reference::class)->search($search);
-                $totalResults = $query->select("COUNT(r)")->getQuery()->getSingleScalarResult();
-            } else {
-
-                $response["results"] = [];
-            }
-        }
-
-        return $this->render('search/index.html.twig', [
-            "form" => $form->createView(),
-            "favourites" => $favouriteService->getFavourites(),
-            "total" => $totalResults,
-            "references" => $references
-        ]);
-    }
-
-    private function endsWith($string, $endString)
+    public function indexAction(Request $request, SearchService $searchService, FavouriteService $favouriteService)
     {
-        $len = strlen($endString);
-        if ($len == 0) {
-            return true;
-        }
-        return (substr($string, -$len) === $endString);
-    }
-
-    /**
-     * Search page
-     * JSON results only of page
-     * @Route("/search/{page}", name="search", options={"expose"=true}, requirements={"page"="\d+"})
-     * @param Request $request
-     * @return JsonResponse
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function searchAction(int $page = 0, Request $request, FavouriteService $favouriteService, CurrentConferenceService $currentConferenceService) {
-
-        $response = ["favourites" => $favouriteService->getFavourites()];
         $search = new Search();
-        $form = $this->createForm(SearchType::class, $search);
+        $form = $this->createFormBuilder($search)
+            ->add('query', TextareaType::class)
+            ->add('formatType', EnumType::class, [
+                "class" => FormatType::class,
+            ])
+            ->getForm();
         $form->handleRequest($request);
 
-        $totalResults = 0;
+        $results = [];
 
+        $searched = false;
         if ($form->isSubmitted() && $form->isValid()) {
-            $query = $this->getDoctrine()->getManager()
-                ->getRepository(Reference::class)->search($search);
-
-            if ($query !== false) {
-                $response["total"] = $query->select("COUNT(r)")->getQuery()->getSingleScalarResult();
-                $query = $this->getDoctrine()->getManager()
-                    ->getRepository(Reference::class)->search($search)->orderBy('r.hits', 'DESC');
-                $results = $query
-                    ->setFirstResult($page)
-                    ->setMaxResults(5)
-                    ->getQuery()
-                    ->getResult();
-
-                $response['results'] = [];
-
-                /** @var Reference $reference */
-
-                foreach ($results as $reference) {
-                    $object = $reference->jsonSerialize();
-                    $text = $object['name'];
-                    if ($currentConferenceService->hasCurrent()) {
-                        $current = $currentConferenceService->getCurrent();
-                        // confirm its not just a conference text
-                        if ($current === $reference->getConference() && $current->__toString() !== $text && $this->endsWith($text, ".") !== false) {
-                            $text = substr($text, 0, -1)  . ", this conference.";
-                        }
-                    }
-                    $text = strip_tags($text, "<em><sup><sub><br>");
-                    $text = str_replace(" et al.", " <em>et al.</em>", $text);
-
-                    $object['name'] = $text;
-                    $response['results'][] = $object;
-                }
-            } else {
-                $response["results"] = [];
-            }
+            $searched = true;
+            $query = $search->getQuery();
+            $results = $searchService->search($query);
         }
 
-
-        // fix content
-
-
-
-
-        return new JsonResponse($response);
+        return $this->render("search/index.html.twig", [
+            "searched" => $searched,
+            "references" => $results,
+            "format" => $search->getFormatType()?->value ?? FormatType::Text,
+            "form" => $form->createView(),
+            "query" => $search->getQuery(),
+            "favourites" => $favouriteService->getFavourites(),
+        ]);
     }
 }

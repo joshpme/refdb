@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Reference;
+use App\Service\PaperService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,15 +15,17 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
-class CacheCommand extends Command
+class PaperUrlsCommand extends Command
 {
     private $manager;
+    private PaperService $paperService;
 
     // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'app:cache';
+    protected static $defaultName = 'app:paper-urls';
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(EntityManagerInterface $manager, PaperService $paperService)
     {
+        $this->paperService = $paperService;
         $this->manager = $manager;
         parent::__construct();
     }
@@ -34,22 +37,23 @@ class CacheCommand extends Command
 
         $manager = $this->manager;
         /** @var Reference[] $results */
-        $results = $manager->getRepository(Reference::class)
+        $references = $manager->getRepository(Reference::class)
             ->createQueryBuilder("r")
             ->select("r")
+            ->where('r.paperUrl IS NOT NULL')
             ->getQuery()
             ->getResult();
 
-        $cleaned = 0;
-        foreach ($results as $result) {
-            if ($result->getCache() !== $result->__toString()) {
-                $result->setCache($result->__toString());
-                $cleaned++;
+        $updated = 0;
+        foreach ($references as $reference) {
+            if ($this->paperService->check($reference)) {
+                $updated++;
             }
         }
 
-        $output->writeln("Regenerating " . $cleaned . " references");
-
+        $output->writeln("Paper URLs updated: (" . $updated . ")");
         $manager->flush();
+
+        return Command::SUCCESS;
     }
 }

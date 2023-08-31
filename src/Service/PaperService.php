@@ -9,7 +9,6 @@ class PaperService
     public function check(Reference $reference) {
         $needsUpdate = false;
         if (is_null($reference->getPaperUrl())) {
-
             $baseUrl = $reference->getConference()->getBaseUrl();
             $paperId = $reference->getPaperId();
 
