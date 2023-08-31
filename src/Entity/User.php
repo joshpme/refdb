@@ -25,6 +25,11 @@ class User extends BaseUser
      */
     private $favourites;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private bool $notifications = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -45,5 +50,15 @@ class User extends BaseUser
     public function setFavourites($favourites)
     {
         $this->favourites = $favourites;
+    }
+
+    public function isNotifications(): bool
+    {
+        return $this->notifications;
+    }
+
+    public function setNotifications(bool $notifications): void
+    {
+        $this->notifications = $notifications;
     }
 }

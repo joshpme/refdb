@@ -6,9 +6,25 @@
 </div>
 <div class="modal-body">
     {{ form_start(form) }}
-    <strong>In reference: </strong><br />{{ feedback.reference|latin }}
-    <br /><br />
-    {{ form_widget(form) }}
+
+    <p>Please address or describe the issue below.</p>
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.title) }}
+
+    {{ form_row(form.author) }}
+
+    {{ form_row(form.position) }}
+
+    {{ form_row(form.customDoi) }}
+
+    {{ form_row(form.feedback) }}
+
+    <hr />
+    {{ form_row(form.email) }}
+
+    <hr />
     <br />
     <div class="row">
         <div class="col">
