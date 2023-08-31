@@ -66,9 +66,11 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
 
-            return new JsonResponse([
-                "success" => true,
-                "redirect" => $this->generateUrl("user_index")]);
+            $this->addFlash("success", "User updated successfully");
+            return $this->render('user/edit.html.twig', array(
+                'user' => $user,
+                'form' => $form->createView(),
+            ));
         }
 
         return $this->render('user/edit.html.twig', array(
