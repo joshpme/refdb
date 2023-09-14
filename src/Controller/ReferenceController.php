@@ -7,6 +7,7 @@ use App\Entity\Conference;
 use App\Entity\Reference;
 use App\Form\Type\TagsAsInputType;
 use App\Service\FormService;
+use App\Service\SearchService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,8 +74,10 @@ class ReferenceController extends AbstractController
      * @param Reference $reference
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Reference $reference, FormService $formService)
+    public function showAction(Reference $reference, FormService $formService, SearchService $searchService)
     {
+        $searchService->insertOrUpdate($reference);
+
         $warning = "";
         if ($reference->hasTitleIssue()) {
             $warning .= "This papers title is all uppercase, you must correct this before using this reference.\n\n";
