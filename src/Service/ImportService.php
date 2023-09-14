@@ -21,13 +21,20 @@ class ImportService
     private $csvService;
     private $authorService;
     private $doiService;
+    private $searchService;
 
-    public function __construct(EntityManagerInterface $manager, CsvService $csvService, AuthorService $authorService, DoiService $doiService)
+    public function __construct(EntityManagerInterface $manager,
+                                CsvService $csvService,
+                                AuthorService $authorService,
+                                DoiService $doiService,
+                                SearchService $searchService,
+    )
     {
         $this->manager = $manager;
         $this->csvService = $csvService;
         $this->authorService = $authorService;
         $this->doiService = $doiService;
+        $this->searchService = $searchService;
     }
 
     private function findReferences($filename) {
@@ -120,15 +127,12 @@ class ImportService
                     if ($dbReference->getOriginalAuthors() !== $fileReference->getOriginalAuthors()) {
                         $dbReference->setOriginalAuthors($fileReference->getOriginalAuthors());
                         $dbReference->setAuthor($fileReference->getAuthor());
-                        
                         // Clear Authors
-
                         /** @var Author $author */
                         foreach ($dbReference->getAuthors() as $author) {
                             $author->getReferences();
                             $author->removeReference($dbReference);
                         }
-
                         $calculateAuthors[] = $dbReference;
                     }
                 }
@@ -145,6 +149,18 @@ class ImportService
         }
 
         $this->manager->flush();
+
+        foreach ($this->manager->getRepository(Reference::class)->findBy(['conference' => $conference]) as $result) {
+            if ($result->getPaperId() == "") {
+                $result->setPaperId(null);
+            }
+            if ($result->getCache() !== $result->__toString()) {
+                $result->setCache($result->__toString());
+            }
+        }
+        $this->manager->flush();
+
+        $this->searchService->updateConference($conference);
 
         return count($calculateAuthors);
 

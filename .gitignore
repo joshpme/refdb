@@ -17,10 +17,10 @@
 !var/SymfonyRequirements.php
 /vendor/
 /config/jwt/*
+
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
-/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/framework-bundle ###
@@ -35,3 +35,5 @@
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
+
+public/build

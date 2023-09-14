@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Author;
+use App\Entity\Conference;
 use App\Entity\Reference;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -122,4 +123,9 @@ class SearchService
         }, $results);
     }
 
+    public function updateConference(Conference $conference): void {
+        $conference->getReferences()->map(function (Reference $reference) {
+            $this->insertOrUpdate($reference);
+        });
+    }
 }
