@@ -82,8 +82,18 @@ class SearchService
     public function insertOrUpdate(Reference $reference)
     {
         $collection = $this->getCollection();
-        $collection->deleteMany(["conference_code" => $reference->getConference()->getCode(), "paper_code" => $reference->getPaperId()]);
-        $collection->insertOne($this->getPayload($reference));
+        $filter = ["conference_code" => $reference->getConference()->getCode()];
+        if ($reference->getPaperId() === null) {
+            $filter["ref_id"] = $reference->getId();
+        } else {
+            $filter["paper_code"] = $reference->getPaperId();
+        }
+        $result = $collection->findOne($filter);
+        if ($result === null) {
+            $collection->insertOne($this->getPayload($reference));
+        } else {
+            $collection->updateOne(["_id" => $result->_id], ['$set' => $this->getPayload($reference)]);
+        }
     }
 
     public function search(?string $query = null, int $limitResults = 10): array
@@ -123,7 +133,8 @@ class SearchService
         }, $results);
     }
 
-    public function updateConference(Conference $conference): void {
+    public function updateConference(Conference $conference): void
+    {
         $conference->getReferences()->map(function (Reference $reference) {
             $this->insertOrUpdate($reference);
         });
