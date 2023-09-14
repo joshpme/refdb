@@ -77,8 +77,7 @@ class ReferenceController extends AbstractController
      * @param Reference $reference
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Reference $reference, FormService $formService, EntityManagerInterface $manager)
-    {
+    public function showAction(Reference $reference, FormService $formService, EntityManagerInterface $manager) {
         $warning = "";
         if ($reference->hasTitleIssue()) {
             $warning .= "This papers title is all uppercase, you must correct this before using this reference.\n\n";

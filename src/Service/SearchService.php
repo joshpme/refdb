@@ -123,14 +123,14 @@ class SearchService
             ->getQuery()
             ->getResult();
 
-        return array_map(function ($result) use ($references) {
+        return array_filter(array_map(function ($result) use ($references) {
             foreach ($references as $reference) {
                 if ($reference->getId() === $result->ref_id) {
                     return $reference;
                 }
             }
             return null;
-        }, $results);
+        }, $results));
     }
 
     public function updateConference(Conference $conference): void
