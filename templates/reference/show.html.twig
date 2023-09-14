@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% set feedbacks = reference.feedback|length %}
-    {% if warning != "" or feedbacks != 0 %}
+    {% if warning != "" or feedbacks|length != 0 %}
         <div class="text-center alert alert-danger">
             {% if warning != "" %}
                 <strong>Warning</strong><br />
@@ -10,7 +9,7 @@
             {% else %}
                 <strong>Please note: </strong> We have recently received feedback indicated that this reference may have a problem.
                 {% if is_granted("ROLE_ADMIN") %}
-                    <a href="{{ path("feedback_index") }}">Review</a>
+                    <a href="{{ path("feedback_show", {"id": feedbacks[0].id }) }}">View</a>
                 {% endif %}
             {% endif %}
         </div>
@@ -21,12 +20,11 @@
             <a class=" btn btn-primary" href="{{ path('reference_edit', { 'id': reference.id }) }}"><i class="fas fa-edit"></i> Edit</a>
             <button class="btn btn-danger btn-modal" type="button" data-href="{{ path('reference_delete', { 'id': reference.id }) }}"><i class="fas fa-trash"></i> Delete</button>
         </div>
-    {% else %}
-        <div class="float-right btn-group">
-            <button class="btn btn-default btn-modal" data-href="{{ path('feedback_new', { 'id': reference.id }) }}"><i class="fas fa fa-question-circle"></i> Fix a problem</button>
-        </div>
-    {% endif %}
 
+    {% endif %}
+    <div class="float-right btn-group">
+        <button class="btn btn-default btn-modal btn-modal-lg" data-href="{{ path('feedback_new', { 'id': reference.id }) }}"><i class="fas fa fa-question-circle"></i> Fix a problem</button>
+    </div>
     <h2><a class="favourite {{ favourite_service.check(reference) ? "active" : "" }}" href="{{ path("favourite_toggle_redirect", {"id": reference.id, "ref": path("reference_show", {"id": reference.id})}) }}"><i class="far fa-star"></i></a> Reference</h2>
     <br />
     <h3>For Word</h3>

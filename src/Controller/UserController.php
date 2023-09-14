@@ -6,6 +6,8 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +16,7 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * User controller.
  *
- * @Route("user")
+ * @Route("admin/user")
  */
 class UserController extends AbstractController
 {
@@ -28,7 +30,6 @@ class UserController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $query = $manager->getRepository(User::class)
             ->createQueryBuilder("u")
-            ->where("u.enabled = 1")
             ->getQuery();
 
         $pagination = $paginator->paginate(
@@ -43,6 +44,42 @@ class UserController extends AbstractController
 
 
     /**
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/edit/{id}", name="user_edit")
+     */
+    public function editAction(Request $request, User $user, EntityManagerInterface $manager)
+    {
+        $form = $this->createFormBuilder($user)
+            ->add("enabled", CheckboxType::class, ["label" => "Enabled", 'required' => false])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'ROLE_USER' => 'ROLE_USER',
+                    'ROLE_ADMIN' => 'ROLE_ADMIN',
+                ],
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            ->add("notifications", CheckboxType::class, ["label" => "Receive email notifications (admin only)", 'required' => false])
+            ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            $this->addFlash("success", "User updated successfully");
+            return $this->render('user/edit.html.twig', array(
+                'user' => $user,
+                'form' => $form->createView(),
+            ));
+        }
+
+        return $this->render('user/edit.html.twig', array(
+            'user' => $user,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
      * Finds and displays a user entity.
      * @IsGranted("ROLE_ADMIN")
      * @Route("/show/{id}", name="user_show")
@@ -55,28 +92,6 @@ class UserController extends AbstractController
             'user' => $user,
             'delete_form' => $deleteForm->createView(),
         ));
-    }
-
-    /**
-     * Deletes a user entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/promote/{id}", name="user_promote")
-     */
-    public function promoteAction(Request $request, User $user)
-    {
-        $form = $this->createPromoteForm($user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $user->addRole("ROLE_ADMIN");
-            $em->flush();
-            return new JsonResponse([
-                "success" => true,
-                "redirect" => $this->generateUrl("user_index")]);
-        }
-
-        return $this->render("user/promote.html.twig", array("promote_form"=>$form->createView()));
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Twig;
 
-use App\Service\CurrentConferenceService;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -10,10 +9,8 @@ use Twig\TwigFilter;
 class AppExtension extends AbstractExtension
 {
     private $twig;
-    private $currentConferenceService;
-    public function __construct(Environment $twig, CurrentConferenceService $currentConferenceService)
+    public function __construct(Environment $twig)
     {
-        $this->currentConferenceService = $currentConferenceService;
         $this->twig = $twig;
     }
 

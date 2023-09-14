@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Feedback</h2>
+    <br/>
+
+    {% if is_granted("ROLE_ADMIN") %}
+        <p>From: {{ feedback.email }}</p>
+    {% endif %}
+
+    <p>For reference: <p>
+    <p><a target="_blank" href="{{ path("reference_show", {"id": feedback.reference.id}) }}">{{ reference|latin }}</a>
+    </p>
+
+    {% if feedback.author != reference.author %}
+        <div class="text-center">
+            <strong>Change Author</strong>
+            <div>
+                <span class="badge badge-default">{{ reference.author }}</span> ->
+                <span class="badge badge-default">{{ feedback.author ?? "Nothing" }}</span>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if feedback.customDoi != reference.doiOnly %}
+        <div class="text-center">
+            <strong>Change DOI</strong>
+            <div>
+                <span class="badge badge-default">{{ reference.doiOnly }}</span> ->
+                <span class="badge badge-default">{{ feedback.customDoi ?? "Nothing" }}</span>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if feedback.title != reference.title %}
+        <div class="text-center">
+            <strong>Change Paper Title</strong>
+            <div>
+                <span class="badge badge-default">{{ reference.title }}</span> ->
+                <span class="badge badge-default">{{ feedback.title ?? "Nothing" }}</span>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if feedback.position != reference.position %}
+        <div class="text-center">
+            <strong>Change Page Numbers</strong>
+            <div>
+                <span class="badge badge-default">{{ reference.position ?? "X-X" }}</span> ->
+                <span class="badge badge-default">{{ feedback.position ?? "X-X" }}</span>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if feedback.feedback != null %}
+        <div>
+            <strong>Feedback:</strong>
+            <p>{{ feedback.feedback|nl2br }}</p>
+        </div>
+    {% endif %}
+
+    {% if is_granted("ROLE_ADMIN") %}
+        <br/>
+        {% if not feedback.resolved %}
+            <div style="display:flex; justify-content: center; gap: 4rem;">
+                <a href="{{ path("feedback_index") }}" class="btn btn-default">&laquo; Back to list</a>
+                <a href="{{ path("reference_edit", {"id": reference.id}) }}" class="btn btn-primary">Edit Reference</a>
+                <a href="{{ path("feedback_resolve", {"id": feedback.id}) }}" class="btn btn-warning">Mark as
+                    Resolved</a>
+
+                <a href="{{ path("feedback_apply", {"id": feedback.id}) }}" class="btn btn-primary">Apply
+                    Suggestions</a>
+            </div>
+        {% else %}
+            <a href="{{ path("feedback_index") }}" class="btn btn-default">&laquo; Back to list</a>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

@@ -15,116 +15,146 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Feedback
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     * @ORM\Column(name="feedback", type="text")
+     * @ORM\Column(name="feedback", type="text", nullable=true)
      */
-    private $feedback;
+    private ?string $feedback = null;
 
     /**
-     * @var string
+     * @Assert\Length(max=500)
+     * @ORM\Column(name="title", type="string", length=500, nullable=true)
+     */
+    private ?string $title = null;
+
+    /**
+     * @Assert\Length(max=500)
+     * @ORM\Column(name="author", type="string", length=500, nullable=true)
+     */
+    private ?string $author = null;
+
+    /**
+     * @Assert\Length(max=255)
+     * @ORM\Column(name="position", type="string", length=255, nullable=true)
+     */
+    private ?string $position = null;
+
+    /**
+     * @Assert\Length(max=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private ?string $customDoi = null;
+
+    /**
      * @Assert\Email()
-     * @ORM\Column(name="email", type="string", length=1000, nullable=true)
+     * @Assert\Length(max=100)
+     * @ORM\Column(name="email", type="string", length=100, nullable=true)
      */
-    private $email;
+    private ?string $email = null;
 
     /**
-     * @var Reference
-     *
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private bool $resolved = false;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Reference", inversedBy="feedback")
      */
-    private $reference;
+    private Reference $reference;
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
+    public function isResolved(): bool
     {
-        return $this->id;
+        return $this->resolved;
     }
 
-    /**
-     * Set feedback
-     *
-     * @param string $feedback
-     *
-     * @return Feedback
-     */
-    public function setFeedback($feedback)
+    public function setResolved(bool $resolved): void
     {
-        $this->feedback = $feedback;
-
-        return $this;
+        $this->resolved = $resolved;
     }
 
-    /**
-     * Get feedback
-     *
-     * @return string
-     */
-    public function getFeedback()
+    public function getCustomDoi(): ?string
     {
-        return $this->feedback;
+        return $this->customDoi;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Feedback
-     */
-    public function setEmail($email)
+    public function setCustomDoi(?string $customDoi): void
     {
-        $this->email = $email;
-
-        return $this;
+        $this->customDoi = $customDoi;
     }
 
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
+    public function getReference(): Reference
+    {
+        return $this->reference;
+    }
+
+    public function setReference(Reference $reference): void
+    {
+        $this->reference = $reference;
+    }
+
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * Set reference
-     *
-     * @param Reference $reference
-     *
-     * @return Feedback
-     */
-    public function setReference($reference)
+    public function setEmail(?string $email): void
     {
-        $this->reference = $reference;
-
-        return $this;
+        $this->email = $email;
     }
 
-    /**
-     * Get reference
-     *
-     * @return Reference
-     */
-    public function getReference()
+    public function getPosition(): ?string
     {
-        return $this->reference;
+        return $this->position;
+    }
+
+    public function setPosition(?string $position): void
+    {
+        $this->position = $position;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?string $author): void
+    {
+        $this->author = $author;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function getFeedback(): ?string
+    {
+        return $this->feedback;
+    }
+
+    public function setFeedback(?string $feedback): void
+    {
+        $this->feedback = $feedback;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
     }
 }
 

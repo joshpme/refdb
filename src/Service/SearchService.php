@@ -93,7 +93,6 @@ class SearchService
             $collection->insertOne($this->getPayload($reference));
         } else {
             $collection->updateOne(["_id" => $result->_id], ['$set' => $this->getPayload($reference)]);
-
         }
     }
 
