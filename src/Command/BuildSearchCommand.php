@@ -32,7 +32,7 @@ class BuildSearchCommand extends Command
     {
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 60 * 60 * 2);
-        $references = $this->manager->getRepository(Reference::class)->findAll();
+        $references = $this->manager->getRepository(Reference::class)->findBy([],["paperId" => "ASC"]);
 
         $i = 0;
         foreach ($references as $reference) {
