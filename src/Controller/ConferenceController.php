@@ -109,8 +109,11 @@ class ConferenceController extends AbstractController
      * @param Conference $conference
      * @return CsvResponse
      */
-    public function export(Request $request, Conference $conference) {
-        $references = $this->getDoctrine()->getRepository(Reference::class)->createQueryBuilder("r")
+    public function export(Request $request, Conference $conference, EntityManagerInterface $manager) {
+        $references = $manager->getRepository(Reference::class)
+            ->createQueryBuilder("r")
+            ->select("r, a, c")
+            ->join("r.conference", "c")
             ->leftJoin("r.authors", "a")
             ->where("r.conference = :conference")
             ->setParameter("conference",$conference)

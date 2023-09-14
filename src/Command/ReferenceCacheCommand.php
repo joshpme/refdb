@@ -42,6 +42,9 @@ class ReferenceCacheCommand extends Command
 
         $cleaned = 0;
         foreach ($results as $result) {
+            if ($result->getPaperId() == "") {
+                $result->setPaperId(null);
+            }
             if ($result->getCache() !== $result->__toString()) {
                 $result->setCache($result->__toString());
                 $cleaned++;
