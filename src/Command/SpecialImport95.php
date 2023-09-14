@@ -42,6 +42,23 @@ class SpecialImport95 extends Command
             }
             $papers[$paperCode] = $startPage . "-" . $endPage;
         }
+
+        preg_match_all("/[.]{5,}\s+([0-9]+)\s+([A-Z]+[0-9]+)/u", $data, $matches);
+        $totalPapers = count($matches[0]);
+        for($i = 0; $i < $totalPapers; $i++) {
+            $startPage = $matches[1][$i];
+            $paperCode = $matches[2][$i];
+            if ($i < $totalPapers - 1) {
+                $endPage = $matches[1][$i + 1] - 1;
+            } else {
+                $endPage = (int)($matches[1][$i]) + 3;
+            }
+            $papers[$paperCode] = $startPage . "-" . $endPage;
+        }
+
+
+        dump(count($papers));
+        exit();
         /**
          * @var Conference $conference
          */
