@@ -56,9 +56,6 @@ class SpecialImport95 extends Command
             $papers[$paperCode] = $startPage . "-" . $endPage;
         }
 
-
-        dump(count($papers));
-        exit();
         /**
          * @var Conference $conference
          */
