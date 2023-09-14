@@ -55,10 +55,6 @@ class SearchService
             $lastNames[] = end($nameParts);
         }
 
-        $bibitem = $this->twig->render("reference/latex.html.twig", ["reference" => $reference, "form" => "short"]);
-        $bibtex = $this->twig->render("reference/bibtex.html.twig", ["reference" => $reference, "form" => "short"]);
-        $word = $this->twig->render("reference/word.html.twig", ["reference" => $reference, "form" => "short"]);
-
         $data = [
             "ref_id" => $reference->getId(),
             "title" => $reference->getTitle(),
@@ -66,10 +62,7 @@ class SearchService
             "label" => $reference->getCache(),
             "conference_code" => $reference->getConference()->getCode(),
             "conference_name" => $reference->getConference()->getName(),
-            "authors" => implode(" ", $lastNames),
-            "bibitem" => $bibitem,
-            "bibtex" => $bibtex,
-            "word" => $word
+            "authors" => implode(" ", $lastNames)
         ];
 
         if (!empty($reference->getConference()->getYear())) {
@@ -100,7 +93,6 @@ class SearchService
             $collection->insertOne($this->getPayload($reference));
         } else {
             $collection->updateOne(["_id" => $result->_id], ['$set' => $this->getPayload($reference)]);
-
         }
     }
 

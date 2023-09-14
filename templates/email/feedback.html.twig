@@ -1,0 +1,61 @@
+{% extends 'email/email_base.html.twig' %}
+
+{% block title %}JaCoW Reference Search{% endblock %}
+
+{% block preview %}New Feedback Item{% endblock %}
+
+{% block logo %}
+    <img width="626" height="99" alt="JaCoW" title="JaCoW"
+         src="{{ logoID }}" style="height: auto; line-height: 100%; outline: none; text-decoration: none; border: 0 none;">
+{% endblock %}
+
+{% block body %}
+    <h4 class="text-center" style="margin-top: 0; margin-bottom: 0; font-weight: 500; color: inherit; vertical-align: baseline; font-size: 24px; line-height: 28.8px;" align="center">
+        New Feedback Item
+    </h4>
+
+    <p>For reference:</p>
+
+    <p><a href="{{ url("reference_show", {"id": reference.id}) }}">{{ reference|latin }}</a></p>
+
+    {% if feedback.author != reference.author %}
+        <div>
+            <strong>Author:</strong>
+            <p>From: {{ reference.author ?? "NO AUTHORS" }}</p>
+            <p>To: {{ feedback.author }}</p>
+        </div>
+    {% endif %}
+
+    {% if feedback.customDoi != reference.doiOnly %}
+        <div>
+            <strong>DOI:</strong>
+            <p>From: {{ reference.doiOnly ?? "NO DOI" }}</p>
+            <p>To: {{ feedback.customDoi }}</p>
+        </div>
+    {% endif %}
+
+    {% if feedback.title != reference.title %}
+        <div>
+            <strong>Paper Title:</strong>
+            <p>From: {{ reference.title ?? "Empty" }}</p>
+            <p>To: {{ feedback.title }}</p>
+        </div>
+    {% endif %}
+
+    {% if feedback.position != reference.position %}
+        <div>
+            <strong>Page Numbers:</strong>
+            <p>From: {{ reference.position ?? "X-X" }}</p>
+            <p>To: {{ feedback.position }}</p>
+        </div>
+    {% endif %}
+
+    {% if feedback.feedback != null %}
+        <div>
+            <strong>Feedback:</strong>
+            <p>{{ feedback.feedback|nl2br }}</p>
+        </div>
+    {% endif %}
+
+    <a href="{{ url('feedback_show', {'id': feedback.id}) }}">View Feedback</a>
+{% endblock %}

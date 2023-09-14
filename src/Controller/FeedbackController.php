@@ -5,9 +5,14 @@ namespace App\Controller;
 use App\Entity\Feedback;
 use App\Entity\Reference;
 use App\Entity\User;
+use App\Service\AdminNotifyService;
+use App\Service\FeedbackNotifyService;
+use App\Service\SearchService;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +33,7 @@ class FeedbackController extends AbstractController
         $query = $manager->getRepository(Feedback::class)
             ->createQueryBuilder("f")
             ->innerJoin("f.reference", "r")
+            ->where('f.resolved = false')
             ->getQuery();
 
         $pagination = $paginator->paginate(
@@ -47,7 +53,7 @@ class FeedbackController extends AbstractController
      * @param Reference $reference
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request, Reference $reference)
+    public function newAction(Request $request, Reference $reference, EntityManagerInterface $manager, AdminNotifyService $notifyService)
     {
         $feedback = new Feedback();
 
@@ -56,21 +62,36 @@ class FeedbackController extends AbstractController
         }
         /** @var Reference $reference */
         $feedback->setReference($reference);
-        $form = $this->createForm('App\Form\FeedbackType', $feedback, ["action"=>$this->generateUrl("feedback_new", [
+
+        $feedback->setAuthor($reference->getAuthor());
+        $feedback->setTitle($reference->getTitle());
+        $feedback->setPosition($reference->getPosition());
+        $feedback->setCustomDoi($reference->doiOnly());
+
+        $form = $this->createForm('App\Form\FeedbackType', $feedback, ["action" => $this->generateUrl("feedback_new", [
             "id" => $reference->getId()])]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($feedback);
-            $em->flush();
+        if ($form->isSubmitted()) {
+            if ($feedback->getFeedback() === null &&
+                $feedback->getAuthor() == $reference->getAuthor() &&
+                $feedback->getTitle() == $reference->getTitle() &&
+                $feedback->getPosition() == $reference->getPosition() &&
+                $feedback->getCustomDoi() == $reference->doiOnly()) {
+                $form->addError(new \Symfony\Component\Form\FormError("You must provide feedback or change the reference details."));
+            }
 
-            // TODO: Send notification email to admins
+            if ($form->isValid()) {
+                $manager->persist($feedback);
+                $manager->flush();
 
-            $this->addFlash("notice", "Your feedback has been sent to our administrators. Thank you.");
-            return new JsonResponse([
-                "success" => true,
-                "redirect" => $this->generateUrl("reference_show",array('id' => $reference->getId()))]);
+                $notifyService->newFeedback($reference, $feedback);
+
+                $this->addFlash("notice", "Your feedback has been sent to our administrators. Thank you.");
+                return new JsonResponse([
+                    "success" => true,
+                    "redirect" => $this->generateUrl("reference_show", array('id' => $reference->getId()))]);
+            }
         }
 
         return $this->render('feedback/new.html.twig', array(
@@ -79,45 +100,48 @@ class FeedbackController extends AbstractController
         ));
     }
 
-
     /**
-     * Deletes a feedback entity.
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/admin/feeback/delete/{id}", name="feedback_delete")
-     * @param Request $request
-     * @param Feedback $feedback
-     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     * @Route("/admin/feedback/resolve/{id}", name="feedback_resolve")
      */
-    public function deleteAction(Request $request, Feedback $feedback)
+    public function resolveAction(Feedback $feedback, EntityManagerInterface $manager): Response
     {
-        $form = $this->createDeleteForm($feedback);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($feedback);
-            $em->flush();
-            return new JsonResponse([
-                "success" => true,
-                "redirect" => $this->generateUrl("feedback_index")]);
-        }
-
-        return $this->render("feedback/delete.html.twig", array("delete_form"=>$form->createView()));
+        $feedback->setResolved(true);
+        $manager->flush();
+        return $this->redirectToRoute("feedback_index");
     }
 
     /**
-     * Creates a form to delete a feedback entity.
-     *
-     * @param Feedback $feedback The feedback entity
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/admin/feedback/apply/{id}", name="feedback_apply")
      */
-    private function createDeleteForm(Feedback $feedback)
+    public function applyAction(Feedback $feedback, EntityManagerInterface $manager, SearchService $searchService, FeedbackNotifyService $feedbackNotifyService): Response
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('feedback_delete', array('id' => $feedback->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+        $reference = $feedback->getReference();
+
+        $reference->setAuthor($feedback->getAuthor());
+        $reference->setTitle($feedback->getTitle());
+        $reference->setPosition($feedback->getPosition());
+        $reference->setCustomDoi($feedback->getCustomDoi());
+        $feedback->setResolved(true);
+        $reference->setCache($reference->__toString());
+        $searchService->insertOrUpdate($reference);
+        $manager->flush();
+        $this->addFlash("success", "Feedback applied.");
+
+        $feedbackNotifyService->receipt($reference, $feedback);
+
+        return $this->redirectToRoute("feedback_show", ["id" => $feedback->getId()]);
+    }
+
+    /**
+     * @Route("/feedback/show/{id}", name="feedback_show")
+     */
+    public function showAction(Feedback $feedback): Response
+    {
+        return $this->render('feedback/show.html.twig', array(
+            'feedback' => $feedback,
+            'reference' => $feedback->getReference()
+        ));
     }
 }

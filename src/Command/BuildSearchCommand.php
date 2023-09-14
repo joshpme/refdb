@@ -33,8 +33,12 @@ class BuildSearchCommand extends Command
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 60 * 60 * 2);
         $references = $this->manager->getRepository(Reference::class)->findAll();
+
+        $i = 0;
         foreach ($references as $reference) {
+            $i++;
             $this->searchService->insertOrUpdate($reference);
+            $output->writeln("Updated " . $i . " references of " . count($references));
         }
         return Command::SUCCESS;
     }
