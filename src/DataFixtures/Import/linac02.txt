@@ -1,0 +1,1093 @@
+MO101 (INVITED)
+The Spallation Neutron Source (SNS)  
+1
+M. White (ORNL)  
+MO102 (INVITED)  
+Status of the Second Technical Review on Linear Colliders  
+Gregory A. Loew (SLAC)  
+MO201 (INVITED)  
+The Linac Coherent Light Source Project  
+6
+John N. Galayda (SLAC)  
+MO202 (INVITED)  
+Coherent Synchrotron Radiation and Microbunching in Bunch Compressors  
+11
+M. Borland (ANL)  
+MO203 (INVITED)  
+Downstream System for The Second Axis of The DARHT Facility  
+16
+Yu-Jiuan Chen, L. R. Bertolini, G. J. Caporaso, F. W. Chambers, E. G. Cook, S. Falabella, F. J. Goldin, G. Guethlein, D. D.-M. Ho, J. F. McCarrick, S. D. Nelson, R. Neurath, A. C. Paul, P. A. Pincosy, B. R. Poole, R. A. Richardson, S. Sampayan, L.-F. Wang, J. A. Watson, G. A. Westenskow, J. T. Weir (LLNL)  
+MO204 (INVITED)  
+Laser Beam-Profile Monitor Development at BNL for SNS  
+21
+R. Connolly, P. Cameron, J. Cupolo, C. Dawson, C. Degen, A. Della Penna, D. Gassner, M. Grau, M. Kesselman, S. Peng, R. Sikora (BNL)  
+MO301 (INVITED)  
+High Power Proton Linac Program in Korea  
+26
+B. H. Choi, P. K. Joo, K. R. Kim, J. Y. Kim, J. H. Lee, J. M. Han, Y. S. Cho, H. J. Kwon (KAERI)  
+MO302 (INVITED)  
+The U. S. Rare Isotope Accelerator Project  
+29
+J. A. Nolen (ANL)  
+MO401 (POSTER)  
+CTF3 Drive Beam Accelerating Structures  
+34
+E. Jensen (CERN)  
+MO402 (POSTER)  
+3.5 MeV Injector for An Induction Linac  
+37
+Zhang Kaizhi, Wen Long, Li Hong, Li Jin, Dai Zhiyong, Zhang Wenwei, Xie Yutong, Wang Meng, Wang Huacen, Dai Guangsen, Zhang Linwen, Deng Jianjun, Ding Bonan ( CAEP)
+MO403 (POSTER)  
+Design of The Dragon-I Linear Induction Accelerator  
+40
+J. J. Deng, B. N. Ding, L. W. Zhang, H. C. Wang, G. S. Dai, N. A. Chen, Z. Y. Dai, K. Z. Zhang, J. S. Shi, W. W. Zhang, J. Li, X. P. Liu, Y. T. Xie, M. Wang, L. Wen, H. Li, J. S. Wang, Z. C. Xie, M. H. Wang (CAEP)  
+MO404 (POSTER)  
+The C-Band (5712-MHz) Linac for The Spring-8 Compact SASE Source (SCSS)  
+43
+H. Matsumoto, S. Takeda (KEK), T. Shintake, H. Baba, T. Inagaki, Y. J. Kim, K. Togawa, H. Kitamura (RIKEN)  
+MO405 (POSTER)  
+Minimization of Primary Electron Beam Radius on The Positron Production Target  
+46
+Wang Shu-Hong Wang Jiu-Qing Ye Qiang Le Qi (IHEP)  
+MO406 (POSTER)  
+Overview of BEPCII Linac Design  
+49
+PEI Guoxi for linac upgrade group (IHEP)  
+MO407 (POSTER)  
+Electron Beam Disruption Due to Ion Release from Targets  
+H. A. Davis, D. C. Moir, R. T. Olson (LANL), C. Vermare (CEA), T. P. Hughes (MRC)  
+MO408 (POSTER)  
+Operational Characteristics and Availability of Klystron-Modulator System for PLS 2-GeV Electron Linac  
+52
+S. S. Park, S. C. Kim, S. H. Kim, Y. J. Han, S. H. Nam (PAL), S. W. Park, K. T. Lee (Dong-A Tech)  
+MO409 (POSTER)  
+A New Modulator Controller of The PLS Linac  
+55
+S. C. Kim, S. S. Park, S. H. Kim, Y. J. Han, and S. H. Nam (PAL)  
+MO410 (POSTER)  
+Current Status and R&D Plan of PAL Test Linac  
+58
+H. S. Kang, Y. J. Han, J. Y. Huang, S. H. Nam (PAL), W. Namkung (POSTECH)  
+MO411 (POSTER)  
+Bunch Shape Measurement of CW Heavy-Ion Beam  
+61
+N. Y. Vinogradov, P. Billquist, P. N. Ostroumov, R. C. Pardo, M. Portillo, S. I. Sharamentov, G. P. Zinkann (ANL)  
+MO412 (POSTER)  
+Design Features of High-Intensity Medium-Energy Superconducting Heavy-Ion Linac  
+64
+P. N. Ostroumov (ANL)  
+MO413 (POSTER)  
+Linac Energy Manipulation for Longitudinal Phase Space Painting for SNS Ring  
+67
+Y. Y. Lee, M. Blaskiewicz, A. Fedotov, D. Raparia, J. Beebe-Wang, W. T. Weng and J. Wei (BNL)  
+MO414 (POSTER)  
+Indian Programe to Develop High Current Proton Linac for ADSS  
+70
+J. Bhawalkar D D, Bhujle A G, Fatnani P, Hanurkar P R, Joshi S C, Karmarkar M G, Kotaiah S, Krishnagopal S, Mhaskar S P, Pande S A, Prabhu S S, Shukla S K, Singh G (CAT)  
+MO415 (POSTER)  
+Design of A 120 MeV H- Linac for CERN High-Intensity Applications  
+73
+F. Gerigk, M. Vretenar (CERN)  
+MO416 (POSTER)  
+Design of A Chopper Line for The CERN SPL  
+76
+F. Caspers, K. Hanke, A. Lombardi, A. Millich, A. Mostacci, M. Paoluzzi, M. Vretenar (CERN)  
+MO417 (POSTER)  
+Design Study of A MEBT With An Anti-Chopper for The JKJ  
+79
+S. Wang, S. Fu (IHEP), T. Kato (KEK)  
+MO420 (POSTER)  
+R&D Status of The Annular Coupled Structure Linac for The JAERI/KEK Joint Project  
+82
+H. Ao (JAERI), N. Hayashizaki (TITech), V. Paramonov (INR)  
+MO421 (POSTER)  
+RF-Focused Spoke Resonator  
+85
+R. W. Garnett, F. L. Krawczyk, R. L. Wood, and D. L. Schrage (LANL)  
+MO422 (POSTER)  
+A Technique to Transversely Match High Intensity Linac Using Only RMS Beam Size from Wire-Scanners  
+88
+Dong-o Jeon, S. Assadi (ORNL), J. Stovall (LANL)  
+MO423 (POSTER)  
+Direct Injection Scheme for RFQ Linac  
+91
+M. Okamura, T. Takeuchi, T. Katayama, R. A. Jameson (RIKEN), T. Hattori, H. Kashiwagi (TITech)  
+MO425 (POSTER)  
+The C-Band (5712 MHz) Pulse Compressor Using Ultra Low Thermal Expansion Material  
+M. Yoshida (Tokyo Univ.), T. Shintake (RIKEN), H. Matsumoto (KEK)  
+MO426 (POSTER)  
+Development of The High-Performance Capacitive Divider Using Ceramics for The Pulsed High-Voltage Monitoring  
+Y. Takasu (Tokyo Univ.), H. Matsumoto (KEK), T. Shintake (RIKEN)  
+MO427 (POSTER)  
+The CLIC Positron Production Scheme  
+94
+L. Rinolfi (CERN), T. Kamitani (KEK)  
+MO428 (POSTER)  
+Vibrational Stability of NLC Linac and Final Focus Components  
+97
+F. Le Pimpec, S. Adiga, F. Asiri, G. Bowden, D. Dell'Orco, E. Doyle, B. McKee, A. Seryi (SLAC)  
+MO429 (POSTER)  
+Bunch Compressor for SPring-8 Compact SASE Source  
+100
+Yujong Kim, T. Shintake, H. Kitamura (RIKEN/SPring-8), H. Matsumoto (KEK)  
+MO430 (POSTER)  
+Injector Layout Optimization for The Phase-I Stage of The SPring-8 Compact SASE Source (SCSS) Project  
+103
+Yujong Kim∗, T. Shintake, K. Togawa, H. Matsumoto, and H. Kitamura, (RIKEN) K. Sawada, (SHI) Klaus Flottmann, (DESY)
+MO431 (POSTER)  
+IH Mode Accelerators at REX ISOLDE  
+Stephan Emhofer, Henning Bongers, Dietrich Habs, Oliver Kester, Thomas Sieber (LMU), Ulrich Ratzinger (IAP)  
+MO432 (POSTER)  
+RF Test and Commissioning of The Radio Frequency Structures of The TRIUMF ISAC I Facility  
+106
+A. K. Mitra, P. J. Bricault, I. V. Bylinskii, K. Fong, G. Dutto, R. E. Laxdal, and R. L. Poirier (TRIUMF)  
+MO433 (POSTER)  
+Design of A High-Intensity RFQ for A Possible LHC Laser Ion Source  
+109
+K. Hanke, A. Lombardi (CERN)  
+MO434 (POSTER)  
+Beam Transverse Stability in The CLIC Combiner Rings  
+112
+R. Corsini, D. Schulte (CERN)  
+MO435 (POSTER)  
+Nanosecond Microstructure Creation of The Low Energy Negative Ion Beam  
+115
+A. Novikov-Borodin (INR)  
+MO436 (POSTER)  
+Theoretical Analysis on The Halo Formation of The Proton Beam from LEDA  
+118
+J. Gao (LAL)  
+MO437 (POSTER)  
+SNS Linac Halo Mitigation  
+121
+Dong-o Jeon, A. Aleksandrov, J. Wei (ORNL), J. Stovall, L. Young, H. Takeda, S. Nath (LANL), R. Keller, J. Staples (LBNL)  
+MO438 (POSTER)  
+Linear Theory of Ionization Cooling and Emittance Exchange  
+124
+Chun-Xi Wang (ANL), Kwang-Je Kim (ANL and Univ. of Chicago)  
+MO439 (POSTER)  
+Operation Features of VEPP-5 Preinjector RF-Buncher with  “Long-Time” Beam
+127
+V. M. Pavlov (BINP)  
+MO440 (POSTER)  
+Beam Behavior Through The SNS Chopper System  
+130
+S. Nath, J. Billen, J. Stovall, H. Takeda, L. Young (LANL), D. Jeon, S. H. Kim (ORNL), K. Crandall (TechSource)  
+MO441 (POSTER)  
+The Misalignment and RF Error Analysis for The RIA Driver Linac  
+133
+X. Wu, D. Gorelov, T. Grimm, W. Hartung, F. Marti, and R. C. York (NSCL/MSU)  
+MO442 (POSTER)  
+Beam Dynamics On-Line Simulations for The S-DALINAC Injector  
+136
+W. Beinhauer, H. -D. Graef, A. Richter (IKP, TU-Darmstadt), M. Krassilnikov, T. Weiland (TEMF, TU-Darmstadt)  
+MO443 (POSTER)  
+New Approach to Space Charge Calculation in Ensemble Model  
+139
+M. Krassilnikov, T. Weiland (TEMF, TU-Darmstadt)  
+MO444 (POSTER)  
+A Back-Bombardmentless Thermionic RF Gun  
+Eiji Tanabe (AET Associates), Koichi Kanno (AET Japan)  
+MO445 (POSTER)  
+Mg Cathode and Its Thermal Emittance  
+142
+X. J. Wang, M. Babzien, R. Malone, Z. Wu (BNL)  
+MO446 (POSTER)  
+Femto-seconds Kilo-ampere High-brightness Electron Beam Generation  
+X. J. Wang and X. Y. Chang (BNL)  
+MO447 (POSTER)  
+Performance of A High Intensity Polarized H- Source on The Brookhaven 200 MeV Linac  
+145
+J. Alessi, B. Briscoe, O. Gould, A. Kponou, V. LoDestro, D. Raparia, J. Ritter, A. N. Zelenski (BNL), V. Klenov, S. A. Kokhanovski, V. Zoubets (INR), M. Okamura (RIKEN)  
+MO448 (POSTER)  
+Options for Upgrading The Intensity of The CERN Lead Pre-Injector Ion Source  
+148
+C. E. Hill, D. Kuechler, H. Kugler, R. Scrivens (CERN)  
+MO449 (POSTER)  
+The Charge State Breeder BRIC: Status Report  
+151
+V. Variale, V. Valentino (INFN-Bari), A. Boggia, G. Brautti, T. Clauser, A. Raino (Univ. di Bari), Y. Boimelshtein, P. Logatchov, B. Skarbo, M. Tiunov (BINP)  
+MO450 (POSTER)  
+R&D Status of A 3.5 MeV RFQ Accelerator for ADS Study in China  
+154
+Shinian Fu, Huafu Ouyang, Zhihua Luo, Jiming Qiao, Wenwu Xu, Taoguang Xu, Zhonghua Zhang, Jian Li, Shouxian Fang (IHEP), Xialing Guan (CIAE), Zhiyu Guo, Jiaxun Fang (IHIP)  
+MO451 (POSTER)  
+Klystron and Modulator Upgrade for BEPCII Linac  
+157
+Y. L. Chi, D. Dong, L. Shen, G. Y. Li, Q. M. Dai, S. M. Tian, X. W. Yang, Y. W. Chen and G. X. Pei (IHEP)  
+MO452 (POSTER)  
+Experimental Determination of The Positron Source Emittance for A Crystal Target  
+160
+R. Chehab, S. Burdin, R. Cizeron, C. Sylvia (LAL), V. Baier, K. Beloborodov, A. Bukin, T. Dimova, A. Drozdetsky, V. Druzhinin, V. Golubev,S. Serednyakov,V. Shary,V. Strakhovenko (BINP), X. Artru, M. Chevallier, D. Dauvergne, R. Kirsch, P. Lautesse, J-C. Poizat, J. Remillieux (IPNL), A. Jejcic (LMD), M. Dubrovin (WSU-Cornell), P. Keppler, J. Major (MPI-Stuttgart), L. Gatignon (CERN), G. Bochek, V. Kulibaba, N. Maslov (KIPT), A. Bogdanov, A. Potylitsin, I. Vnukov (NPI-TPU)  
+MO453 (POSTER)  
+Development of An X-Band Photoinjector at SLAC  
+163
+E. Vlieks, G. Caryotakis, R. Loewen, D. Martin, A. Menegat (SLAC), E. Landahl, C. DeStefano, B. Pelletier, and N. C. Luhmann Jr. (U. C. Davis)  
+MO454 (POSTER)  
+Mg Cathode S-Band RF Gun/Linac for Radiation Chemistry Research  
+166
+H. Iijima, K. Dobashi (NIRS), M. Uesaka, T. Ueda, K. Yoshii, Y. Muroya, A. Fukasawa (Tokyo Univ.), N. Kumagai (SPring-8), J. Urakawa (KEK)  
+MO455 (POSTER)  
+Emittance Measurement for The Heavy-Ion Sources at HIMAC  
+169
+T. Miyata, M. Yamamoto, K. Jincho, N. Sasaki, T. Miyoshi, S. Ishikawa, C. Kobayashi (AEC), H. Honma, Y. Sato (NIRS)  
+MO456 (POSTER)  
+SEM Grids for the DESY TTF Linac  
+V. A. Gaidash, A. N. Mirzojan, A. V. Novikov-Borodin (INR)  
+MO458 (POSTER)  
+SNS Linac Wire Scanner System: Signal Levels and Accuracy  
+172
+M. Plum, W. Christensen, R. Meyer, C. Rose (LANL)  
+MO459 (POSTER)  
+A Quadrupole Mode Resonant Cavity for Non-Disruptive, Single-Shot Emittance Measurement  
+175
+C. D. Nantista (SLAC), J. S. Kim (FARTECH), A. W. Weidemann (USC)  
+MO460 (POSTER)  
+Development of Strip-Line Type Beam Position Monitor  
+178
+K. Ishiwata, I. Sato, K. Hayakawa, T. Tanaka, Y. Hayakawa, K. Yokoyama, T. Sakai, K. Kanno, K. Nakao, E. Hashimoto, T. Murakami, and K. Fujioka (LEBRA), T. Suwada (KEK)  
+MO461 (POSTER)  
+Development of A Pulsed Modulator for An S-Band Klystron  
+181
+U. Kale, P. Nerpapgar, K. K. Pant, S. Krishnagopal (CAT), R. K. Gupta (Oxford Instruments)  
+MO462 (POSTER)  
+Digital RF Control System for 400-MeV Proton Linac of JAERI/KEK Joint Project  
+184
+S. Michizono, S. Anami, M. Kawamura, S. Yamaguchi (KEK), T. Kobayashi (JAERI)  
+MO463 (POSTER)  
+RF Reference Distribution System for The 400-MeV Proton Linac of The KEK/JAERI Joint Project  
+187
+T. Kobayashi, E. Chishiro (JAERI), S. Anami, S. Yamaguchi, S. Michizono (KEK)  
+MO464 (POSTER)  
+The RF System for The KAERI Superconducting Linear Accelerator  
+S. O. Cho, B. C. Lee, J. Yoo, and S. H. Park, and Y. U. Jeong (KAERI)  
+MO465 (POSTER)  
+The SNS Linac RF System, System Status and Vendor Results  
+190
+Michael Lynch, Daniel Rees, Paul Tallerico, William Reass (LANL), Ray Fuja (ORNL)  
+MO466 (POSTER)  
+High-Power, Millimeter-Wave Source Development at Los Alamos National Laboratory  
+193
+M. V. Fazio, B. E. Carlsten, and L. M. Earley (LANL), J. Potter (JP Accelerator Works)  
+MO467 (POSTER)  
+Fabrication and Test of Pulsed 200-MW Electron Gun for High-Power Klystrons  
+196
+S. J. Park, S. H. Kim, Y. J. Park, S. D. Jang, Y. G. Son, J. S. Oh, K. R. Kim, S. H. Nam (PAL), W. Namkung (POSTECH)  
+MO468 (POSTER)  
+A Study of High-Power Switch With Thyrister For Pulse Power Applications  
+199
+Y. G. Son, S. D. Jang, J. S. Oh (PAL), M. H. Cho, W. Namkung (POSTECH)  
+MO469 (POSTER)  
+Development of a 600 kV, Fast Rise-Time Pulse Transformer for Klystron Pulse Modulators  
+M. Akemoto (KEK) and A. Tokuchi (Nichicon)  
+MO470 (POSTER)  
+Development of A Solid-State Switch for Klystron Pulse Modulators  
+202
+M. Akemoto (KEK), K. Aoki, K. Yokoyama (SHI), N. Shimizu (NGK Insulators)  
+MO471 (POSTER)  
+Development and Application of An Inverter Charging Supply to A Pulse Modulator  
+205
+J. S. Oh, S. D. Jang, Y. G. Son (PAL), M. H. Cho, W. Namkung (POSTECH), S. C. Ro (Dong-A Hitech)  
+MO472 (POSTER)  
+Jimulti-Moded RF Components and Their Application to High Power RF Pulse Compression Systems  
+208
+S. G. Tantawi , C. D. Nantista (SLAC)  
+MO473 (POSTER)  
+RF Drive System with High Power Solid-State Amplifier for 200 MeV LINAC  
+211
+DONG Sai, HUANG Guirong, JIA Dachun, PEI Yuanji, WU Congfeng, JIN Kai (NSRL)  
+MO474 (POSTER)  
+Parallel-Coupled Accelerating Structures  
+213
+O. N. Brezhnev, P. V. Logatchev, V. M. Pavlov, O. V. Pirogov, S. V. Shiyankov (BINP), Ju. D. Chernousov, V. I. Ivannikov, I. V. Shebolaev (ICKC)  
+MO475 (POSTER)  
+The Complete 3-D Coupled RF-Thermal-Structural -RF Analysis Procedure for A Normal Conducting Accelerating Structure for High Intensity Hadron Linac  
+216
+S. C. Joshi (CAT), V. Paramonov, A. Skassyrskaya (INR), N. Hayashizaki (TITech), M. Ikegami (KEK), Y. Yamazaki (JAERI)  
+MO476 (POSTER)  
+High Gradient Multicell Superconducting Cavities  
+219
+Lutz Lilje (DESY)  
+MO477 (POSTER)  
+A Spatially Periodic RFQ Accelerating Structure Based on E010 Mode Cavity  
+222
+S. Minaev, D. Kashinskiy, V. Pershin, B. Sharkov, T. Tretiakova, R. Vengrov, S. Yaramyshev (ITEP)  
+MO478 (POSTER)  
+An RF Focused Interdigital Linac Structure  
+225
+D. A. Swenson (LINAC Systems)  
+MO479 (POSTER)  
+Test Results of The LANL 350 MHz, Beta=0.175, 2-Gap Spoke Resonator  
+228
+T. Tajima, R. L. Edwards, R. C. Gentzlinger, F. L. Krawczyk, J. E. Ledford, D. I. Montoya, R. J. Roybal, D. L. Schrage, A. H. Shapiro (LANL), D. Barni, A. Bissotti, C. Pagani (INFN-Milano), G. Corniani (ZANON)  
+MO480 (POSTER)  
+Recognizing, Analyzing and Interpreting Mode Information in Standing-Wave Cavities  
+231
+Stan O. Schriber (LANL)  
+MO481 (POSTER)  
+Structure Design of The Annular Coupled Structure Linac for The JAERI/KEK Joint Project  
+234
+N. Hayashizaki (TITech), H. Ao, K. Hasegawa, Y. Yamazaki (JAERI), M. Ikegami, T. Kato (KEK), V. Paramonov (INR)  
+MO482 (POSTER)  
+CLIC High-Gradient Test Results  
+237
+H. H. Braun, S. Doebert, I. Syratchev, M. Taborelli, I. Wilson, W. Wuensch (CERN)  
+MO483 (POSTER)  
+Design Studies of A 100 MeV H+/H- Linear Accelerator As Injector for ADS Linac / SNS Synchrotron  
+240
+S. A. Pande, Moonooku Prasad, Nita Kulkarni, P. R. Hannurkar (CAT)  
+MO484 (POSTER)  
+Design of 4.5 MeV RFQ for Protons / H- Ions  
+243
+S. A. Pande, M. Prasad (CAT)  
+MO485 (POSTER)  
+Properties of Oxygen Free Copper(ASTM-F68-Class1) for Particle Accelerators  
+K. Sugaya, Y. Yamamoto, Y. Nagai, S. Sakai (Hitachi Cable,Ltd.)  
+MO486 (POSTER)  
+Autopsy on An RF-Processed X-Band Travelling Wave Structure  
+246
+F. Le Pimpec, S. Harvey, R.E. Kirby, F. Marcelja (SLAC)  
+TU101 (INVITED)  
+The TESLA Linear Collider and X-Ray FEL  
+249
+K. Floettmann (DESY)  
+TU102 (INVITED)  
+Overview of NLC/JLC Collaboration  
+254
+K. Takata (KEK)  
+TU103 (INVITED)  
+Worldwide Progress in X-Band Power Sources  
+259
+Y. H. Chin (KEK)  
+TU104 (INVITED)  
+Experiments on Gradient Limits for Normal Conducting Accelerators  
+264
+Valery A. Dolgashev (SLAC)  
+TU201 (INVITED)  
+Overview of CLIC and CTF3  
+269
+R. Corsini (CERN)  
+TU202 (INVITED)  
+Status of Very High-Gradient Cavity Tests  
+274
+S. Doebert (CERN)  
+TU203 (INVITED)  
+Applications of Low Energy Linacs in China  
+279
+Yuzheng Lin (Tsinghua Univ.)  
+TU204 (INVITED)  
+5-10 MeV Industrial High Power Electron Accelerators  
+284
+V. L. Auslender (BINP)  
+TU301 (INVITED)  
+Acceleration of Radioactive Ions at REX-ISOLDE  
+289
+T. Sieber, F. Ames, J. Cederkall, S. Emhofer, D. Habs, O. Kester, K. Reisinger, K. Rudolph (Univ. of Munich), R. von Hahn (MPI-K), B. Wolf (Univ. of Mainz) and the REX-ISOLDE Collaboration  
+TU302 (INVITED)  
+ISAC-I and ISAC-II at TRIUMF: Achieved Performance and New Construction  
+294
+R. E. Laxdal (TRIUMF)  
+TU401 (POSTER)  
+Status of VEPP-5 Preinjector  
+299
+M. S. Avilov, V. E. Akimov, A. V. Antoshin, P. A. Bak, Yu. M. Boimelshtein, D. Yu. Bolkhovityanov, A. R. Frolov, A. G. Chupyra, R. Kh. Galimov, R. M. Gromov, K. V. Gubin, S. M. Gurov, E. A. Gusev, N. S. Dikansky, I. V. Kazarezov, V. D. Khambikov, S. N. Klyuschev, Ye. S. Konstantinov, N. Kh. Kot, V. I. Kokoulin, A. A. Korepanov, R. M. Lapik, N. N. Lebedev, P. V. Logatchev, A. I. Lobas, P. V. Martyshkin, L. A. Mironenko, V. M. Pavlov, I. L. Pivovarov, V. V. Podlevskih, S. L. Samoilov, Yu. I. Semenov, B. A. Skarbo, A. A. Starostenko, S. V. Shiyankov, A. S. Siganov, O. Yu. Tokarev (BINP)  
+TU402 (POSTER)  
+Fabrication and RF Studies on A Prototype PWT Linac Structure  
+302
+K. K. Pant, Arvind Kumar, B. Biswas, S. Krishnagopal, Vijendra Prasad, S. Chouksey (CAT)  
+TU403 (POSTER)  
+A New Damped and Tapered Accelerating Structure for CLIC  
+305
+J.-Y. Raguin, D. Schulte, I. Syratchev, I. Wilson, and W. Wuensch (CERN)  
+TU404 (POSTER)  
+Photoinjector Production of A Flat Electron Beam  
+308
+E. Thrane (UMC) C. Bohn (NIU/FNAL), N. Barov, D. Mihalcea (NIU), Y. Sun (Univ. of Chicago), K. Bishofberger, D. Edwards, H. Edwards, S. Nagaitsev, J. Santucci (FNAL), J. Corlett, S. Lidia (LBNL), S. Wang (U. Indiana), R. Brinkmann, J.-P. Carneiro, K. Desler, K. Floettmann , I. Bohnet (DESY), M. Ferrario (INFN)  
+TU405 (POSTER)  
+LUE200 Linac. Full-Scale Testing of Accelerating Sections  
+311
+A. P. Soumbaev, W. I. Furman, V. V. Kobets, I. N. Meshkov, V. A. Shvets (JINR), P. V. Logatchev, P. A. Bak, S. M. Gurov, A. A. Korepanov, N. Kh. Kot, V. M. Pavlov, B. A. Skarbo, A. A. Starostenko, A. R. Frolov (BINP)  
+TU406 (POSTER)  
+DARHT Second Axis - Status and Plans  
+314
+M. V. Zumbro, M. J. Burns, C. A. Ekdahl, H. C. Kirbie, B. T. McCuistian, R. L. Whitman (LANL), R. P. Wells (LBNL), G. J. Caporaso (LLNL)  
+TU407 (POSTER)  
+Stability Improvement of The SPring-8 Linac  
+317
+S. Suzuki, T. Asaka, H. Dewa, T. Kobayashi, A. Mizuno, T. Taniuchi, H. Tomizawa, K. Yanagida, and H. Hanaki (SPring-8/JASRI)  
+TU408 (POSTER)  
+Thermionic RF Gun and Linac Pre-Injector for Spear 3  
+320
+Sanghyun Park (SLAC)  
+TU409 (POSTER)  
+Latest Developments at The S-DALINAC  
+323
+S. Watzlawik, W. Beinhauer, M. Gopych, H.-D. Graef, M. Hertling, A. Karnaukhov, S. Kostial, U. Laier, S. Patalakha, M. Platz, A. Richter, B. Schweizer, A. Stascheck, O. Titze, M. Krassilnikov, T. Weiland (TU-Darmstadt)  
+TU411 (POSTER)  
+Laser Wire Scanner Development on CTF II  
+326
+J. Bosser, H. H. Braun, E. Bravin, E. D'amico, S. Doebert, S. Hutchins, T. Lefevre, R. Maccaferri, G. Penn (CERN), G. A. Blair, and T. Kamps (RHUL)  
+TU412 (POSTER)  
+The SNS RFQ Commissioning  
+329
+A. Ratti, J. Ayers, L. Doolittle, R. DiGennaro, R. A. Gough, M. Hoff, R. Keller , R. MacGill, J. Staples, R. Thomae, S. Virostek, R. Yourd (LBNL), A. Aleksandrov (ORNL)  
+TU413 (POSTER)  
+A New Generation of Superconducting Solenoids for Heavy-Ion Linac Application  
+332
+P. N. Ostroumov, S. H. Kim, E.S. Lessner, K. W. Shepard (ANL), R. E. Laxdal (TRIUMF), R. Wheatley (AMI)  
+TU414 (POSTER)  
+Study and Development of RFQ at Peking University  
+335
+J. X. Fang, J. E. Chen, Z. Y. Guo, J. X. Yu, Y. R. Lu, X. Q. Yan, C. Zhang, W. G. Li, J. F. Guo, M. L. Yu, Z. Y. Wang (Peking Univ.), Y. Wu (IPP/CAS)  
+TU415 (POSTER)  
+Procedure for Setting Up The Transfer Lines for The SNS  
+338
+D. Raparia, Y. Y. Lee, W. T. Weng, and J. Wei (BNL)  
+TU417 (POSTER)  
+A Linac Afterburner to Supercharge The Fermilab Booster  
+341
+C. Ankenbrandt, J. MacLachlan, M. Popovic (FNAL), R. P. Johnson (IIT)  
+TU419 (POSTER)  
+Measurements and Simulations on The Beam Brilliance in The Universal Linear Accelerator UNILAC at GSI  
+344
+L. Groening, W. Barth (GSI)  
+TU420 (POSTER)  
+Experiences During Operation with High Current U4+ Beams in The New GSI High Current Injector  
+347
+W. Barth, L. Dahl, J. Glatz, L. Groening, S. Richter (GSI)  
+TU421 (POSTER)  
+Transport and Injection of Heavy Ion Beams with High Brilliance for The GSI High Current Injector  
+350
+L. Dahl, W. Barth (GSI), S. Yaramishev (ITEP)  
+TU422 (POSTER)  
+Commissioning Plans for The SNS DTL and CCL  
+353
+E. Tanke, S. Assadi, G. Dodson, J. Galambos, M. Giannella, N. Holtkamp, D. Jeon, M. White (SNS/ORNL), L. Kravchuk (ORISE), M. Plum, R. Shafer, J. Stovall (LANL)  
+TU423 (POSTER)  
+Beam Test of A Front-End System for The JAERI-KEK Joint (JKJ) Project  
+356
+A. Ueno, K. Ikegami, M. Okada, S. Arai, E. Kadokura, S. Noguchi, Z. Igarashi, C. Kubota, N. Kamikubota, M. Ikegami, K. Yoshino, Y. Fukui, M. Kawamura, S. Yamaguchi, S. Fukuda, S. Anami (KEK), Y. Kondo, H. Oguri (JAERI)  
+TU424 (POSTER)  
+Mechanical and RF Properties of The DTL for The JAERI/KEK Joint Project  
+359
+F. Naito, M. Ikegami, T. Kato, C. Kubota, E. Takasaki, H. Tanaka, K. Yoshino (KEK), T. Ito (JAERI), S. Fujie, H. Ino, Z. Kabeya, S. Kakizaki, T. Kawasumi (MHI)  
+TU425 (POSTER)  
+Development of 100 MeV Proton Accelerator for KOMAC 2nd Phase  
+362
+Y. S. Cho, J. M. Han, H. J. Kwon, B. H. Choi (KAERI)  
+TU426 (POSTER)  
+3D Field Effects on The Multiple Charge Beam Dynamics in The Superconducting Driver Linac for RIA  
+365
+D. Gorelov, T. Grimm, W. Hartung, F. Marti, X. Wu, and R. C. York (NSCL/MSU), H. Podlech (Univ. of Frankfurt), A. Facco (INFN-Legnaro)  
+TU427 (POSTER)  
+Longitudinal Tune-Up of SNS Normal Conducting Linac  
+368
+Dong-o Jeon, (ORNL), J. Stovall, R. Shafer (LANL), K. Crandall (TechSource)  
+TU428 (POSTER)  
+The SNS Front End LLRF System  
+371
+L. Doolittle, C. C. Lo, M. Monroy, A. Ratti (LBNL)  
+TU429 (POSTER)  
+Fermilab Booster Charge As A Function of Linac Intensity  
+374
+D. P. Moehs, L. J. Allen, E. S. McCrory, C. W. Schmidt, R. C. Webber, R. E. Tomlin, and M. Popovic (FNAL)  
+TU430 (POSTER)  
+First Operation of The ELBE Linear Accelerator  
+377
+U. Lehnert, P. Evtushenko, P. Michel, J. Teichert, and the ELBE crew (ELBE)  
+TU431 (POSTER)  
+The Present Performance and Future Upgrade of The KEKB Electron Linac  
+380
+K. Furukawa (KEK)  
+TU432 (POSTER)  
+Status of Pohang Neutron Facility Based on 100-MeV Electron Linac  
+383
+G. N. Kim, R. Machrafi, H. Ahmed, D. Son (CHEP, KNU), Y. S. Lee, V. Skoy, H. S. Kang (PAL), M. H. Cho, I. S. Ko, and W. Namkung (POSTECH)  
+TU433 (POSTER)  
+Status of The Los Alamos Neutron Science Center and Plans for The Future  
+386
+Paul W. Lisowski and Kevin W. Jones (LANL)  
+TU435 (POSTER)  
+Mixing of Regular and Chaotic Orbits in Beams  
+389
+C. L. Bohn (NIU), I. V. Sideris, H. E. Kandrup (UFL), R. A. Kishek (UMD)  
+TU436 (POSTER)  
+Beam Dynamics in Superconducting High Intensity Proton Linacs  
+392
+M. Pabst, K. Bongardt (FZJ)  
+TU437 (POSTER)  
+Experimental Study of Proton Beam Halo in Mismatched Beams  
+395
+C. K. Allen, K. C. D. Chan, P. L. Colestock, R. W. Garnett, J. D. Gilpatrick, W. P. Lysenko, J. D. Schneider, R. L. Sheffield, H. V. Smith, T. P. Wangler (LANL), J. Qiang (LBNL), K. R. Crandall (TechSource), M. E. Schulze (GA)  
+TU438 (POSTER)  
+Cumulative Beam Breakup with Random Displacement of Cavities and Focusing Elements  
+398
+J. R. Delayen (TJNAF)  
+TU439 (POSTER)  
+Envelope Matching for An 8 GeV Multi-Species Superconducting Linac  
+401
+J. A. MacLachlan (FNAL)  
+TU440 (POSTER)  
+Wakefield Band Partitioning in Linac Structures  
+404
+R. M. Jones, V. A. Dolgashev, K. L. F.Bane, E. Lin (SLAC)  
+TU441 (POSTER)  
+Beam Dynamics Design Study and Beam Commissioning of The ISAC Two Frequency Chopper  
+407
+R. E. Laxdal, M. Pasini, L. Root (TRIUMF)  
+TU442 (POSTER)  
+The Common Dispersion Equation for High-Energy Compensated Accelerating Structures  
+410
+V. V. Paramonov (INR)  
+TU443 (POSTER)  
+The Multi-Mode Analysis of The Slot Coupled Accelerating Structures  
+413
+V. V. Paramonov (INR)  
+TU444 (POSTER)  
+GdfidL on Massive Parallel Systems  
+416
+W. Bruns (TUB)  
+TU445 (POSTER)  
+RF Results and Beam Dynamics Simulations of A Prototype S-Band Photocathode Gun  
+419
+K. K. Pant, Arvind Kumar, S. Krishnagopal, S. Chouksey (CAT)  
+TU446 (POSTER)  
+The New HERA H- RF Volume Source  
+422
+J. Peters (DESY)  
+TU447 (POSTER)  
+High-Power Test of The SDTL for The JAERI/KEK Joint Project  
+425
+F. Naito, Y. Fukui, Z. Igarashi, T. Kato, M. Kawamura, C. Kubota, E. Takasaki, H. Tanaka, S. Yamaguchi, K. Yoshino (KEK), T. Ito (JAERI)  
+TU448 (POSTER)  
+Third Generation ECR Ion Sources  
+428
+G. Ciavola, S. Gammino, L. Celona, L. Ando ( INFN-LNS) D. Hitz, A. Girard, G. Melin (CEA-DRFMC-SBT)  
+TU449 (POSTER)  
+Measurement of Field Emission Dark Current from The Titanium, Copper, and Stainless Steel Electrodes Under The High DC-Field Gradient Condition  
+431
+F. Furuta, C. Suzuki, T. Nakanishi, S. Okumi, T. Gotou, K. Wada, M. Yamamoto, T. Nishitani, M. Miyamoto, M. Kuwahara, T. Hirose, R. Mizuno, N. Yamamoto, H. Kobayakawa (Nagoya Univ.), H. Matsumoto, M. Yoshioka (KEK)  
+TU451 (POSTER)  
+The Upgrading of HLS Linac Modulators  
+434
+L. Shang, W. Wang, J. Hong, Y. M. Lu, Y. Zhang (NSRL)  
+TU452 (POSTER)  
+Diagnostic and Numerical Studies of The IPNS Linac with A Recently Installed Buncher Amplifier  
+437
+J. C. Dooling, L. I. Donley, G. E. McMichael , and V. F. Stipp (ANL)  
+TU453 (POSTER)  
+Measurement of Electron Bunch Timing Jitter Using Stroboscopic Method  
+440
+Young Kyung Lim, Hee J. Lee (Hanyang Univ.), S. O. Cho, B. C. Lee, Y. U. Jeong (KAERI)  
+TU454 (POSTER)  
+Multiple Channel Measurements of Ion Beam Parameters  
+443
+S. V. Alexeyenko, V. V. Kushin, S. V. Plotnikov, D. N. Seleznev (ITEP), V. P. Zubovsky (MEPHI)  
+TU455 (POSTER)  
+Installation of The SPring-8 Linac BPM System  
+446
+K. Yanagida, T. Asaka, H. Dewa, T. Fukui, H. Hanaki, T. Kobayashi, T. Masuda, A. Mizuno, S. Suzuki, R. Tanaka, T. Taniuchi, H. Tomizawa, and A. Yamashita (SPring-8)  
+TU456 (POSTER)  
+A Compact 70 kW Power Amplifier at 100 MHz  
+449
+T. Fujimoto, S. Ishikawa, K. Narita, T. Aoki (AEC), T. Fujisawa, Y. Sato (NIRS)  
+TU458 (POSTER)  
+Overview of The RF System for The JAERI/KEK High-Intensity Proton Linac  
+452
+S. Yamaguchi, S. Anami, S. Fukuda, T. Kato, M. Kawamura, C. Kubota, S. Michizono, H. Nakanishi, M. Ono (KEK), E. Chishiro, K. Suganuma, T. Kobayashi (JAERI)  
+TU459 (POSTER)  
+Development of 972 MHz Klystron for High-Intensity Proton Accelerator Facility  
+455
+E. Chishiro, T. Kobayashi, M. Yamazaki, H. Suzuki, T. Hori (JAERI), M. Sakamoto, H. Urakata, S. Miyake (TOSHIBA), S. Fukuda, S. Anami (KEK)  
+TU460 (POSTER)  
+Research on High Power Gyro-Klystron Amplifiers  
+J. J. Choi, H. J. Kim, Y. H. Na, and M. H. Son (KWU)  
+TU461 (POSTER)  
+RF Power Compression with Chirped Pulse  
+458
+Y. Iwashita (Kyoto Univ.)  
+TU464 (POSTER)  
+Status Report on High Power RF Source for KOMAC  
+461
+H. S. Kim, K. H. Chung (SNU), H. J. Kwon (KAERI), K. O. Lee (KAPRA), S. J. Noh (Dankook Univ.)  
+TU465 (POSTER)  
+Design Consideration to PPM Klystrons for Industrial Linac  
+464
+Atsunori Yano, Yoshihisa Ohkubo (TOSHIBA)  
+TU466 (POSTER)  
+Preliminary Engineering Design of A 57.5 MHz CW RFQ for The RIA Driver LINAC  
+467
+J. W. Rathke, T. J. Schultheiss (AES), P. N. Ostroumov, A. A. Kolomiets (ANL), D. L. Schrage (LANL)  
+TU467 (POSTER)  
+RF, Thermal and Structural Analysis of The 57.5 MHz CW RFQ for The RIA Driver LINAC  
+470
+T. J. Schultheiss, J. W. Rathke (AES), P. N. Ostroumov, A. A. Kolomiets (ANL)  
+TU468 (POSTER)  
+Minimizing Transverse-Field Effects in Superconducting Quarter-Wave Cavities  
+473
+P. N. Ostroumov and K. W. Shepard (ANL)  
+TU469 (POSTER)  
+A Prototype Superconducting 345 MHz Two-Cell Spoke Cavity  
+K. W. Shepard, M. Kedzie, M. P. Kelly, J. Fuerst (ANL), E. Peterson (AES)  
+TU470 (POSTER)  
+Superconducting Drift-Tube Cavity Development for The RIA Driver  
+476
+K. W. Shepard, M. P. Kelly, and J. D. Fuerst (ANL)  
+TU471 (POSTER)  
+Superconducting CH-Cavities for Low- and Medium Beta Ion and Proton Accelerators  
+479
+R. Eichhorn (GSI), U. Ratzinger, H. Liebermann (IAP)  
+TU472 (POSTER)  
+Superconducting RFQ's Approaching Beam Commissioning at INFN-Legnaro  
+482
+G. Bisoffi, V. Andreev, G. Bassato, G. Bezzon, S. Canella, F. Chiurlotto, A. Lombardi, A. M. Porcellato (INFN-Legnaro), E. Chiaveri (CERN), B. K. Sahu (NSC), W. Singer (DESY), T. Shirai (Kyoto Univ.), S. Y. Stark (SSC)  
+TU473 (POSTER)  
+Design, Test and Commissioning of A Dual Frequency Chopper for The TRIUMF ISAC Facility  
+485
+A. K. Mitra, Z. T. Ang, R. Hohbach, R. E. Laxdal, J. Lu, and R. L. Poirier (TRIUMF)  
+TU474 (POSTER)  
+Cold Test of 600 MHz Superconducting Cryomodule for High Intensity Proton Linac  
+488
+N. Ouchi, N. Akaoka, H. Asano, E. Chishiro, K. Hasegawa, O. Takeda, H. Yoshikawa (JAERI), M. Matsuoka (MHI), T. Ohtani (MELCO), E. Kako, S. Noguchi, K. Saito (KEK)  
+TU475 (POSTER)  
+Development of SC Bus-Line for The KSTAR Superconducting Magnet  
+491
+Y. M. Park, Y. J. Lee, J. W. Sa, S. B. Jin, K. M. Kim, H. T. Kim, Y. K. Oh, Y. S. Kim (KBSI), K. Kim (SAIT)  
+TU476 (POSTER)  
+Results of The Cryogenic Testing of The SNS Prototype Cryomodule  
+494
+I. E. Campisi, G. Ciovati, E. Daly, G. K. Davis, J. R. Delayen, M. Drury, P. Kneisel, J. Mammosser, T. Powers, J. Preble, C. E. Reece, M. Stirbet, H. Wang, K. M. Wilson, T. Whitlatch, M. Wiseman (TJNAF), M. Champion, S. Smee (SNS)  
+TU477 (POSTER)  
+Superconducting Accelerator Activities at TRIUMF/ISAC  
+497
+R. E. Laxdal, G. Clark, K. Fong, A. Mitra, M. Pasini, R. Poirier, I. Sekachev, G. Stanford (TRIUMF)  
+TU478 (POSTER)  
+Design Optimization of Vacuum System for SFDTL at CAT  
+D. P. Yadav, S. K. Shukla, A. S. Rajarao (CAT)  
+TU479 (POSTER)  
+Design of The DARHT-II Downstream Beamline  
+500
+G. A. Westenskow, L. R. Bertolini, Y. -J. Chen, A. C. Paul, J. A. Watson (LLNL)  
+TU480 (POSTER)  
+Performance of the PLS High Precision Magnet Power Supplies  
+503
+J. H. Suh, K. M. Ha, S. H. Jeong, S. J. Park, Y. J. Han, J. Y. Huang, and S. H. Nam (PAL)  
+TU482 (POSTER)  
+The Superconducting Injector Linac for The Cooler-Synchrotron COSY at FZ-Juelich  
+506
+R. Maier*, U. Bechstedt, N. Bongers, J. Dietrich, O. Felden, R. Gebel, K. Henn, H. Jungwirth, A. Lehrach, N. Markgraf, U. Pfister, D. Prasuhn, P. von Rossen, A. Schnase, H. Schneider,Y. Senichev, R. Stassen, H. Stockhorst, R. Tolle, E. Zaplatin (FZ-Julich), A. Schempp (IAP)  
+TU483 (POSTER)  
+Results of The SNS Front End Commissioning at Berkeley Lab  
+509
+A. Ratti, J. J. Ayers, L. Doolittle, J. B. Greer, R. Keller, S. Lewis, C. Lionberger, M. Monroy, J. Pruyn, J. W. Staples, D. Syversrud, R. Thomae, S. Virostek (LBNL)  
+TU484 (POSTER)  
+Development of An 805-MHz, 550 kW Pulsed Klystron for The Spallation Neutron Source  
+512
+S. Lenci, E. Eisen, B. Stockwell (CPI)  
+TU485 (POSTER)  
+Recent Progress in CW Klystrons at CPI  
+515
+S. Lenci, H. Bohlen, B. Stockwell, and E. Wright (CPI)  
+TU486 (POSTER)  
+Simulation of The Muon Cooling Channel in Linear RF Systems  
+518
+E. S. Kim (PAL)  
+TU487 (POSTER)  
+LINAG1: A Low Energy, High Intensity Deuteron and Ion Linear Accelerator at Ganil  
+521
+Marco Di Giacomo (CEA-Ganil )  
+WE101 (INVITED)  
+C-Band Linac System for SASE-FEL at SPring-8  
+524
+T. Shintake, T. Tanaka , T. Hara, K. Togawa, T. Inagaki, Y. J. Kim, T. Ishikawa, H. Kitamura, H. Baba (SPring-8/RIKEN), H. Matsumoto, Shigeru Takeda, M. Yoshida, Y. Takasu (KEK)  
+WE102 (INVITED)  
+Techniques in High-Power Components for SRF Cavities - A Look to The Future  
+529
+D. Proch (DESY)  
+WE104 (INVITED)  
+Techniques of SC Cavity Preparation for High Gradient  
+534
+K. Saito (KEK)  
+WE201 (INVITED)  
+New Development in High Duty Cycle, High Current RFQ'S  
+539
+A. Schempp (IAP)  
+WE202 (INVITED)  
+Design and Status of The Polyphase Resonant Converter Modulator System for The Spallation Neutron Source Linear Accelerator  
+544
+W. D. Reass, D. M. Baca, J. D. Doss, R. F. Gribble, T. W. Hardek, M. T. Lynch, D. E. Rees, P. J. Tallerico (LANL)  
+WE203 (INVITED)  
+Challenges and The Future of Reduced-Beta SRF Cavity Design  
+549
+Sang-ho Kim (ORNL)  
+WE204 (INVITED)  
+Lorentz Force Compensation of Pulsed SRF Cavities  
+554
+S. N. Simrock (DESY)  
+TH101 (INVITED)  
+Overview of High-Brightness H- Ion Sources  
+559
+R. F. Welton (ORNL)  
+TH102 (INVITED)  
+The JAERI/KEK Joint Project and Its Performance  
+564
+F. Naito (KEK), JAERI/KEK Joint Project Team  
+TH103 (INVITED)  
+High Current Linac Design with Examples of Resonances and Halo  
+569
+F. Gerigk (RAL), K. Bongardt (FZ J¨ulich), I. Hofmann (GSI)  
+TH104 (INVITED)  
+The SNS Linac RF Control System  
+574
+A. Regan, S. Kwon, M. Prokop, T. Rohlev, D. Thomson (LANL), H. Ma (ORNL)  
+TH201 (INVITED)  
+Operational Experience with The Test Facilities for TESLA  
+577
+H. Weise (DESY)  
+TH202 (INVITED)  
+Short-Wavelength, Single-Pass Free-Electron Lasers  
+582
+J. Rossbach (DESY)  
+TH203 (INVITED)  
+Results from The Argonne Wakefield Accelerator Test Facility  
+587
+W. Gai, M. Conde, R. Konencny, W. Liu, J. Power (ANL)  
+TH204 (INVITED)  
+Overview of The Laser Wakefield Acceleration Research at KERI  
+591
+H. Suk, C. B. Kim, G. H. Kim, J. U. Kim (KERI), I. S. Ko, J. C. Kim (POSTECH), S. J. Hahn (Chung-Ang University), W. B. Mori (UCLA)  
+TH301 (INVITED)  
+The RIA Driver Linac  
+596
+K. W. Shepard (ANL)  
+TH302 (INVITED)  
+Energy Recovering Linacs  
+600
+L. Merminga., D. R. Douglas, G. A. Krafft (TJNAF)  
+TH402 (POSTER)  
+Efforts to Improve Intense Linear Induction Accelerator (LIA) Sources for Flash Radiography  
+605
+E. Merle, M. Mouillet, O. Pierret, C. Vermare (CEA), A. Piquemal, (CEA-Bruyeres), D. C. Moir (LANL)  
+TH403 (POSTER)  
+High Gradient Tests on An S-Band Accelerating Structure  
+608
+Y. Igarashi, S. Yamaguchi, Y. Higashi, A. Enomoto, T. Oogoe, K. Kakihara, and S. Ohsawa (KEK)  
+TH404 (POSTER)  
+The JAERI Energy-Recovery Linac for Free-Electron Lasers  
+611
+E. J. Minehara (JAERI)  
+TH405 (POSTER)  
+Phase Rotated Intense Slow Muons with Linac  
+614
+Y. Iwashita (Kyoto Univ.)  
+TH407 (POSTER)  
+Status of The PLS 2-2.5 GeV Electron Linac  
+617
+S. H. Nam, J. Y. Huang, Y. J. Han, and M. Yoon (PAL)  
+TH408 (POSTER)  
+Upgrading CEBAF to 12 GeV  
+620
+Leigh Harwood (TJNAF)  
+TH409 (POSTER)  
+Research on A 16 MeV Backward Traveling Wave ( BTW ) Electron Linac  
+623
+Huaibi Chen (Tsinghua Univ.)  
+TH410 (POSTER)  
+X-Band RF Gun/Linac for Inverse Compton Scattering Hard X-Ray Source  
+626
+M. Uesaka, A. Fukasawa (Tokyo Univ.), K. Dobashi, H. Iijima (NIRS), J. Urakawa, T. Higo, M. Akemoto, H. Hayano (KEK)  
+TH411 (POSTER)  
+Beam Dynamics Design of The Annular-Coupled-Structure Linac and Its Beam Matching Section for The KEK/JAERI Joint Project  
+629
+M. Ikegami, T. Kato (KEK), K. Hasegawa (JAERI)  
+TH412 (POSTER)  
+3.0 MeV KTF RFQ Linac  
+632
+J. M. Han, H. H. Lee, K. Y. Seo, H. J. Kweon, Y. S. Cho, B. H. Choi (KAERI)  
+TH414 (POSTER)  
+The Precise Active Alignment Support System for Accelerator Structures  
+635
+H. Matsumoto, Shigeru. Takeda, N. Sato (KEK), T. Shintake, H. Kitamura (RIKEN), A. Suzuki, H. Yoshioka (TAKENAKA Co.), M. Ohtsuka, N. Yoshimura (OHTSUKA Co.)  
+TH415 (POSTER)  
+KAERI High Power IR FEL Driven by A SC Linac  
+B. C. Lee, S. O. Cho, Y. U. Jeong, and S. H. Park (KAERI)  
+TH416 (POSTER)  
+Ultrafast Materials Probing with The LLNL Thomson X-Ray Source  
+638
+A. Tremaine, S. Anderson, W. Brown, C. Barty, R. Cauble, J Crane, H. Cynn, C. Ebbers, D. Fittinghoff, D. Gibson, F. Hartemann, I. Jovanovich, J. Kuba, G. LeSage, A. McMahan, R. Minich, J. Moriarty, B. Remington, D. Slaughter, P. Springer, F. H. Steitz, C-s. Yoo (LLNL), J. Rosenzweig (UCLA), T. Ditmire (Univ. of Texas)  
+TH417 (POSTER)  
+The FERMI Project at Trieste: A Linac-Based Ultra Bright Photon Source  
+641
+G. D'Auria, C.J. Bocchetta, D. Bulfone, F. Cargnello, M. Danailov, S. Di Mitri, B. Diviacco, M. Ferianis, A. Gambitta, E. Karantzoulis, M. Lonza, F. Mazzolini, D. Morelli, V. Smaluk, M. Svandrlik, L. Tosi, G. Tromba, V. Verzilov, R. Visintini (Sincrotrone Trieste)  
+TH419 (POSTER)  
+Laser Ion Production As The Injector for Cancer Therapy Synchrotron  
+644
+A. Noda., Y. Iwashita, S. Nakamura, T. Shirai, A. Yamazaki (Kyoto Univ.), H. Daido, Y. Hayashi (JAERI), M. Uesaka, K. Yoshii, T. Watanabe, T. Hosokai, K. Kinoshita (Tokyo Univ.), A. Ogata, Y. Wada, T. Kubota (Hiroshima Univ.), K. Matsukado, K. Takahashi, Z. Li, S. Yamada ( NIRS)  
+TH420 (POSTER)  
+Intense Beam Experiments at The University of Maryland  
+P. G. O'Shea, S. Bernal, B. Beaudoin, Y. Cui, A. Dipe, D. Feldman, M. Glanzer, T. F. Godlove, I. Haber, J. Harris, R. A. Kishek, H. Li, J. Neumann, B. Quinn, M. Qurus, M. Reiser, M. Snowel, A. Valfells, M. Virgo, M. Walter, R. Yun, Y. Zou (UMD), D. Kehne (NRL)  
+TH421 (POSTER)  
+Sausage and Hollowing Instabilities in High-Intensity Particle Beams  
+647
+Han S. Uhm (Ajou Univ.), Ronald C. Davidson, Igor Kaganovich (PPPL)  
+TH422 (POSTER)  
+Beam Dynamics Layout of H-Type Drift Tube Linacs for Intense Light Ion Beams  
+650
+A. Sauer, H. Deitinghoff, H. Klein, H. Liebermann, H. Podlech, U. Ratzinger, R. Tiede (Goethe-Univ.)  
+TH423 (POSTER)  
+HALODYN: A 3D Poisson-Vlasov Code to Simulate The Space Charge Effects in The High Intensity TRASCO Linac  
+653
+A. Franchi, M. Comunian, A. Pisent (INFN), G. Turchetti, S. Rambaldi, A. Bazzani (INFN-Bologna)  
+TH424 (POSTER)  
+HERSC: A New 3 Dimensional Space Charge Routine for High Intensity Bunched Beams  
+656
+E. Tanke (SNS/ORNL), S. Valero, P. Lapostolle (consultants), A. M. Lombardi (CERN)  
+TH425 (POSTER)  
+Simulations of Intense Beam Experiments at the University of Maryland  
+R. A. Kishek, S. Bernal, Y. Cui, I. Haber, J. Harris, H. Li, J. Neumann, P. G. O'Shea, M. Reiser, A. Valfells, M. Virgo, Y. Zou (UMD)  
+TH426 (POSTER)  
+New Real-Time Simulation Technique for Synchrotron and Undulator Radiations  
+659
+T. Shintake (RIKEN/SPring-8)  
+TH427 (POSTER)  
+Simulations of Photon Acceleration and Laser Pulse Amplification Using Laser Plasma Interactions  
+662
+H. J. Lee (KERI), J. Kim (POSTECH), C. Kim, G. H. Kim, J. U. Kim, H. Suk (KERI)  
+TH429 (POSTER)  
+DYNAC: A Multi-Particle Beam Dynamics Code for Leptons and Hadrons in Complex Accelerating Elements  
+665
+E. Tanke (SNS/ORNL), S. Valero, P. Lapostolle (consultants)  
+TH430 (POSTER)  
+Analytical and Semi-Analytical Expressions for The Voltage in A Cavity Under Dynamic Detuning  
+668
+Marc Doleans and Sang-ho Kim (ORNL)  
+TH432 (POSTER)  
+Simulation of A Higher-Order Mode RF Photoinjector  
+671
+J. W. Lewellen (ANL)  
+TH433 (POSTER)  
+The TRASCO High Current Proton Source and Its LEBT  
+674
+G. Ciavola, L. Celona, S. Gammino (INFN-LNS), E. Fagotti, M. Comunian, A. Pisent (INFN-LNL), R. Gobin, R. Ferdinand (CEA-Saclay)  
+TH434 (POSTER)  
+Metal-Vapor Vacuum-Arc Ion Source with An Additional Anode  
+677
+V. I. Pershin, V. A. Batalin, A. A. Kolomiets, R. P. Kuibeda, T. V. Kulevoy, S. V. Petrenko, D. N. Seleznev (ITEP), A. Hershcovitch, B. M. Johnson (BNL), E. M. Oks (HCEI)  
+TH435 (POSTER)  
+200 keV Polarized Electron Source for Linear Collider  
+680
+M. Yamamoto, K. Wada, T. Nakanishi, S. Okumi, C. Suzuki, F. Furuta, T. Nishitani, M. Miyamoto, M. Kuwahara, T. Hirose, R. Mizuno, N. Yamamoto, O. Watanabe, H. Kobayakawa (Nagoya Univ.), H. Matsumoto, M.Yoshioka (KEK)  
+TH436 (POSTER)  
+Development of 10mA CW H- Ion Source for Tandem Proton Accelerator  
+I. S. Hong and Y. S. Hwang (SNU), Y. S. Cho (KAERI)  
+TH437 (POSTER)  
+Characteristics of A Helicon Ion Source As A High Brightness Ion Source  
+H. D. Jung, Y. S. Park, I. S. Hong, and Y. S. Hwang (SNU)  
+TH438 (POSTER)  
+Characteristics of A Photocathode RF Gun in Higher Field Gradient  
+683
+T. Taniuchi, T. Asaka, H. Dewa, T. Kobayashi, A. Mizuno, S. Suzuki, H. Tomizawa, K. Yanagida, H. Hanaki, (JASRI/SPring-8)  
+TH439 (POSTER)  
+Improvement of The Control System for The KEK 40 MeV Proton Linac  
+686
+K. Nanmo, Z. Igarashi, K. Nigorikawa, T. Takenaka, and E. Takasaki (KEK)  
+TH440 (POSTER)  
+Plans for A Control System for The LUE200 Linac in JINR  
+689
+A. P. Soumbaev, A. S. Kayukov, V. A. Shvets, O. V. Strekalovsky, M. M. Korjovkina (JINR)  
+TH442 (POSTER)  
+Web-Based Control System for 150-MW Pulse Modulator Application  
+692
+S. D. Jang, W. W. Lee, Y. G. Son, J. S. Oh (PAL), and M. H. Cho (POSTECH)  
+TH443 (POSTER)  
+Upgrade of The MPS Control System for PLS Linac  
+695
+J. H. Kim, J. M. Kim, J. W. Oh, S. C. Kim, D. W. Kim, K. H. Kim, J. Choi, S. H. Nam, J. Y. Huang (PAL), M. H. Cho, W. Namkung, I. S. Ko (POSTECH)  
+TH444 (POSTER)  
+RF System Development for The CEBAF Energy Upgrade  
+698
+C. Hovater, P. Chevtsov, J. Delayen, H. Dong, L. Harwood, J. Musson, R. Nelson, T. Plawski, H. Wang (TJNAF)  
+TH445 (POSTER)  
+RF Control System for ISAC II Superconducting Cavity Test Stand  
+701
+K. Fong, M. Laverty, S. Fang (TRIUMF)  
+TH446 (POSTER)  
+Dealing with Change While Maintaining Operational Reliability of The Advanced Photon Source Linear Accelerator  
+704
+S. Pasky, M. Borland (ANL)  
+TH447 (POSTER)  
+Solid State Switches for Pulse Power Modulators  
+707
+A. Welleman, J. Waldmeyer, E. Ramezani (ABB)  
+TH448 (POSTER)  
+Development of Self-Healing Capacitors for Klystron Pulse Modulators  
+M. Akemoto, S. Takeda (KEK), H. Sakaguchi, M. Matsubara (Nichicon)  
+TH449 (POSTER)  
+S-Band Klystron for Long Pulse Operation  
+710
+T. Sakai, I. Sato, K. Hayakawa, T. Tanaka, Y. Hayakawa, K. Yokoyama, K. Kanno, K. Ishiwata (LEBRA), S. Fukuda (KEK), K. Hemmi, M. Hino (MELCO)  
+TH450 (POSTER)  
+Testing and Operation of The WR340 Waveguide Window in The APS Linac  
+713
+A. E. Grelick, S. Berg, G. Goeppner, A. Nassiri, G. Pile, T. Smith (ANL), Y. W. Kang (ORNL), A. Haase, D. Miller (SLAC)  
+TH451 (POSTER)  
+Performance of A 324-MHz Klystron for High-Intensity Proton Accelerator  
+716
+S. Fukuda, S. Anami, Y. Fukui, M. Kawamura, C. Kubota, M. Ono, S. Yamaguchi (KEK), S. Miyake, M. Sakamoto, K. Tetsuka, A. Yano (TOSHIBA)  
+TH452 (POSTER)  
+Parts of The 203D Coaxial Waveguide Improved at KEK  
+719
+C. Kubota, Y. Fukui, S. Fukumoto, M. Kawamura, F. Naito, H. Nakanishi, and E. Takasaki (KEK)  
+TH453 (POSTER)  
+Study and Design for TRASCO RFQ High Power Coupler  
+722
+A. Palmieri, M. Comunian, J. Esposito, A. Pisent (INFN-LNL), G. V. Lamanna (INFN-Bari)  
+TH454 (POSTER)  
+RF System for KOMAC RFQ  
+725
+H. J. Kwon, Y. S. Cho, J. M. Han, B. H. Choi (KAERI)  
+TH455 (POSTER)  
+Fundamental Power Coupler Development for The SNS Superconducting Linac Cavities  
+728
+M. Stirbet, I. E. Campisi, K. M. Wilson, M. Drury, G. K. Davis, and T. Powers (TJNAF), Y. Kang (ORNL), K. A. Cummings, T. Hardek (LANL)  
+TH456 (POSTER)  
+Reactive RF Tuning for Compensation of A Detuned Accelerating Cavity  
+731
+Y. Kang (ORNL), M. Tiefenback, and P. Chevtsov (TJNAF)  
+TH457 (POSTER)  
+Overmoded Semiconductor Microwave Switch  
+S. G. Tantawi (SLAC)  
+TH458 (POSTER)  
+High Power Nonreciprocal Switches for Pulse Compression Applications  
+S. G. Tantawi (SLAC) and Jeff Neilson (CCR)  
+TH459 (POSTER)  
+Improved Design of A Frequency-Doubling Ku-Band Gyroklystron Experiment  
+734
+W. Lawson, B. Hogan, S. Gouveia, B. Huebschman, and V. L. Granatstein (UMD)  
+TH460 (POSTER)  
+Design and Analysis of SFDTL Structure for 100 MeV Proton Linac  
+737
+Vikas Jain, Mangesh Karmarkar, S. A. Pande and T. Veerbhadraiah (CAT)  
+TH461 (POSTER)  
+High Frequency Linear Accelerator: A Perturbative Study of The Transmission Matrix of A Two Port Device Chain  
+740
+A. D'Elia, V. G. Vaccaro (Univ. Napoli), M. R. Masullo (INFN-Napoli), D. Davino (BNL), L. De Menna, S. Falco (DIEL)  
+TH463 (POSTER)  
+Impedance Measurement Setup for Higher-Order Mode Studies in NLC Accelerating Structures with The Wire Method  
+743
+N. Baboi., R. M. Jones, J. W. Wang, G. B. Bowden, V. A. Dolgashev, J. Lewandowski, S. G. Tantawi, P. B. Wilson (SLAC)  
+TH464 (POSTER)  
+Recent Progress in R&D of Advanced Room Temperature Accelerator Structures  
+746
+J. W. Wang, C. Adolphsen, N. Baboi, G. Bowden, D. L. Burke, J. Cornuelle, V. Dolgashev, K. Jobe, R. M. Jones, B. Kirby, F. Le Pimpec, Z. Li, J. Lewandowski, R. J. Loewen, R. H. Miller, C. Nantista, C. K. Ng, C. Pearson, T. Raubenheimer, M. Ross, R. D. Ruth, S. Tantawi, P. B. Wilson (SLAC), N. Toge, T. Higo, Y. Higashi (KEK)  
+TH465 (POSTER)  
+Minimization of Transverse Wakefields in The NLC Accelerator Structures  
+749
+R. M. Jones R. H. Miller, J. W. Wang (SLAC)  
+TH466 (POSTER)  
+Status of X-Band Standing Wave Structure Studies at SLAC  
+V. A. Dolgashev, C. Adolphsen, G. Bowden, R. M. Jones, Z. Li, R. Loewen, R. H. Miller, C. Ng, C. Pearson, R. D. Ruth, S. G. Tantawi, J. W. Wang (SLAC)  
+TH467 (POSTER)  
+Analysis of High Field Breakdown in Simple RF Cavities and Waveguides  
+S. G. Tantawi and V. A. Dolgashev (SLAC)  
+TH468 (POSTER)  
+Power-Handling Capability of The Annular Coupled Structure Linac for The JAERI/KEK Joint Project  
+752
+N. Hayashizaki (TITech), V. Paramonov (INR), Y. Yamazaki (JAERI)  
+TH469 (POSTER)  
+Charge Fraction of 6.0 MeV/n Heavy Ions with Carbon Foil: Dependence on The Thickness  
+755
+T. Miyoshi, C. Kobayashi, H. Ogawa, H. Nakabushi, T. Fujimoto, T. Miyata, Y. Kageyama, Y. Sano (AEC), A. Kitagawa, M. Muramatsu, T. Murakami, Y. Sato (NIRS)  
+TH470 (POSTER)  
+Prototype Engineering Design of 350 MHz 4.5 MeV RFQ for Proposed Proton Linac for Indian ADS Program  
+758
+S. C. Joshi, D. D. Bhawalkar, S. A. Pande, M. Prasad, A. S. Raja Rao, S. Raghvendra, N. Sharma (CAT)  
+TH471 (POSTER)  
+Automated Microwave Low Power Testing Techniques for NLC  
+761
+H. Carter, D. Finley, I. Gonin, T. Khabiboulline, G. Romanov, D. Sun (FNAL) , C. Adolphsen, J. Wang (SLAC)  
+TH472 (POSTER)  
+Irradiation Test of Vacuum Chamber for LANSCE Isotope Production Facility  
+764
+A. N. Drugakov, S. K. Esin, A. V. Feschenko, Yu. G. Kalinin, Yu. V. Kisselev, L. V. Kravchuk, A. N. Mirzojan, E. S. Nikulin, V. L. Serov (INR), M. Fagan, D. Ireland, K. F. Johnson, P. Walstrom (LANL)  
+TH473 (POSTER)  
+Measurement and Control System of the Superconducting Cavities for An Energy-Recovering Superconducting Linear Accelerator  
+S. O. Cho, B. C. Lee, J. Yoo, S. H. Park, and Y. U. Jeong (KAERI)  
+TH474 (POSTER)  
+The Thermal Expansion of Some Common Linac Materials  
+767
+R. Valdiviez, D. Schrage, H. Haagenstad, J. Szalczinger (LANL)  
+TH475 (POSTER)  
+Reliability and Maintenance of PLS Linac Mechanical Systems  
+770
+K. R. Kim, S. J. Kwon, S. H. Kim, Y. J. Park, H. G. Kim, K. W. Suh, S. H. Nam, C. W. Chung (PAL), W. Namkung (POSTECH)  
+TH476 (POSTER)  
+Design of The Superconducting Magnet Supporting Post for KSTAR Tokamak  
+773
+N. I. Her, J. W. Sa, H. K. Kim, G. H. Kim, C. H. Choi, J. S. Bak, M. Kwon (KBSI)  
+TH477 (POSTER)  
+Parametric Study on The Improvement of The Beam Energy Gain of The Fantron-I Cavity  
+776
+H. J. Kwon (KAERI), H. S. Kim, K. H. Chung (SNU), K. O. Lee (KAPRA), S. J. Noh (Dankook Univ.)  
+TH478 (POSTER)  
+A Micro-Miniature Accelerator for Medical Applications  
+Eiji Tanabe (AET Japan)  
+TH479 (POSTER)  
+Development of A 7 MeV/u, 217 MHz Carbon Injector Linac for Therapy Facilities  
+779
+B. Schlitt, G. Hutter, B. Langenbeck, C. Muhle,W. Vinzenz (GSI), A. Bechtold, Y. Lu, S. Minaev, U. Ratzinger, A. Schempp, R. Tiede (IAP)  
+TH480 (POSTER)  
+The RFQ-Drifttube-Combination for The Medicine Synchrotron in Heidelberg  
+782
+A. Bechtold, C. P. Welsch, U. Ratzinger, A. Schempp (IAP), B. Schlitt (GSI)  
+TH481 (POSTER)  
+Absorption Spectroscopy Using High-Intensity Coherent Radiation from Short Electron Bunches of A Linac  
+785
+S. Okuda, M. Takanaka, R. Kato (Osaka Univ.) S. Nam (Kangwon Univ.)  
+TH484 (POSTER)  
+Studies of Breakdown in High Gradient X-Band Accelerator Structures Using Acoustic Emission  
+788
+J. Frisch, J. Nelson, F. Le Pimpec, K. Jobe, D. McCormick, M. C. Ross, T. Smith (SLAC)  
+TH485 (POSTER)  
+An Equivalent 4-Wire Line Theoretical Model of Real RFQ Based on The Spectral Differential Theory  
+791
+F. Simoens, A. France, O. Delferriere (CEA-Saclay)  
+TH486 (POSTER)  
+Tuning Procedure of The 5 MeV IPHI RFQ  
+794
+F. Simoens, A. France (CEA-Saclay)  
+TH487 (POSTER)  
+A 100 kW, 1497 MHz CW Klystron for FEL Driver Accelerator  
+797
+Albert Mizuhara (CPI)  
+TH488 (POSTER)  
+The Radiation Field by The Transform Spectral Method in FEL  
+800
+Soon-Kwon Nam, Jaechul Yi (Kangwon Univ.)  
+FR101 (INVITED)  
+Overview of International Heavy Ion Fusion Experiments  
+803
+Simon Yu (LBNL)  
+FR102 (INVITED)  
+Neutrino Factory / Cooling Experiment  
+806
+H. Haseroth (CERN)  
+FR103 (INVITED)  
+Polarized Electron Sources Using NEA-GaAs Photocathode  
+811
+Tsutomu Nakanishi (Nagoya Univ.)  
+FR104 (INVITED)  
+Perspectives of Coherent X-Ray Source in Italy  
+816
+L. Serafini (INFN-Milan and Univ. of Milan)  
+FR201 (INVITED)  
+Survey of High-Power Proton Linacs  
+821
+A. Mosnier (CEA-Saclay)  
+FR202 (INVITED)  
+An Multi-Mission 8 GeV Injector Linac As A Fermilab Booster Replacement  
+826
+G. W. Foster, J. A. MacLachlan (FNAL)  
+FR203 (INVITED)  
+Opportunity of High Energy Physics Research Using the e+e- Linear Collider  
+D. Son (CHEP, KNU)  
