@@ -13,12 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
-class SpecialImport95 extends Command
+class SpecialImportPac95 extends Command
 {
     private EntityManagerInterface $manager;
 
-    // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'app:special-import-95';
+    protected static $defaultName = 'app:special-import-pac-95';
 
     public function __construct(EntityManagerInterface $manager)
     {
