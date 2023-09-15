@@ -1,0 +1,16 @@
+https://accelconf.web.cern.ch/LINAC08/html/MO1.HTM
+https://accelconf.web.cern.ch/LINAC08/html/MO2.HTM
+https://accelconf.web.cern.ch/LINAC08/html/MO3.HTM
+https://accelconf.web.cern.ch/LINAC08/html/MOP.HTM
+https://accelconf.web.cern.ch/LINAC08/html/TU1.HTM
+https://accelconf.web.cern.ch/LINAC08/html/TU2.HTM
+https://accelconf.web.cern.ch/LINAC08/html/TU3.HTM
+https://accelconf.web.cern.ch/LINAC08/html/TUP.HTM
+https://accelconf.web.cern.ch/LINAC08/html/WE1.HTM
+https://accelconf.web.cern.ch/LINAC08/html/WE2.HTM
+https://accelconf.web.cern.ch/LINAC08/html/TH1.HTM
+https://accelconf.web.cern.ch/LINAC08/html/TH2.HTM
+https://accelconf.web.cern.ch/LINAC08/html/TH3.HTM
+https://accelconf.web.cern.ch/LINAC08/html/THP.HTM
+https://accelconf.web.cern.ch/LINAC08/html/FR1.HTM
+https://accelconf.web.cern.ch/LINAC08/html/FR2.HTM
