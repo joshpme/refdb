@@ -13,12 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
-class SpecialImportLinac96 extends Command
+class SpecialImportPac97 extends Command
 {
     private EntityManagerInterface $manager;
 
-    // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'app:special-import-linac-96';
+    protected static $defaultName = 'app:special-import-pac-97';
 
     public function __construct(EntityManagerInterface $manager)
     {
@@ -28,40 +27,41 @@ class SpecialImportLinac96 extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $data = file("src/DataFixtures/Import/linac96.txt");
+        $baseUrl = "https://accelconf.web.cern.ch/pac97/papers/";
+        $urls = ["vol1.html", "vol2.html", "vol3.html"];
 
-        foreach ($data as $line) {
-            $line = trim($line);
-            if (empty($line)) {
-                continue;
-            }
-            $parts = explode(" ", $line);
-            if (count($parts) > 1) {
-                $code = $parts[0];
-                $position = $parts[1];
-                $papers[$code] = $position;
+        $papers = [];
+        foreach ($urls as $url) {
+            $lines = file($baseUrl . $url);
+            // <tr><td><b>p. 20</b></td><td><b><a href="pdf/6C003.PDF">The National Spallation Neutron Source (NSNS) Project</a></b></td><td><b>6C003</b></td></tr>
+            foreach ($lines as $line) {
+                if (preg_match("/<b>p. ([0-9]+)<\/b>.*<b>([A-Z0-9]+)<\/b>/", $line, $matches)) {
+                    $papers[$matches[2]] = $matches[1];
+                }
             }
         }
-
         asort($papers);
-
+        
         $positions = [];
-        foreach ($papers as $code => $pageNumber) {
+        foreach ($papers as $code => $paper) {
             $nextPn = 0;
             // find next higher pagenumber
             foreach ($papers as $pn) {
-                if ($pn > $pageNumber) {
+                if (filter_var($pn, FILTER_VALIDATE_INT) && $pn > $paper) {
                     $nextPn = $pn - 1;
                     break;
                 }
             }
             if ($nextPn == 0) {
-                $nextPn = 914;
+                $nextPn = 3874;
             }
-            $positions[$code] = $pageNumber . "-" . $nextPn;
+            $positions[$code] = $paper . "-" . $nextPn;
         }
 
-        $conference = $this->manager->getRepository(Conference::class)->findOneBy(['code' => 'LINAC\'96']);
+        /**
+         * @var Conference $conference
+         */
+        $conference = $this->manager->getRepository(Conference::class)->findOneBy(['code' => 'PAC\'97']);
 
         $references = $conference->getReferences();
 
@@ -74,7 +74,7 @@ class SpecialImportLinac96 extends Command
                 $reference->setCache($reference->__toString());
                 $changes++;
             } else {
-                $output->writeln("Code not found: " . $code);
+                $output->writeln("No position for: " . $code);
             }
 
             if ($changes % 100 == 0) {
@@ -82,6 +82,7 @@ class SpecialImportLinac96 extends Command
                 $this->manager->flush();
             }
         }
+
         $this->manager->flush();
 
         return Command::SUCCESS;
