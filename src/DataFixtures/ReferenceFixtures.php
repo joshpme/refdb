@@ -37,7 +37,6 @@ class ReferenceFixtures extends Fixture implements DependentFixtureInterface
                     if ($conference) {
                         try {
                             $file = file($filename);
-                            dump($filename, file_exists($filename));
                             echo "Importing " . count($file) . " reference for " . $conference . "\n";
                             $references = $this->importService->import($filename, $conference);
                             echo "Successfully imported: " . $references . "\n";

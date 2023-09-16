@@ -85,9 +85,7 @@ class SpecialImportLinac08 extends Command
                 $this->manager->flush();
             }
         }
-
-        dump($papers);
-
+        $this->manager->flush();
         return Command::SUCCESS;
     }
 }

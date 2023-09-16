@@ -64,8 +64,6 @@ class SpecialImportLinac04 extends Command
             $positions[$code] = $pageNumber . "-" . $nextPn;
         }
 
-        dump($positions);
-
         $conference = $this->manager->getRepository(Conference::class)->findOneBy(['code' => 'LINAC\'04']);
 
         $references = $conference->getReferences();
@@ -88,7 +86,7 @@ class SpecialImportLinac04 extends Command
             }
         }
 
-        dump($papers);
+        $this->manager->flush();
 
         return Command::SUCCESS;
     }

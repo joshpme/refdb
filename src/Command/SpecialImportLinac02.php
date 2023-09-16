@@ -108,7 +108,7 @@ class SpecialImportLinac02 extends Command
                 $reference->setInProc($paper['published']);
                 $reference->setCache($reference->__toString());
             } else {
-                dump("Missing " . $reference->getPaperId());
+                $output->writeln("Missing " . $reference->getPaperId());
             }
         }
 
