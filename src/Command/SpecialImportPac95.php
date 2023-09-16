@@ -79,6 +79,8 @@ class SpecialImportPac95 extends Command
             }
         }
 
+        $this->manager->flush();
+
         return Command::SUCCESS;
     }
 }
