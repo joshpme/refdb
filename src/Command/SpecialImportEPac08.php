@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
-class SpecialImportEPac02 extends Command
+class SpecialImportEPac08 extends Command
 {
     private EntityManagerInterface $manager;
 
-    protected static $defaultName = 'app:special-import-epac-02';
+    protected static $defaultName = 'app:special-import-epac-08';
 
     public function __construct(EntityManagerInterface $manager)
     {
@@ -27,7 +27,7 @@ class SpecialImportEPac02 extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $url= "http://accelconf.web.cern.ch/e02/TOC/INDEXTOC.htm";
+        $url= "http://accelconf.web.cern.ch/e08/html/class1.htm";
         $papers = [];
         $content = file_get_contents($url);
         preg_match_all('/href="(.*)\.htm">/i', $content, $matches);
@@ -35,17 +35,17 @@ class SpecialImportEPac02 extends Command
 
         foreach ($urls as $url) {
             $output->writeln("Processing: " . $url);
-            $contents = file_get_contents("http://accelconf.web.cern.ch/e02/TOC/" . $url . ".htm");
+            $contents = file_get_contents("http://accelconf.web.cern.ch/e08/html/" . $url . ".htm");
 
-            /** match href="../PAPERS/MOXGB002.pdf">1</a> */
-            preg_match_all('/\/([A-Z0-9]+)\.pdf">([0-9]+)<\/a>/', $contents, $matches);
+            /** <a href="../papers/wepp002.pdf" target="pdf">2521</a></td> */
+            preg_match_all('/\/([a-zA-Z0-9]+)\.pdf" target="pdf">([0-9]+)<\/a>/', $contents, $matches);
             for ($i = 0; $i < count($matches[0]); $i++) {
-                $papers[$matches[1][$i]] = $matches[2][$i];
+                $papers[strtoupper($matches[1][$i])] = $matches[2][$i];
             }
+            $output->writeln("Total papers: " . count($papers));
         }
 
         asort($papers);
-
 
         $positions = [];
         foreach ($papers as $code => $paper) {
@@ -58,7 +58,7 @@ class SpecialImportEPac02 extends Command
                 }
             }
             if ($nextPn == 0) {
-                $nextPn = 2818;
+                $nextPn = 2967;
             }
             $positions[$code] = $paper . "-" . $nextPn;
         }
@@ -66,7 +66,7 @@ class SpecialImportEPac02 extends Command
         /**
          * @var Conference $conference
          */
-        $conference = $this->manager->getRepository(Conference::class)->findOneBy(['code' => 'EPAC\'02']);
+        $conference = $this->manager->getRepository(Conference::class)->findOneBy(['code' => 'EPAC\'08']);
 
         $references = $conference->getReferences();
 
