@@ -52,11 +52,19 @@ class AuthorService
             // only include the author if it is the correct format.
             $cleaned = $this->cleanAuthor($author);
             if ($cleaned !== null) {
-                $results[] = $cleaned;
+                if (!in_array($cleaned, ['St. Petersburg',
+                    'U. of Advanced Studies',
+                    'P. N. Lebedev Physics Institute',
+                    'J. W. Goethe Universitat',
+                    'I. I. E. - Univ',
+                    'U. of the Philippines',
+                    'J. Stefan Institute',
+                    'E. O. Lawrence Berkeley National Laboratory',
+                    'P. O. Box'])) {
+                    $results[] = $cleaned;
+                }
             }
         }
-
-
 
         if (count($results) == 0) {
             return array(
