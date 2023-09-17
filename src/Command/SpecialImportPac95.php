@@ -86,15 +86,15 @@ class SpecialImportPac95 extends Command
 
         $fixAuthor = function($author) {
             $author = trim($author);
-            $author = preg_replace("/^([A-Z])[a-z]+\s(([A-Z]\.\s)?[A-Z][A-Za-z']+)$/", "$1. $2", $author);
+            $author = preg_replace("/^(\p{Lu})\p{Ll}+\s((\p{Lu}\.\s)?[A-Z\p{Lu}][\p{L}']+)$/u", "$1. $2", $author);
             //assert($fixAuthor("Yong-Chul Chae") === "Y. C. Chae");
-            $author = preg_replace("/^([A-Z])[a-z]+\-([A-Z])[a-z]+\s([A-Z][A-Za-z']+)$/", "$1. $2. $3", $author);
+            $author = preg_replace("/^(\p{Lu})\p{Ll}+\-(\p{Lu})[a-z\p{Ll}]+\s(\p{Lu}[\p{L}']+)$/u", "$1. $2. $3", $author);
             // assert($fixAuthor("J.A. Clarke") === "J. A. Clarke");
-            $author = preg_replace("/^([A-Z][a-z]*)\.([A-Z])\.\s([A-Z][A-Za-z']+)$/", "$1. $2. $3", $author);
+            $author = preg_replace("/^(\p{Lu}\p{Ll}*)\.(\p{Lu})\.\s(\p{Lu}[\p{L}']+)$/u", "$1. $2. $3", $author);
             return trim($author);
         };
 
-
+        assert($fixAuthor("André Verdier") === "A. Verdier");
         assert($fixAuthor("J.A. Clarke") === "J. A. Clarke");
         assert($fixAuthor("Glenn Decker") === "G. Decker");
         assert($fixAuthor("Yong-Chul Chae") === "Y. C. Chae");
