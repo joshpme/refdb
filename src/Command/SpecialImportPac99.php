@@ -2,8 +2,10 @@
 
 namespace App\Command;
 
+use App\Entity\Author;
 use App\Entity\Conference;
 use App\Entity\Reference;
+use App\Service\AuthorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,11 +18,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 class SpecialImportPac99 extends Command
 {
     private EntityManagerInterface $manager;
+    private AuthorService $authorService;
 
     protected static $defaultName = 'app:special-import-pac-99';
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(EntityManagerInterface $manager, AuthorService $authorService)
     {
+        $this->authorService = $authorService;
         $this->manager = $manager;
         parent::__construct();
     }
@@ -43,35 +47,51 @@ class SpecialImportPac99 extends Command
             <TD ALIGN="right" VALIGN="top">
             2984</TD>
              */
-            preg_match_all("/\/([A-Z0-9]+)\.PDF/x", $content, $codeMatches);
 
-            preg_match_all("/<TD\s+ALIGN=\"right\"\s+VALIGN=\"top\">\s+([0-9]+)/x", $content, $posMatches);
+            preg_match_all("/\/([A-Z0-9]+)\.PDF.*?<STRONG>(.*?)<\/STRONG>.*?<em>(.*?)<\/em>.*?<TD\s+ALIGN=\"right\"\s+VALIGN=\"top\">\s+([0-9]+)/xs", $content, $matches, PREG_SET_ORDER);
 
-            if (count($codeMatches[1]) != count($posMatches[1])) {
-                $output->writeln("Error: " . $url);
-                exit();
-            }
-            foreach ($codeMatches[1] as $i => $code) {
-                $papers[$code] = $posMatches[1][$i];
+            foreach ($matches as $match) {
+                $authors = explode(",", $match[3]);
+
+                foreach ($authors as &$author) {
+                    $author = preg_replace("/^([A-Z])[a-z]+\s([A-Z][a-z]+)$/","$1. $2", $author);
+                    $author = explode(" for the ", $author)[0];
+                    $author = explode(" and the ", $author)[0];
+                    $author = explode(" on behalf of ", $author)[0];
+                    $author = preg_replace("/\(([^()]*+|(?R))*\)/", "", $author);
+                    $author = preg_replace("/([A-Z]{1,2})\.([A-Z][a-z]+)/", "$1. $2", $author);
+
+                }
+
+                $authors = $this->authorService->parse(implode(", ", $authors));
+                $papers[$match[1]] = [
+                    "authors" => $authors,
+                    "title" => html_entity_decode(strip_tags(preg_replace("/\s+/", " ", $match[2]))),
+                    "page" => $match[4],
+                    "author_str" => $match[3],
+                ];
             }
         }
 
-        asort($papers);
-        
-        $positions = [];
-        foreach ($papers as $code => $paper) {
+        // sort by page number
+        uasort($papers, function ($a, $b) {
+            return $a['page'] <=> $b['page'];
+        });
+
+        foreach ($papers as $code => &$paper) {
             $nextPn = 0;
+
             // find next higher pagenumber
             foreach ($papers as $pn) {
-                if (filter_var($pn, FILTER_VALIDATE_INT) && $pn > $paper) {
-                    $nextPn = $pn - 1;
+                if ($pn['page'] > $paper['page']) {
+                    $nextPn = $pn['page'] - 1;
                     break;
                 }
             }
             if ($nextPn == 0) {
                 $nextPn = 3778;
             }
-            $positions[$code] = $paper . "-" . $nextPn;
+            $paper['position'] = $paper['page'] . "-" . $nextPn;
         }
 
         /**
@@ -85,8 +105,28 @@ class SpecialImportPac99 extends Command
         /** @var Reference $reference */
         foreach ($references as $reference) {
             $code = $reference->getPaperId();
-            if (isset($positions[$code])) {
-                $reference->setPosition($positions[$code]);
+            if (isset($papers[$code])) {
+                $reference->setAuthor($papers[$code]['authors']['text']);
+                $reference->setTitle($papers[$code]['title']);
+                $reference->setOriginalAuthors($papers[$code]['author_str']);
+                $reference->setPosition($papers[$code]['position']);
+                $reference->getAuthors()->clear();
+                foreach ($papers[$code]['authors']['authors'] as $result) {
+                    $foundAuthors = $this->manager->getRepository(Author::class)->findBy(["name" => $result]);
+                    if (count($foundAuthors) > 0) {
+                        $foundAuthor = $foundAuthors[0];
+                    } else {
+                        $foundAuthor = new Author();
+                        $foundAuthor->setName($result);
+                        $this->manager->persist($foundAuthor);
+                        $output->writeln("New author: " . $result);
+                    }
+
+                    if (!$foundAuthor->getReferences()->contains($reference)) {
+                        $foundAuthor->addReference($reference);
+                    }
+                    $reference->addAuthor($foundAuthor);
+                }
                 $reference->setCache($reference->__toString());
                 $changes++;
             } else {
