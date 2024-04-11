@@ -35,7 +35,10 @@ class ExternalSearch
 
     private function extractPublisher($doiResult): ?string
     {
-        return $doiResult->publisher;
+        if (isset($doiResult->publisher)) {
+            return $doiResult->publisher;
+        }
+        return null;
     }
 
     private function extractJournalName($doiResult): ?string
