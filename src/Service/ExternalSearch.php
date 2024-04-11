@@ -27,7 +27,7 @@ class ExternalSearch
 
     private function extractEventName($doiResult): ?string
     {
-        if ($doiResult->type == "proceedings-article" && $doiResult->event) {
+        if ($doiResult->type == "proceedings-article" && isset($doiResult->event)) {
             return $doiResult->event;
         }
         return null;
