@@ -18,6 +18,11 @@ class Journal
     protected ?int $id = null;
 
     /**
+     * @ORM\Column(name="short_canonical", type="string", length=255)
+     */
+    protected ?string $shortCanonical = null;
+
+    /**
      * @ORM\Column(name="name_short", type="string", length=255)
      */
     protected string $short;
@@ -55,5 +60,15 @@ class Journal
     public function setLong(string $long): void
     {
         $this->long = $long;
+    }
+
+    public function getShortCanonical(): ?string
+    {
+        return $this->shortCanonical;
+    }
+
+    public function setShortCanonical(?string $shortCanonical): void
+    {
+        $this->shortCanonical = $shortCanonical;
     }
 }

@@ -229,8 +229,9 @@ class ExternalSearch
         $journalAbbreviation = $matches[1][0];
 
         $journal = new Journal();
-        $journal->setShort($journalName);
-        $journal->setLong($journalAbbreviation);
+        $journal->setShort($journalAbbreviation);
+        $journal->setShortCanonical(str_replace(".", "", $journalAbbreviation));
+        $journal->setLong($journalName);
         $this->manager->persist($journal);
         $this->manager->flush();
 
@@ -239,7 +240,15 @@ class ExternalSearch
 
     private function abbreviateJournal($originalReference, $journalName): ?array
     {
-        $abbreviation = $this->lookupAbbreviation($journalName);
+        // check if $journalName is already the abbreviation
+        $journalNameCanonical = str_replace(".", "", $journalName);
+        $shortResult = $this->manager->getRepository(Journal::class)->findOneBy(['short_canonical' => $journalNameCanonical]);
+        if (!empty($shortResult)) {
+            $abbreviation = $shortResult->getShort();
+            $journalName = $shortResult->getLong();
+        } else {
+            $abbreviation = $this->lookupAbbreviation($journalName);
+        }
 
         if (empty($abbreviation)) {
             return [
@@ -301,8 +310,11 @@ class ExternalSearch
         }
 
         $abbreviation = null;
+        dump($result);
+        dump($reference);
+
         if ($result['type'] == "journal-article") {
-            $result = $this->abbreviateJournal($reference, $result['name']);
+            $result = $this->abbreviateJournal($reference, $result['journalName']);
             $reference = $result["reference"];
             $abbreviation = $result["abbreviation"];
         } elseif ($result['type'] == "proceedings-article") {
