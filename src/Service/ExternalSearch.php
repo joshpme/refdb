@@ -28,7 +28,7 @@ class ExternalSearch
     private function extractEventName($doiResult): ?string
     {
         if ($doiResult->type == "proceedings-article" && isset($doiResult->event)) {
-            if (is_string($doiResult->event)) {
+            if (is_string($doiResult->event) && $doiResult->event != "") {
                 return $doiResult->event;
             }
 
@@ -333,7 +333,7 @@ class ExternalSearch
             $result = $this->abbreviateJournal($reference, $result['journalName']);
             $reference = $result["reference"];
             $abbreviation = $result["abbreviation"];
-        } elseif ($result['type'] == "proceedings-article") {
+        } elseif ($result['type'] == "proceedings-article" && $result['eventName'] !== null) {
             $result['eventName'] = str_replace("Proceedings of the ", "Proc. ", $result['eventName']);
             $result['eventName'] = str_replace(" International ", " Int. ", $result['eventName']);
             $result['eventName'] = str_replace(" Conference ", " Conf. ", $result['eventName']);
