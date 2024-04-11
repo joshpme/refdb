@@ -11,11 +11,13 @@ class ExternalSearch
 {
     protected EntityManagerInterface $manager;
 
-    public function __construct(EntityManagerInterface $manager) {
+    public function __construct(EntityManagerInterface $manager)
+    {
         $this->manager = $manager;
     }
 
-    private function extractDoi($referenceText): ?string {
+    private function extractDoi($referenceText): ?string
+    {
         preg_match('#10.\d{4,9}/[-._;()/:A-Z0-9]+#i', $referenceText, $matches);
         if (empty($matches)) {
             return null;
@@ -23,7 +25,21 @@ class ExternalSearch
         return rtrim($matches[0], ".");
     }
 
-    private function extractJournalName($doiResult): ?string {
+    private function extractEventName($doiResult): ?string
+    {
+        if ($doiResult->type == "proceedings-article" && $doiResult->event) {
+            return $doiResult->event;
+        }
+        return null;
+    }
+
+    private function extractPublisher($doiResult): ?string
+    {
+        return $doiResult->publisher;
+    }
+
+    private function extractJournalName($doiResult): ?string
+    {
         $journalKey = "short-container-title";
         if (isset($doiResult->$journalKey) && count($doiResult->$journalKey) != 0) {
             return $doiResult->$journalKey[0];
@@ -65,23 +81,30 @@ class ExternalSearch
             return null;
         }
 
+        $publisher = $this->extractPublisher($firstResult);
         $journalName = $this->extractJournalName($firstResult);
+        $eventName = $this->extractEventName($firstResult);
 
         $lookupMeta = new LookupMeta();
         $lookupMeta->setDoi($firstResult->DOI);
         $lookupMeta->setType($firstResult->type);
         $lookupMeta->setJournalName($journalName);
+        $lookupMeta->setEventName($eventName);
+        $lookupMeta->setPublisher($publisher);
         $this->manager->persist($lookupMeta);
         $this->manager->flush();
 
         return [
-            "doi"=>$firstResult->DOI,
-            "type"=>$firstResult->type,
-            "name"=>$journalName,
+            "doi" => $firstResult->DOI,
+            "type" => $firstResult->type,
+            "publisher" => $publisher,
+            "journalName" => $journalName,
+            "eventName" => $eventName,
         ];
     }
 
-    public function getBibTex($doi) {
+    public function getBibTex($doi)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://dx.doi.org/" . $doi);
         $headers = [
@@ -102,12 +125,15 @@ class ExternalSearch
         return $result;
     }
 
-    private function lookupMeta($doi): ?array {
+    private function lookupMeta($doi): ?array
+    {
         $lookup = $this->manager->getRepository(LookupMeta::class)->findOneBy(['doi' => $doi]);
         if (!empty($lookup)) {
             return [
                 "type"=>$lookup->getType(),
-                "name"=>$lookup->getJournalName(),
+                "journalName"=>$lookup->getJournalName(),
+                "eventName"=>$lookup->getEventName(),
+                "publisher"=>$lookup->getPublisher(),
             ];
         }
 
@@ -128,23 +154,32 @@ class ExternalSearch
         if ($http_code != 200) {
             return null;
         }
+
         $result = json_decode($rawResult);
+        $publisher = $this->extractPublisher($result);
         $journalName = $this->extractJournalName($result);
+        $eventName = $this->extractEventName($result);
 
         $lookupMeta = new LookupMeta();
         $lookupMeta->setDoi($doi);
         $lookupMeta->setType($result->type);
         $lookupMeta->setJournalName($journalName);
+        $lookupMeta->setEventName($eventName);
+        $lookupMeta->setPublisher($publisher);
+
         $this->manager->persist($lookupMeta);
         $this->manager->flush();
 
         return [
-            "type"=>$result->type,
-            "name"=>$journalName,
+            "type" => $result->type,
+            "publisher" => $publisher,
+            "journalName" => $journalName,
+            "eventName" => $eventName,
         ];
     }
 
-    private function doiToReference($doi): ?string {
+    private function doiToReference($doi): ?string
+    {
         $lookup = $this->manager->getRepository(Lookup::class)->findOneBy(['doi' => $doi]);
         if (!empty($lookup)) {
             return $lookup->getReference();
@@ -163,7 +198,6 @@ class ExternalSearch
         if (curl_errno($ch)) {
             return null;
         }
-
         $lookup = new Lookup();
         $lookup->setDoi($doi);
         $lookup->setReference($result);
@@ -173,7 +207,8 @@ class ExternalSearch
         return $result;
     }
 
-    private function lookupAbbreviation($journalName): ?string {
+    private function lookupAbbreviation($journalName): ?string
+    {
         $journal = $this->manager->getRepository(Journal::class)->findOneBy(['long' => $journalName]);
         if (!empty($journal)) {
             return $journal->getShort();
@@ -202,23 +237,25 @@ class ExternalSearch
         return $journalAbbreviation;
     }
 
-    private function abbreviateJournal($originalReference, $journalName): ?array {
+    private function abbreviateJournal($originalReference, $journalName): ?array
+    {
         $abbreviation = $this->lookupAbbreviation($journalName);
 
         if (empty($abbreviation)) {
             return [
-                "reference"=>$originalReference,
-                "abbreviation"=> null
+                "reference" => $originalReference,
+                "abbreviation" => null
             ];
         }
 
         return [
-            "reference"=>str_replace($journalName, $abbreviation, $originalReference),
-            "abbreviation"=>$abbreviation
+            "reference" => str_replace($journalName, $abbreviation, $originalReference),
+            "abbreviation" => $abbreviation
         ];
     }
 
-    private function adjustIeeeStyling($originalReference): string {
+    private function adjustIeeeStyling($originalReference): string
+    {
         // chop off [1]
         $result = substr($originalReference, 3);
 
@@ -229,7 +266,8 @@ class ExternalSearch
         return trim(preg_replace("/, (doi:10.*)\./", ". $1", $result));
     }
 
-    public function search($text): ?array {
+    public function search($text): ?array
+    {
         $doi = $this->extractDoi($text);
 
         if (empty($doi)) {
@@ -244,7 +282,9 @@ class ExternalSearch
             }
             $result = [
                 "type" => $meta['type'],
-                "name" => $meta['name'],
+                "journalName" => $meta['journalName'],
+                "publisher" => $meta['publisher'],
+                "eventName" => $meta['eventName'],
                 "doi" => $doi
             ];
         }
@@ -255,18 +295,29 @@ class ExternalSearch
             return null;
         }
 
+        // strip remove publisher
+        if ($result['publisher'] !== null) {
+            $reference = str_replace(", " . $result['publisher'], "", $reference);
+        }
+
         $abbreviation = null;
         if ($result['type'] == "journal-article") {
             $result = $this->abbreviateJournal($reference, $result['name']);
             $reference = $result["reference"];
             $abbreviation = $result["abbreviation"];
+        } elseif ($result['type'] == "proceedings-article") {
+            $result['eventName'] = str_replace("Proceedings of the ", "Proc. ", $result['eventName']);
+            $result['eventName'] = str_replace(" International ", " Int. ", $result['eventName']);
+            $result['eventName'] = str_replace(" Conference ", " Conf. ", $result['eventName']);
+            $reference = str_replace($result['journalName'], $result['eventName'], $reference);
+            $abbreviation = $result['eventName'];
         }
 
         return [
-            "reference"=>$this->adjustIeeeStyling($reference),
-            "doi"=>$doi,
-            "journalName"=>$result['name'] ?? "",
-            "abbreviation"=>$abbreviation,
+            "reference" => $this->adjustIeeeStyling($reference),
+            "doi" => $doi,
+            "journalName" => $result['journalName'] ?? "",
+            "abbreviation" => $abbreviation,
         ];
     }
 }

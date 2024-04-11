@@ -32,6 +32,19 @@ class LookupMeta
      */
     protected ?string $journalName = null;
 
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true, length=255)
+     */
+    protected ?string $publisher = null;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true, length=1000)
+     */
+    protected ?string $eventName = null;
+
     public function getDoi(): string
     {
         return $this->doi;
@@ -60,6 +73,26 @@ class LookupMeta
     public function setJournalName(?string $journalName): void
     {
         $this->journalName = $journalName;
+    }
+
+    public function getEventName(): ?string
+    {
+        return $this->eventName;
+    }
+
+    public function setEventName(?string $eventName): void
+    {
+        $this->eventName = $eventName;
+    }
+
+    public function getPublisher(): ?string
+    {
+        return $this->publisher;
+    }
+
+    public function setPublisher(?string $publisher): void
+    {
+        $this->publisher = $publisher;
     }
 
 }
