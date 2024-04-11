@@ -242,7 +242,7 @@ class ExternalSearch
     {
         // check if $journalName is already the abbreviation
         $journalNameCanonical = str_replace(".", "", $journalName);
-        $shortResult = $this->manager->getRepository(Journal::class)->findOneBy(['short_canonical' => $journalNameCanonical]);
+        $shortResult = $this->manager->getRepository(Journal::class)->findOneBy(['shortCanonical' => $journalNameCanonical]);
         if (!empty($shortResult)) {
             $abbreviation = $shortResult->getShort();
             $journalName = $shortResult->getLong();
@@ -310,8 +310,6 @@ class ExternalSearch
         }
 
         $abbreviation = null;
-        dump($result);
-        dump($reference);
 
         if ($result['type'] == "journal-article") {
             $result = $this->abbreviateJournal($reference, $result['journalName']);

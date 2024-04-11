@@ -48,7 +48,6 @@ class SpecialImportEPac96 extends Command
         }
 
         asort($papers);
-        dump($papers);
 
         $positions = [];
         foreach ($papers as $code => $paper) {
