@@ -18,10 +18,17 @@
 
     <div class="row">
         <div class="col">
-            {{ form_row(form.query, {"label": "Search Terms (e.g. Author, Paper Title, Conference)", "attr": {"placeholder": "Mass Spectrometry France"}}) }}
+            {{ form_row(form.query, {
+                "label": "Search Terms (e.g. Author, Paper Title, Conference)",
+                "attr": {
+                    "placeholder": "Mass Spectrometry France",
+                    "rows": 5
+                }
+            }) }}
         </div>
         <div class="col">
             {{ form_row(form.formatType) }}
+            {{ form_row(form.checkExternal) }}
         </div>
     </div>
     <div class="row">
@@ -35,54 +42,73 @@
 
     {% if searched %}
         <div class="results-section">
-            <h2>Results</h2>
-            <br/>
 
-            {% if references|length == 0 %}
-                <em id="no-results">No results found.</em>
+            {% if external is not null %}
+                <h2>External Result</h2>
+                <div class="card p-3">
+                    {% if format == "word" %}
+                    <pre class="wordbib">[n]{{ "\t" }}{{ external.reference|striptags('<span><em>')|raw }}</pre>
+                    {% elseif format == "bibitem" %}
+                        <textarea class="form-control latex-ref" style="height:100px;">{{ external.reference }}</textarea>
+                    {% elseif format == "bibtex" %}
+                        <textarea class="form-control bibtex-ref" style="height:314px;">{{ external.reference|trim }}</textarea>
+                    {% else %}
+                        {{ external.reference }}
+                    {% endif %}
+
+                </div>
+                <br />
             {% else %}
-                <div id="some-results">
-                    {% if format == 'text' %}
-                        <ul id="results">
-                            {% for reference in references %}
-                                <li><a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a><a class="item" href="{{ path("reference_show", {"id": reference.id }) }}">{{ reference.cache|latin }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    {% elseif format == 'bibtex' %}
-                        <div style="display:flex; flex-direction: column; gap: 0.5rem;">
-                            {% for reference in references %}
-                                <div style="display:flex;gap: 0.5rem;">
-                                    <a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a>
-                                    <textarea class="form-control latex-ref" style="flex-grow: 1;">
+
+                <h2>Results</h2>
+                <br/>
+
+                {% if references|length == 0 %}
+                    <em id="no-results">No results found.</em>
+                {% else %}
+                    <div id="some-results">
+                        {% if format == 'text' %}
+                            <ul id="results">
+                                {% for reference in references %}
+                                    <li><a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a><a class="item" href="{{ path("reference_show", {"id": reference.id }) }}">{{ reference.cache|latin }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% elseif format == 'bibtex' %}
+                            <div style="display:flex; flex-direction: column; gap: 0.5rem;">
+                                {% for reference in references %}
+                                    <div style="display:flex;gap: 0.5rem;">
+                                        <a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a>
+                                        <textarea class="form-control latex-ref" style="flex-grow: 1;">
                                         {%- include "reference/bibtex.html.twig" %}
                                     </textarea>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% elseif format == 'bibitem' %}
-                        <div style="display:flex; flex-direction: column; gap: 0.5rem;">
-                            {% for reference in references %}
-                                <div style="display:flex;gap: 0.5rem;">
-                                    <a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a>
-                                    <textarea class="form-control latex-ref" style="flex-grow: 1;">
-                                        {%- include "reference/latex.html.twig" %}
-                                    </textarea>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        <div class="card">
-                            <div class="card-body" style="display:flex; flex-direction: column;	gap: 0.5rem;">
-                                {% for reference in references %}
-                                <div style="display:flex;gap: 0.5rem;align-items: center;">
-                                    <a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a>
-                                    <div>{%- include "reference/word.html.twig" %}</div>
-                                </div>
+                                    </div>
                                 {% endfor %}
                             </div>
-                        </div>
-                    {% endif %}
-                </div>
+                        {% elseif format == 'bibitem' %}
+                            <div style="display:flex; flex-direction: column; gap: 0.5rem;">
+                                {% for reference in references %}
+                                    <div style="display:flex;gap: 0.5rem;">
+                                        <a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a>
+                                        <textarea class="form-control latex-ref" style="flex-grow: 1;">
+                                        {%- include "reference/latex.html.twig" %}
+                                    </textarea>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="card">
+                                <div class="card-body" style="display:flex; flex-direction: column;	gap: 0.5rem;">
+                                    {% for reference in references %}
+                                        <div style="display:flex;gap: 0.5rem;align-items: center;">
+                                            <a data-id="{{ reference.id }}" class="favourite favourite{{ reference.id }}" href="javascript:void(0)"><i class="far fa-star"></i></a>
+                                            <div>{%- include "reference/word.html.twig" %}</div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
             {% endif %}
         </div>
     {% endif %}

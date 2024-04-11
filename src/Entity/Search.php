@@ -10,6 +10,8 @@ class Search
 
     private ?FormatType $formatType = FormatType::Text;
 
+    private ?bool $checkExternal = false;
+
     public function getQuery(): ?string
     {
         return $this->query;
@@ -28,6 +30,14 @@ class Search
     public function setFormatType(?FormatType $formatType): void
     {
         $this->formatType = $formatType;
+    }
+
+    public function getCheckExternal(): ?bool {
+        return $this->checkExternal;
+    }
+
+    public function setCheckExternal(?bool $checkExternal): void {
+        $this->checkExternal = $checkExternal;
     }
 
 }
