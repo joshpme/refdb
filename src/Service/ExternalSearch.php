@@ -28,7 +28,17 @@ class ExternalSearch
     private function extractEventName($doiResult): ?string
     {
         if ($doiResult->type == "proceedings-article" && isset($doiResult->event)) {
-            return $doiResult->event;
+            if (is_string($doiResult->event)) {
+                return $doiResult->event;
+            }
+
+            if (isset($doiResult->event->acronym)) {
+                if (isset($doiResult->event->location)) {
+                    return "Proc. " . $doiResult->event->acronym . ", " . $doiResult->event->location;
+                }
+                return "Proc. " . $doiResult->event->acronym;
+            }
+
         }
         return null;
     }
@@ -201,6 +211,11 @@ class ExternalSearch
         if (curl_errno($ch)) {
             return null;
         }
+
+        if (strlen($result) > 1000) {
+            return null;
+        }
+
         $lookup = new Lookup();
         $lookup->setDoi($doi);
         $lookup->setReference($result);
