@@ -5,10 +5,14 @@ namespace App\Controller;
 use App\Entity\Author;
 use App\Entity\Conference;
 use App\Entity\Reference;
+use App\Entity\Search;
 use App\Form\BasicSearchType;
 use App\Http\CsvResponse;
 use App\Service\AdminNotifyService;
+use App\Service\DoiService;
 use App\Service\ImportService;
+use App\Service\PaperService;
+use App\Service\SearchService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -27,6 +31,161 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class ConferenceController extends AbstractController
 {
     private $safeRef = "/^((?!\/\/)[a-zA-Z0-9\/._])+$/";
+
+
+    /**
+     * Finds and displays a conference entity.
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/cache/{id}/search", name="conference_cache_search")
+     * @param Request $request
+     * @param Conference $conference
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function cacheSearchAction(Conference $conference, EntityManagerInterface $manager, SearchService $searchService): JsonResponse {
+        ini_set('memory_limit', '2G');
+        ini_set('max_execution_time', 900);
+
+        /** @var Reference[] $results */
+        $results = $manager->getRepository(Reference::class)
+            ->createQueryBuilder("r")
+            ->select("r")
+            ->where('r.conference = :conference')
+            ->setParameter('conference', $conference)
+            ->getQuery()
+            ->getResult();
+
+        $updated = 0;
+        foreach ($results as $reference) {
+            $updated++;
+            $searchService->insertOrUpdate($reference);
+        }
+
+        $manager->flush();
+
+        return new JsonResponse([
+            "updated" => $updated
+        ]);
+    }
+
+    /**
+     * Finds and displays a conference entity.
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/cache/{id}/text", name="conference_cache_text")
+     * @param Request $request
+     * @param Conference $conference
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function cacheTextAction(Conference $conference, EntityManagerInterface $manager): JsonResponse {
+        ini_set('memory_limit', '2G');
+        ini_set('max_execution_time', 900);
+
+        /** @var Reference[] $results */
+        $results = $manager->getRepository(Reference::class)
+            ->createQueryBuilder("r")
+            ->select("r")
+            ->where('r.conference = :conference')
+            ->setParameter('conference', $conference)
+            ->getQuery()
+            ->getResult();
+
+        $cleaned = 0;
+        foreach ($results as $result) {
+            if ($result->getPaperId() == "") {
+                $result->setPaperId(null);
+            }
+            if ($result->getCache() !== $result->__toString()) {
+                $result->setCache($result->__toString());
+                $cleaned++;
+            }
+        }
+
+        $manager->flush();
+
+        return new JsonResponse([
+            "updated" => $cleaned
+        ]);
+    }
+
+    /**
+     * Finds and displays a conference entity.
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/cache/{id}/paper", name="conference_cache_paper")
+     * @param Request $request
+     * @param Conference $conference
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function cachePaperAction(Conference $conference, EntityManagerInterface $manager, PaperService $paperService): JsonResponse {
+        ini_set('memory_limit', '2G');
+        ini_set('max_execution_time', 900);
+
+        /** @var Reference[] $results */
+        $results = $manager->getRepository(Reference::class)
+            ->createQueryBuilder("r")
+            ->select("r")
+            ->where('r.conference = :conference')
+            ->andWhere('r.paperUrl IS NOT NULL')
+            ->setParameter('conference', $conference)
+            ->getQuery()
+            ->getResult();
+
+        $updated = 0;
+        foreach ($results as $reference) {
+            if ($paperService->check($reference)) {
+                $updated++;
+            }
+        }
+
+        $manager->flush();
+
+        return new JsonResponse([
+            "updated" => $updated
+        ]);
+    }
+
+
+    /**
+     * Finds and displays a conference entity.
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/cache/{id}/doi", name="conference_cache_doi")
+     * @param Request $request
+     * @param Conference $conference
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function cacheDoiAction(Conference $conference, EntityManagerInterface $manager): JsonResponse {
+        ini_set('memory_limit', '2G');
+        ini_set('max_execution_time', 900);
+
+        /** @var Reference[] $results */
+        $results = $manager->getRepository(Reference::class)
+            ->createQueryBuilder("r")
+            ->select("r")
+            ->where('r.conference = :conference')
+            ->setParameter('conference', $conference)
+            ->getQuery()
+            ->getResult();
+
+        $doiService = new DoiService();
+
+        $output = [];
+        foreach ($results as $reference) {
+            if ($reference->getConference()->isPublished() && (($reference->getInProc() && $reference->getConference()->isUseDoi() && !$reference->isDoiVerified()) ||
+                    ($reference->getCustomDoi() !== null && $reference->getCustomDoi() !== "" && !$reference->isDoiVerified()))) {
+                $valid = $doiService->check($reference);
+                if (!$valid) {
+                    $output[] = "Failed on " . $reference->getConference()->getCode() . " " . $reference->getPaperId();
+                } else {
+                    $reference->setDoiVerified(true);
+                    $output[] = "Found DOI for " . $reference->getConference()->getCode() . " " . $reference->getPaperId();
+                }
+            }
+        }
+        $manager->flush();
+
+        return new JsonResponse([
+            "output" => $output
+        ]);
+    }
+
 
     /**
      * @Route("/parser", name="conference_parser", options={"expose"=true})

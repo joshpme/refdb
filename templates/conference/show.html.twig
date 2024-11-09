@@ -5,6 +5,20 @@
         var favourites = {{ favourite_service.favourites|json_encode }};
     </script>
     <script src="{{ asset('js/favourite.js') }}" async></script>
+    {% if is_granted("ROLE_ADMIN") %}
+    <script>
+        $(".cache-click").click((e) => {
+            e.preventDefault();
+            $(".cache-result").text("Loading");
+            $.get($(e.currentTarget).attr("href")).then(function(r) {
+                $(".cache-result").text("Done");
+            }).catch(() => {
+                $(".cache-result").text("Failed");
+            })
+            return false;
+        })
+    </script>
+    {% endif %}
 {% endblock %}
 
 {% block body %}
@@ -15,6 +29,7 @@
             <a class="btn btn-primary" href="{{ path('conference_edit', { 'id': conference.id }) }}"><i class="fas fa-edit"></i> Edit</a>
             <button class="btn btn-danger btn-modal" type="button" data-href="{{ path('conference_delete', { 'id': conference.id }) }}"><i class="fas fa-trash"></i> Delete</button>
         </div>
+
     {% endif %}
     <h2>{{ conference|latin }}</h2>
 
@@ -49,7 +64,22 @@
         </span>
     </p>
     {% endif %}
-    
+    {% if is_granted("ROLE_ADMIN") %}
+    <div>
+        <div class="">
+            <h3>Cache Operations</h3>
+            <div class="btn-group">
+                <a class="btn btn-default cache-click" href="{{ path('conference_cache_search', { 'id': conference.id }) }}"><i class="fas fa-download"></i> Update Search</a>
+                <a class="btn btn-default cache-click" href="{{ path('conference_cache_text', { 'id': conference.id }) }}"><i class="fas fa-download"></i> Update Text</a>
+                <a class="btn btn-default cache-click" href="{{ path('conference_cache_paper', { 'id': conference.id }) }}"><i class="fas fa-upload"></i> Update Paper URL</a>
+                <a class="btn btn-default cache-click" href="{{ path('conference_cache_doi', { 'id': conference.id }) }}"><i class="fas fa-edit"></i> Update DOI</a>
+            </div>
+        </div>
+        <div class="cache-result text-lg">
+
+        </div>
+    </div>
+    {% endif %}
     <br />
     <h3>References </h3>
     {% if conference.references|length == 0 %}
