@@ -9,6 +9,7 @@ use App\Entity\Search;
 use App\Form\BasicSearchType;
 use App\Http\CsvResponse;
 use App\Service\AdminNotifyService;
+use App\Service\ConferenceLoader;
 use App\Service\DoiService;
 use App\Service\ImportService;
 use App\Service\PaperService;
@@ -315,9 +316,16 @@ class ConferenceController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="conference_new")
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, ConferenceLoader $conferenceLoader)
     {
         $conference = new Conference();
+        $source = $request->query->get("source");
+        if ($source !== null) {
+            $response = $conferenceLoader->load($conference, $source);
+            if ($response !== null) {
+                $this->addFlash("notice", $response);
+            }
+        }
         $form = $this->createForm('App\Form\ConferenceType', $conference);
         $form->handleRequest($request);
 
