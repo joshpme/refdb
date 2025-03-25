@@ -34,6 +34,17 @@ class SearchController extends AbstractController
     }
 
     /**
+     * @Route("/internal", name="internal-query")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function internalAction(Request $request, SearchService $searchService)
+    {
+        $query = $request->get('query');
+        return new JsonResponse(['query'=>$searchService->search($query)]);
+    }
+
+    /**
      * @Route("/", name="homepage")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
