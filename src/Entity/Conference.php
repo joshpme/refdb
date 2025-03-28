@@ -25,6 +25,13 @@ class Conference implements \JsonSerializable
     private $id;
 
     /**
+     * @var int
+     * Indico event ID
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $eventId;
+
+    /**
      * @var string
      * Long version of a conference name.
      * @ORM\Column(name="name", type="string", length=4000, nullable=true)
@@ -159,6 +166,16 @@ class Conference implements \JsonSerializable
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getEventId(): ?int
+    {
+        return $this->eventId;
+    }
+
+    public function setEventId(?int $eventId): void
+    {
+        $this->eventId = $eventId;
     }
 
     /**
@@ -396,6 +413,7 @@ class Conference implements \JsonSerializable
         $end = $this->getConferenceEnd();
         return [
             "id"=>$this->getId(),
+            "eventId"=>$this->getEventId(),
             "name"=> $this->getName(),
             "code" => $this->getCode(),
             "conferenceStart"=> $start ? $this->getConferenceStart()->format("Y-m-d") : null,
@@ -514,6 +532,9 @@ class Conference implements \JsonSerializable
     }
     
     public function updateFromDto($dto) {
+        if (isset($dto['eventId']) && filter_var($dto['eventId'], FILTER_VALIDATE_INT)) {
+            $this->setEventId($dto['eventId']);
+        }
         if (isset($dto['name'])) {
             $this->setName($dto['name']);
         }

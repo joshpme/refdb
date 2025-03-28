@@ -31,6 +31,7 @@ class ConferenceController extends ApiController
 
     /**
      * @Route("/{id}", name="_get", methods={"GET"})
+     * @Route("/indico/{eventId}", name="_get_indico", methods={"GET"})
      * @param Conference $conference
      * @return JsonResponse
      */
@@ -70,6 +71,7 @@ class ConferenceController extends ApiController
     /**
      * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="_put", methods={"PUT"})
+     * @Route("/indico/{eventId}", name="_put_indico", methods={"PUT"})
      * @param Request $request
      * @param Conference $conference
      * @return Response
@@ -95,6 +97,7 @@ class ConferenceController extends ApiController
     /**
      * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="_patch", methods={"PATCH"})
+     * @Route("/indico/{eventId}", name="_patch_indico", methods={"PATCH"})
      * @param Conference $conference
      * @param Request $request
      * @return Response
@@ -113,8 +116,8 @@ class ConferenceController extends ApiController
     /**
      * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="_delete", methods={"DELETE"})
+     * @Route("/indico/{eventId}", name="_delete_indico", methods={"DELETE"})
      * @param Conference $conference
-     * @param Request $request
      * @return Response
      */
     public function deleteAction(Conference $conference) {
@@ -127,6 +130,7 @@ class ConferenceController extends ApiController
 
     /**
      * @Route("/{id}/references", name="_list_references", methods={"GET"})
+     * @Route("/indico/{eventId}/references", name="_list_references_indico", methods={"GET"})
      * @param Conference $conference
      * @return JsonResponse
      */
