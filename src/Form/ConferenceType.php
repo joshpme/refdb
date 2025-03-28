@@ -5,6 +5,7 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +21,7 @@ class ConferenceType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('eventId', IntegerType::class, array("required" => false, "label"=>"Indico Event ID"))
             ->add('code', null, array("label"=>"Conference Code (format ACRONYM'YY)"))
             ->add('series', null, ["label"=>"Series (e.g. International Beam Instrumentation Conference)", "required"=>false])
             ->add('seriesNumber', null, ["label"=>"Series Number (e.g. 12)", "required"=>false])
