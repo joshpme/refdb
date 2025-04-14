@@ -18,7 +18,7 @@ class ExternalSearch
 
     private function extractDoi($referenceText): ?string
     {
-        preg_match('#10.\d{4,9}/[-._;()/:A-Z0-9]+#i', $referenceText, $matches);
+        preg_match('#10.\d{4,9}/[-._;()/:a-zA-Z0-9]+#i', $referenceText, $matches);
         if (empty($matches)) {
             return null;
         }

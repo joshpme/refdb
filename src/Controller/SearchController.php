@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 /**
  *
@@ -23,25 +24,46 @@ class SearchController extends AbstractController
 {
 
     /**
-     * @Route("/external", name="external-query")
+     * @Route("/external/{format}", name="external-query", defaults={"format": "text"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function externalAction(Request $request, ExternalSearch $externalSearch)
+    public function externalAction(Request $request, ExternalSearch $externalSearch, ?string $format = "text")
     {
         $query = $request->get('query');
-        return new JsonResponse(['query'=>$externalSearch->search($query)]);
+        $externalResult = $externalSearch->search($query);
+
+        if (!empty($externalResult)) {
+            $formatter = new MarkupReference();
+            $externalResult["reference"] = match (FormatType::from($format)){
+                FormatType::Text => $externalResult["reference"],
+                FormatType::BibTex => $externalSearch->getBibTex($externalResult["doi"]),
+                FormatType::BibItem => $formatter->latex($externalResult["reference"], $externalResult["abbreviation"]),
+                FormatType::Word => $formatter->word($externalResult["reference"], $externalResult["abbreviation"]),
+            };
+        }
+
+        return new JsonResponse(['query'=>$externalResult]);
     }
 
     /**
-     * @Route("/internal", name="internal-query")
+     * @Route("/internal/{format}", name="internal-query", defaults={"format": "text"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function internalAction(Request $request, SearchService $searchService)
+    public function internalAction(Request $request, SearchService $searchService, Environment $twig, ?string $format = "text")
     {
         $query = $request->get('query');
-        return new JsonResponse(['query'=>$searchService->search($query)]);
+        $response = $searchService->search($query);
+        $results = [];
+        foreach ($response as $reference) {
+            $results = array_merge($results, $reference->jsonSerialize());
+
+            if (FormatType::from($format) == FormatType::BibItem) {
+                $results['name'] = $twig->render("reference/latex.html.twig", ["reference"=>$reference, "form"=>"short"]);
+            }
+        }
+        return new JsonResponse(['query'=>$results]);
     }
 
     /**
