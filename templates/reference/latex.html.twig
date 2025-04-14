@@ -1,5 +1,5 @@
-%\cite{{ '{' ~ reference.firstLastName ~ (reference.conference.code|replace({"'":""}) ~ '-' ~ reference.paperId)|trim(" -") ~ '}' }}
-\bibitem{{ '{' ~ reference.firstLastName ~ (reference.conference.code|replace({"'":""}) ~ '-' ~ reference.paperId)|trim(" -") ~ '}' }}{{ "\n   " ~ reference.author|replace({"et al.": "\\emph{et al.}"}) }},
+{% if hide_header is not defined %}%\cite{{ '{' ~ reference.firstLastName ~ (reference.conference.code|replace({"'":""}) ~ '-' ~ reference.paperId)|trim(" -") ~ '}' }}
+\bibitem{{ '{' ~ reference.firstLastName ~ (reference.conference.code|replace({"'":""}) ~ '-' ~ reference.paperId)|trim(" -") ~ '}' }}{{ "\n   " }}{% endif %}{{ reference.author|replace({"et al.": "\\emph{et al.}"}) }},
    \textquotedblleft{{ '{' ~ reference.titleCaseCorrected ~ '}' }}\textquotedblright,
    {% if reference.conference.published and reference.inProc -%}
         in \emph{{ '{Proc. ' ~ reference.conference.form(form)|replace({"'":"’"}) ~ '}' }}
