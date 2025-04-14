@@ -593,4 +593,8 @@ class Conference implements \JsonSerializable
             $this->setImportUrl($dto['importUrl']);
         }
     }
+
+    function isFuture(): bool {
+        return $this->getConferenceEnd() > new DateTime();
+    }
 }
