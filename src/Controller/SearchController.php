@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 /**
  *
@@ -46,14 +47,23 @@ class SearchController extends AbstractController
     }
 
     /**
-     * @Route("/internal", name="internal-query")
+     * @Route("/internal/{format}", name="internal-query", defaults={"format": "text"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function internalAction(Request $request, SearchService $searchService)
+    public function internalAction(Request $request, SearchService $searchService, Environment $twig, ?string $format = "text")
     {
         $query = $request->get('query');
-        return new JsonResponse(['query'=>$searchService->search($query)]);
+        $response = $searchService->search($query);
+        $results = [];
+        foreach ($response as $reference) {
+            $results = array_merge($results, $reference->jsonSerialize());
+
+            if (FormatType::from($format) == FormatType::BibItem) {
+                $results['name'] = $twig->render("reference/latex.html.twig", ["reference"=>$reference, "form"=>"short"]);
+            }
+        }
+        return new JsonResponse(['query'=>$results]);
     }
 
     /**
