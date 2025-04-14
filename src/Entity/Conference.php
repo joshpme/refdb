@@ -543,11 +543,15 @@ class Conference implements \JsonSerializable
         }
         if (isset($dto['conferenceStart'])) {
             $startDate = DateTime::createFromFormat("Y-m-d", $dto['conferenceStart']);
-            $this->setConferenceStart($startDate);
+            if ($startDate) {
+                $this->setConferenceStart($startDate);
+            }
         }
         if (isset($dto['conferenceEnd'])) {
             $endDate = DateTime::createFromFormat("Y-m-d", $dto['conferenceEnd']);
-            $this->setConferenceEnd($endDate);
+            if ($endDate) {
+                $this->setConferenceEnd($endDate);
+            }
         }
         if (isset($dto['year'])) {
             $this->setYear($dto['year']);
