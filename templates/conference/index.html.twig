@@ -42,6 +42,14 @@
                     {{ attribute(conference, field)|latin }}
                 </td>
                 {% endif %}
+                <td class="text-right">
+                    {% if conference.published %}
+                    {% elseif conference.future %}
+                        <span class="badge badge-primary">Upcoming {{ conference.year }}</span>
+                    {% else %}
+                        <span class="badge badge-warning">Not yet published</span>
+                    {% endif %}
+                </td>
                 {% if is_granted("ROLE_ADMIN") %}
                 <td class="text-center" width="150">
                     <a href="{{ path('conference_edit', { 'id': conference.id }) }}"><i class="fas fa-edit"></i> Edit</a>
