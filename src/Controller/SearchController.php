@@ -23,14 +23,26 @@ class SearchController extends AbstractController
 {
 
     /**
-     * @Route("/external", name="external-query")
+     * @Route("/external/{format}", name="external-query", defaults={"format": "text"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function externalAction(Request $request, ExternalSearch $externalSearch)
+    public function externalAction(Request $request, ExternalSearch $externalSearch, ?string $format = "text")
     {
         $query = $request->get('query');
-        return new JsonResponse(['query'=>$externalSearch->search($query)]);
+        $externalResult = $externalSearch->search($query);
+
+        if (!empty($externalResult)) {
+            $formatter = new MarkupReference();
+            $externalResult["reference"] = match (FormatType::from($format)){
+                FormatType::Text => $externalResult["reference"],
+                FormatType::BibTex => $externalSearch->getBibTex($externalResult["doi"]),
+                FormatType::BibItem => $formatter->latex($externalResult["reference"], $externalResult["abbreviation"]),
+                FormatType::Word => $formatter->word($externalResult["reference"], $externalResult["abbreviation"]),
+            };
+        }
+
+        return new JsonResponse(['query'=>$externalResult]);
     }
 
     /**
