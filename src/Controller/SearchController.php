@@ -57,11 +57,11 @@ class SearchController extends AbstractController
         $response = $searchService->search($query);
         $results = [];
         foreach ($response as $reference) {
-            $results = array_merge($results, $reference->jsonSerialize());
-
+            $result = $reference->jsonSerialize();
             if (FormatType::from($format) == FormatType::BibItem) {
-                $results['name'] = $twig->render("reference/latex.html.twig", ["reference"=>$reference, "form"=>"short", "hide_header"=>true]);
+                $result['name'] = $twig->render("reference/latex.html.twig", ["reference"=>$reference, "form"=>"short", "hide_header"=>true]);
             }
+            $results[] = $result;
         }
         return new JsonResponse(['query'=>$results]);
     }
