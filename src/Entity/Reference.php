@@ -580,6 +580,7 @@ class Reference implements \JsonSerializable
             }
         } else {
             $response["name"] = $this->getCache();
+            $response["doi"] = $this->doiOnly();
         }
 
         return $response;
