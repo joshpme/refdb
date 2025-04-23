@@ -106,7 +106,7 @@ class FavouriteController extends AbstractController
     public function toggleUpdateAction(Request $request, FavouriteService $favouriteService, Reference $reference)
     {
         $favouriteService->toggle($reference);
-        if (preg_match($this->safeRef, $request->get('ref'))) {
+        if ($request->get('ref') !== null && preg_match($this->safeRef, $request->get('ref'))) {
             return $this->redirect($request->get('ref'));
         }
         return $this->redirectToRoute("favourite_show");
