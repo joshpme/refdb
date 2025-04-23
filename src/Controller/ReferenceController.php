@@ -32,7 +32,7 @@ class ReferenceController extends AbstractController
      */
     public function formAction(Request $request, FormService $formService)
     {
-        if (preg_match($this->safeRef, $request->get('ref'))) {
+        if ($request->get('ref') !== null && preg_match($this->safeRef, $request->get('ref'))) {
             $formService->toggleForm();
             return $this->redirect($request->get('ref'));
         }
