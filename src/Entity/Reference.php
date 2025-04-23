@@ -367,7 +367,7 @@ class Reference implements \JsonSerializable
 
     public function hasTitleIssue() {
         // detect all upper case
-        return (preg_match("/^[0-9A-Z ]+$/",$this->getTitle()));
+        return $this->getTitle() !== null && preg_match("/^[0-9A-Z ]+$/",$this->getTitle());
     }
 
     public function getTitleCaseCorrected() {
