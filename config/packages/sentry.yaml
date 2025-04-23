@@ -1,0 +1,6 @@
+sentry:
+  dsn: "%env(resolve:SENTRY_DSN)%"
+  options:
+    environment: "%env(resolve:APP_ENV)%"
+    integrations:
+      - 'Sentry\Integration\IgnoreErrorsIntegration'

@@ -41,6 +41,12 @@ services:
     tags:
       - { name: twig.extension }
 
+  Sentry\Integration\IgnoreErrorsIntegration:
+    arguments:
+      $options:
+        ignore_exceptions:
+          - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+
   App\Service\FOSUserMailer:
     arguments:
       - '@mailer'
