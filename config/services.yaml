@@ -46,6 +46,7 @@ services:
       $options:
         ignore_exceptions:
           - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+          - Symfony\Component\Security\Core\Exception\AccessDeniedException
 
   App\Service\FOSUserMailer:
     arguments:

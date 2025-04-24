@@ -56,7 +56,7 @@ class FavouriteController extends AbstractController
                 $titleIssue = true;
             }
 
-            if (preg_match_all("/[\[\(\/]+/", $reference->getAuthor(), $matches) || count($reference->getAuthors()) == 0) {
+            if (empty($reference->getAuthor()) || preg_match_all("/[\[(\/]+/", $reference->getAuthor()) || count($reference->getAuthors()) == 0) {
                 $authorIssue = true;
             }
             if (($reference->getConference()->isPublished() && $reference->getInProc() && $reference->getPosition() != "na" && ($reference->getPosition() === null || $reference->getPosition() == "" || $reference->getPosition() == "99-98"))) {

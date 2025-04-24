@@ -80,7 +80,12 @@ class ReportController extends AbstractController
         $malformed = 0;
         $malformedIds = [];
         foreach ($authorList as $ref) {
-            preg_match_all("/[\[\(\/]+/",$ref['author'], $matches);
+            if (empty($ref['author'])) {
+                $malformedIds[] = $ref['id'];
+                $malformed++;
+                continue;
+            }
+            preg_match_all("/[\[(\/]+/",$ref['author'], $matches);
             if (count($matches[0]) != 0) {
                 $malformedIds[] = $ref['id'];
                 $malformed++;

@@ -425,7 +425,7 @@ class Reference implements \JsonSerializable
     }
 
     public function getFirstLastName() {
-        $authorString = $this->getAuthor();
+        $authorString = $this->getAuthor() ?? '';
         $authors = preg_split("/and|,/", $authorString);
 
         $author = $authors[0];

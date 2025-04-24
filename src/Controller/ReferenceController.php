@@ -83,7 +83,7 @@ class ReferenceController extends AbstractController
             $warning .= "This papers title is all uppercase, you must correct this before using this reference.\n\n";
         }
 
-        if (preg_match_all("/[\[\(\/]+/", $reference->getAuthor(), $matches) || count($reference->getAuthors()) == 0) {
+        if (empty($reference->getAuthor()) || preg_match_all("/[\[(\/]+/", $reference->getAuthor(), $matches) || count($reference->getAuthors()) == 0) {
             $warning .= "There is a problem with this papers authors.\n\n";
         }
         if (($reference->getConference()->isPublished() && $reference->getInProc() && $reference->getPosition() != "na" && ($reference->getPosition() === null || $reference->getPosition() == "" || $reference->getPosition() == "99-98"))) {
