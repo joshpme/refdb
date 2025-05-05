@@ -7,6 +7,7 @@ use App\Entity\Conference;
 use App\Entity\Reference;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use MongoDB\Driver\ReadPreference;
 use MongoDB\Driver\ServerApi;
 use Psr\Log\LoggerInterface;
 use Twig\Environment;
@@ -34,7 +35,7 @@ class SearchService
         }
         $uri = $this->searchDb;
         $apiVersion = new ServerApi(ServerApi::V1);
-        $client = new \MongoDB\Client($uri, [], ['serverApi' => $apiVersion]);
+        $client = new \MongoDB\Client($uri, [], ['serverApi' => $apiVersion, 'readPreference' => new ReadPreference(ReadPreference::RP_PRIMARY)]);
         try {
             // Send a ping to confirm a successful connection
             $client->selectDatabase('search')->command(['ping' => 1]);
