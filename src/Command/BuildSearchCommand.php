@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Entity\Conference;
 use App\Entity\Reference;
 use App\Service\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,12 +29,27 @@ class BuildSearchCommand extends Command
         parent::__construct();
     }
 
+    protected function configure()
+    {
+        $this
+            ->addArgument("conf");
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 60 * 60 * 2);
-        $references = $this->manager->getRepository(Reference::class)->findBy([],["paperId" => "ASC"]);
-
+        $conf = $input->getArgument('conf');
+        $conference = $this->manager
+            ->getRepository(Conference::class)
+            ->findOneBy(["code" => $conf]);
+        if ($conference === null) {
+            $output->writeln("Could not find conference with Code: " . $conf);
+            exit();
+        } else {
+            $output->writeln("Building search index for " . $conference->getName());
+        }
+        $references = $this->manager->getRepository(Reference::class)->findBy(["conference"=>$conference],["paperId" => "ASC"]);
         $i = 0;
         foreach ($references as $reference) {
             $i++;
