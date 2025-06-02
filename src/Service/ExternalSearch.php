@@ -240,11 +240,19 @@ class ExternalSearch
         curl_close($ch);
         preg_match_all("/<td>(.*?)</", $journalAbbreviationRaw, $matches);
 
+        $journalAbbreviation = null;
         if (count($matches[1]) == 0) {
-            return null;
+            if (str_starts_with($journalName, "The ")) {
+                $journalName = substr($journalName, 4);
+                $journalAbbreviation = $this->lookupAbbreviation($journalName);
+            }
+        } else {
+            $journalAbbreviation = $matches[1][0];
         }
 
-        $journalAbbreviation = $matches[1][0];
+        if (empty($journalAbbreviation)) {
+            return null;
+        }
 
         $journal = new Journal();
         $journal->setShort($journalAbbreviation);
