@@ -4,14 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Search;
 use App\Enum\FormatType;
+use App\Form\OmniSearchType;
 use App\Service\ExternalSearch;
 use App\Service\FavouriteService;
 use App\Service\MarkupReference;
 use App\Service\SearchService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -74,16 +72,7 @@ class SearchController extends AbstractController
     public function indexAction(Request $request, SearchService $searchService, ExternalSearch $externalSearch, FavouriteService $favouriteService)
     {
         $search = new Search();
-        $form = $this->createFormBuilder($search)
-            ->add('query', TextareaType::class)
-            ->add('formatType', EnumType::class, [
-                "class" => FormatType::class,
-            ])
-            ->add('checkExternal', CheckboxType::class, [
-                "label" => "Search for external reference",
-                "required" => false,
-            ])
-            ->getForm();
+        $form = $this->createForm(OmniSearchType::class, $search);
         $form->handleRequest($request);
 
         $results = [];
