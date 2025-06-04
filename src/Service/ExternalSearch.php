@@ -298,7 +298,7 @@ class ExternalSearch
         $result = str_replace("doi: 10", "doi:10", $result);
 
         // change ", doi:10." to ". doi:"
-        return trim(preg_replace("/, (doi:10.*)\./", ". $1", $result));
+        return trim(preg_replace("/[,.] (doi:10.*)\./", ". $1", $result));
     }
 
     public function search($text): ?array

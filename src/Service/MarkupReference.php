@@ -11,8 +11,9 @@ class MarkupReference
 {
 
     public function latex(string $reference, ?string $journalName): string {
+        $reference = strip_tags($reference);
         $reference = preg_replace("/ et al./", " \\textit{et al.}", $reference, 1);
-        $reference = preg_replace('#doi:10.\d{4,9}/[-._;()/:A-Z0-9]+#i', "\\url{\$0}", $reference);
+        $reference = preg_replace('#doi:10.\d{4,9}/[-._;()/:A-Z0-9]+#i', "\\doi{\$0}", $reference);
         if ($journalName !== null) {
             $reference = str_replace($journalName, "\\textit{" . $journalName . "}", $reference);
         }
