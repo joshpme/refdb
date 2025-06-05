@@ -30,7 +30,7 @@ class MarkupReference
 
     public function word(string $reference, ?string $journalName): string {
         $reference = preg_replace("/ et al./", " <em>et al.</em>", $reference, 1);
-        $reference = preg_replace('#doi:10.\d{4,9}/[-._;()/:A-Z0-9]+#i', "<a href=\"http://doi.org/$0\"><span style=\"font-family:'Liberation Mono'; font-size:8pt;\">$0</span></a>", $reference);
+        $reference = preg_replace('#doi:(10.\d{4,9}/[-._;()/:A-Z0-9]+)#i', "<a href=\"http://doi.org/$1\"><span style=\"font-family:'Liberation Mono'; font-size:8pt;\">$0</span></a>", $reference);
         if ($journalName !== null) {
             $reference = str_replace($journalName, "<em>" . $journalName . "</em>", $reference);
         }
