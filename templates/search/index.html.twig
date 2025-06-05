@@ -47,7 +47,7 @@
                 <h2>External Result</h2>
                 <div class="card p-3">
                     {% if format == "word" %}
-                    <pre class="wordbib">[n]{{ "\t" }}{{ external.reference|striptags('<span><em>')|raw }}</pre>
+                    <pre class="wordbib">[n]{{ "\t" }}{{ external.reference|striptags('<span><em><a>')|raw }}</pre>
                     {% elseif format == "bibitem" %}
                         <textarea class="form-control latex-ref" style="height:100px;">{{ external.reference }}</textarea>
                     {% elseif format == "bibtex" %}
