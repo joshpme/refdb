@@ -54,6 +54,7 @@ pre.wordbib {
   white-space: -moz-pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
+  overflow: hidden;
 }
 
 .latex-ref, .bibtex-ref {

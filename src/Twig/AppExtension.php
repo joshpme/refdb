@@ -32,7 +32,7 @@ class AppExtension extends AbstractExtension
 
     public function latinReplace($text)
     {
-        $text = strip_tags($text, "<em><sup><sub><br>");
+        $text = strip_tags($text, "<em><sup><sub><br><a>");
         $text = str_replace(" et al.", " <em>et al.</em>", $text);
         return $text;
     }
