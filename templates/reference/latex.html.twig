@@ -16,7 +16,7 @@
                     {%- endif -%}
                 {%- endif -%}.
                 {%- if reference.doi and reference.doiVerified -%}
-                    {{ '\n   \\url{' ~ reference.doiText ~ '}' -}}
+                    {{ '\n   \\doi{' ~ reference.doiOnly ~ '}' -}}
                 {%- else -%}
 
                 {%- endif -%}

@@ -240,11 +240,19 @@ class ExternalSearch
         curl_close($ch);
         preg_match_all("/<td>(.*?)</", $journalAbbreviationRaw, $matches);
 
+        $journalAbbreviation = null;
         if (count($matches[1]) == 0) {
-            return null;
+            if (str_starts_with($journalName, "The ")) {
+                $journalName = substr($journalName, 4);
+                $journalAbbreviation = $this->lookupAbbreviation($journalName);
+            }
+        } else {
+            $journalAbbreviation = $matches[1][0];
         }
 
-        $journalAbbreviation = $matches[1][0];
+        if (empty($journalAbbreviation)) {
+            return null;
+        }
 
         $journal = new Journal();
         $journal->setShort($journalAbbreviation);
@@ -290,7 +298,7 @@ class ExternalSearch
         $result = str_replace("doi: 10", "doi:10", $result);
 
         // change ", doi:10." to ". doi:"
-        return trim(preg_replace("/, (doi:10.*)\./", ". $1", $result));
+        return trim(preg_replace("/[,.] (doi:10.*)\./", ". $1", $result));
     }
 
     public function search($text): ?array
