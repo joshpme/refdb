@@ -4,32 +4,22 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table()
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'journal')]
 class Journal
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected ?int $id = null;
 
-    /**
-     * @ORM\Column(name="short_canonical", type="string", length=255)
-     */
+    #[ORM\Column(name: 'short_canonical', type: 'string', length: 255)]
     protected ?string $shortCanonical = null;
 
-    /**
-     * @ORM\Column(name="name_short", type="string", length=255)
-     */
+    #[ORM\Column(name: 'name_short', type: 'string', length: 255)]
     protected string $short;
 
-    /**
-     * @ORM\Column(name="name_long", type="string", length=400)
-     */
+    #[ORM\Column(name: 'name_long', type: 'string', length: 400)]
     protected string $long;
 
     public function getId(): ?int

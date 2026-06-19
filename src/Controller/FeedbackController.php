@@ -10,7 +10,7 @@ use App\Service\FeedbackNotifyService;
 use App\Service\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,11 +22,13 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class FeedbackController extends AbstractController
 {
+    use DoctrineTrait;
+
     /**
      * Lists all feedback entities.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/admin/feedback", name="feedback_index")
      */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/feedback', name: 'feedback_index')]
     public function indexAction(Request $request, PaginatorInterface $paginator)
     {
         $manager = $this->getDoctrine()->getManager();
@@ -48,11 +50,8 @@ class FeedbackController extends AbstractController
 
     /**
      * Creates a new feedback entity.
-     * @Route("/feedback/{id}", name="feedback_new")
-     * @param Request $request
-     * @param Reference $reference
-     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
+    #[Route('/feedback/{id}', name: 'feedback_new')]
     public function newAction(Request $request, Reference $reference, EntityManagerInterface $manager, AdminNotifyService $notifyService)
     {
         $feedback = new Feedback();
@@ -100,10 +99,8 @@ class FeedbackController extends AbstractController
         ));
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/admin/feedback/resolve/{id}", name="feedback_resolve")
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/feedback/resolve/{id}', name: 'feedback_resolve')]
     public function resolveAction(Feedback $feedback, EntityManagerInterface $manager): Response
     {
         $feedback->setResolved(true);
@@ -111,10 +108,8 @@ class FeedbackController extends AbstractController
         return $this->redirectToRoute("feedback_index");
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/admin/feedback/apply/{id}", name="feedback_apply")
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/feedback/apply/{id}', name: 'feedback_apply')]
     public function applyAction(Feedback $feedback, EntityManagerInterface $manager, SearchService $searchService, FeedbackNotifyService $feedbackNotifyService): Response
     {
         $reference = $feedback->getReference();
@@ -134,9 +129,7 @@ class FeedbackController extends AbstractController
         return $this->redirectToRoute("feedback_show", ["id" => $feedback->getId()]);
     }
 
-    /**
-     * @Route("/feedback/show/{id}", name="feedback_show")
-     */
+    #[Route('/feedback/show/{id}', name: 'feedback_show')]
     public function showAction(Feedback $feedback): Response
     {
         return $this->render('feedback/show.html.twig', array(

@@ -13,19 +13,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 /**
  * Conference controller.
- *
- * @Route("api/references", name="api_reference")
  */
+#[Route('api/references', name: 'api_reference')]
 class ReferenceController extends ApiController
 {
-    /**
-     * @Route("/{id}", name="_get", methods={"GET"})
-     * @param Reference $reference
-     * @return JsonResponse
-     */
+    #[Route('/{id}', name: '_get', methods: ['GET'])]
     public function getAction(Reference $reference)
     {
         $response = new JsonResponse($reference->jsonSerialize(true));
@@ -33,12 +28,8 @@ class ReferenceController extends ApiController
         return $response;
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/", name="_post", methods={"POST"})
-     * @param Request $request
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/', name: '_post', methods: ['POST'])]
     public function postAction(Request $request) {
         $dto = $this->getDto($request);
 
@@ -90,13 +81,8 @@ class ReferenceController extends ApiController
         return $this->responseFormErrors($form);
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="_put", methods={"PUT"})
-     * @param Request $request
-     * @param Reference $reference
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/{id}', name: '_put', methods: ['PUT'])]
     public function putAction(Request $request, Reference $reference) {
         $dto = $this->getDto($request);
         $dto['authors'] = json_encode($dto['authors']);
@@ -137,13 +123,8 @@ class ReferenceController extends ApiController
         return $this->responseFormErrors($form);
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="_patch", methods={"PATCH"})
-     * @param Request $request
-     * @param Reference $reference
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/{id}', name: '_patch', methods: ['PATCH'])]
     public function patchAction(Request $request, Reference $reference) {
         $manager =
             $this->getDoctrine()
@@ -200,12 +181,8 @@ class ReferenceController extends ApiController
             "api_conference_get");
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="_delete", methods={"DELETE"})
-     * @param Reference $reference
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/{id}', name: '_delete', methods: ['DELETE'])]
     public function deleteAction(Reference $reference) {
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($reference);

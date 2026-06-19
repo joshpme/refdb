@@ -22,26 +22,21 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Conference controller.
- *
- * @Route("conference")
  */
+#[Route('conference')]
 class ConferenceController extends AbstractController
 {
+    use DoctrineTrait;
+
     private $safeRef = "/^((?!\/\/)[a-zA-Z0-9\/._])+$/";
 
 
-    /**
-     * Finds and displays a conference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/cache/{id}/search", name="conference_cache_search")
-     * @param Request $request
-     * @param Conference $conference
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/cache/{id}/search', name: 'conference_cache_search')]
     public function cacheSearchAction(Conference $conference, EntityManagerInterface $manager, SearchService $searchService): JsonResponse {
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 900);
@@ -68,14 +63,8 @@ class ConferenceController extends AbstractController
         ]);
     }
 
-    /**
-     * Finds and displays a conference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/cache/{id}/text", name="conference_cache_text")
-     * @param Request $request
-     * @param Conference $conference
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/cache/{id}/text', name: 'conference_cache_text')]
     public function cacheTextAction(Conference $conference, EntityManagerInterface $manager): JsonResponse {
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 900);
@@ -107,14 +96,8 @@ class ConferenceController extends AbstractController
         ]);
     }
 
-    /**
-     * Finds and displays a conference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/cache/{id}/paper", name="conference_cache_paper")
-     * @param Request $request
-     * @param Conference $conference
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/cache/{id}/paper', name: 'conference_cache_paper')]
     public function cachePaperAction(Conference $conference, EntityManagerInterface $manager, PaperService $paperService): JsonResponse {
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 900);
@@ -144,14 +127,8 @@ class ConferenceController extends AbstractController
     }
 
 
-    /**
-     * Finds and displays a conference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/cache/{id}/doi", name="conference_cache_doi")
-     * @param Request $request
-     * @param Conference $conference
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/cache/{id}/doi', name: 'conference_cache_doi')]
     public function cacheDoiAction(Conference $conference, EntityManagerInterface $manager): JsonResponse {
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 900);
@@ -188,11 +165,7 @@ class ConferenceController extends AbstractController
     }
 
 
-    /**
-     * @Route("/parser", name="conference_parser", options={"expose"=true})
-     * @param Request $request
-     * @return JsonResponse
-     */
+    #[Route('/parser', name: 'conference_parser', options: ['expose' => true])]
     public function parserAction(Request $request): JsonResponse
     {
         $content = $request->request->get('content');
@@ -209,10 +182,7 @@ class ConferenceController extends AbstractController
         return new JsonResponse($data);
     }
 
-    /**
-     * Lists all conference entities.
-     * @Route("/", name="conference_index")
-     */
+    #[Route('/', name: 'conference_index')]
     public function indexAction(Request $request, PaginatorInterface $paginator)
     {
         $form = $this->createForm(BasicSearchType::class, null, ["method"=>"GET"]);
@@ -261,14 +231,8 @@ class ConferenceController extends AbstractController
         return $this->render('conference/index.html.twig', array('pagination' => $pagination, 'search'=> $form->createView()));
     }
 
-    /**
-     * Make this conference my current conference (changes the way the reference appears)
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/export/{id}", name="conference_export")
-     * @param Request $request
-     * @param Conference $conference
-     * @return CsvResponse
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/export/{id}', name: 'conference_export')]
     public function export(Request $request, Conference $conference, EntityManagerInterface $manager) {
         $references = $manager->getRepository(Reference::class)
             ->createQueryBuilder("r")
@@ -311,11 +275,8 @@ class ConferenceController extends AbstractController
 
     }
 
-    /**
-     * Creates a new conference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/new", name="conference_new")
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/new', name: 'conference_new')]
     public function newAction(Request $request, ConferenceLoader $conferenceLoader)
     {
         $conference = new Conference();
@@ -343,14 +304,7 @@ class ConferenceController extends AbstractController
         ));
     }
 
-    /**
-     * Finds and displays a conference entity.
-     *
-     * @Route("/show/{id}", name="conference_show")
-     * @param Request $request
-     * @param Conference $conference
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
+    #[Route('/show/{id}', name: 'conference_show')]
     public function showAction(Request $request, Conference $conference, PaginatorInterface $paginator)
     {
         $form = $this->createForm(BasicSearchType::class, null, ["method"=>"GET"]);
@@ -383,11 +337,8 @@ class ConferenceController extends AbstractController
 
     }
 
-    /**
-     * Displays a form to edit an existing conference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/edit/{id}", name="conference_edit")
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/edit/{id}', name: 'conference_edit')]
     public function editAction(Request $request, Conference $conference)
     {
         $deleteForm = $this->createDeleteForm($conference);
@@ -407,11 +358,8 @@ class ConferenceController extends AbstractController
         ));
     }
 
-    /**
-     * Deletes a conference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/delete/{id}", name="conference_delete")
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/delete/{id}', name: 'conference_delete')]
     public function deleteAction(Request $request, Conference $conference)
     {
         $form = $this->createDeleteForm($conference);
@@ -445,25 +393,14 @@ class ConferenceController extends AbstractController
             ;
     }
 
-    /**
-     * @Route("/search/{query}/{type}", name="conference_search", options={"expose"=true})
-     * @param $query
-     * @param string $type
-     * @return JsonResponse
-     */
+    #[Route('/search/{query}/{type}', name: 'conference_search', options: ['expose' => true])]
     public function searchAction($query, $type = "name") {
         $results = $this->getDoctrine()->getManager()->getRepository(Conference::class)
             ->search($query, $type);
         return new JsonResponse($results);
     }
 
-    /**
-     * @Route("/update_all", name="update_all")
-     * @param EntityManagerInterface $manager
-     * @param AdminNotifyService $adminNotificationService
-     * @param ImportService $importService
-     * @return Response
-     */
+    #[Route('/update_all', name: 'update_all')]
     public function updateConference(EntityManagerInterface $manager, AdminNotifyService $adminNotificationService, ImportService $importService) {
         $conferences = $manager
             ->getRepository(Conference::class)

@@ -7,155 +7,92 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Conference
- *
- * @ORM\Table(name="conference",indexes={@ORM\Index(name="conference_code_idx", columns={"code"})}))
- * @ORM\Entity(repositoryClass="App\Repository\ConferenceRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\ConferenceRepository::class)]
+#[ORM\Table(name: 'conference')]
+#[ORM\Index(name: 'conference_code_idx', columns: ['code'])]
 class Conference implements \JsonSerializable
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
-    /**
-     * @var int
-     * Indico event ID
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    // Indico event ID
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $eventId;
 
-    /**
-     * @var string
-     * Long version of a conference name.
-     * @ORM\Column(name="name", type="string", length=4000, nullable=true)
-     */
+    // Long version of a conference name.
+    #[ORM\Column(name: 'name', type: 'string', length: 4000, nullable: true)]
     private $name;
 
-    /**
-     * @var string
-     * eg. IPAC'18
-     * @ORM\Column(name="code", type="string", length=255)
-     */
+    // eg. IPAC'18
+    #[ORM\Column(name: 'code', type: 'string', length: 255)]
     private $code;
 
-    /**
-     * Start of conference (e.g. 18 March 2018)
-     * @var DateTime
-     * @ORM\Column(type="date", nullable=true)
-     */
+    // Start of conference (e.g. 18 March 2018)
+    #[ORM\Column(type: 'date', nullable: true)]
     private $conferenceStart;
 
-    /**
-     * Last day of conference (e.g. 21 March 2018)
-     * @var DateTime
-     * @ORM\Column(type="date", nullable=true)
-     */
+    // Last day of conference (e.g. 21 March 2018)
+    #[ORM\Column(type: 'date', nullable: true)]
     private ?DateTime $conferenceEnd;
-    /**
-     * This is the date of the conference, Eg. May 2018
-     * @var string
-     * @ORM\Column(name="year", type="string", length=255, nullable=true)
-     */
+
+    // This is the date of the conference, Eg. May 2018
+    #[ORM\Column(name: 'year', type: 'string', length: 255, nullable: true)]
     private $year;
 
-    /**
-     * @var string
-     * eg. International Beam Instrumentation Conference
-     * @ORM\Column(name="series", type="string", length=150, nullable=true)
-     */
+    // eg. International Beam Instrumentation Conference
+    #[ORM\Column(name: 'series', type: 'string', length: 150, nullable: true)]
     private $series;
 
-    /**
-     * @var int
-     * eg. 9
-     * @ORM\Column(name="series_number", type="integer", nullable=true)
-     */
+    // eg. 9
+    #[ORM\Column(name: 'series_number', type: 'integer', nullable: true)]
     private $seriesNumber;
-    
-    /**
-     * eg. 2673-5350 (stored without dashes)
-     * @ORM\Column(name="issn", type="string", length=8, nullable=true)
-     */
+
+    // eg. 2673-5350 (stored without dashes)
+    #[ORM\Column(name: 'issn', type: 'string', length: 8, nullable: true)]
     private $issn;
-    
-    /**
-     * e.g. 978-3-95450-222-6 (stored without dashes)
-     * @ORM\Column(name="isbn", type="string", length=13, nullable=true)
-     */
+
+    // e.g. 978-3-95450-222-6 (stored without dashes)
+    #[ORM\Column(name: 'isbn', type: 'string', length: 13, nullable: true)]
     private $isbn;
-    
-    /**
-     * @var int
-     * eg. 12
-     * @ORM\Column(name="pub_month", type="integer", nullable=true)
-     */
+
+    // eg. 12
+    #[ORM\Column(name: 'pub_month', type: 'integer', nullable: true)]
     private $pubMonth;
-    
-    /**
-     * @var int
-     * eg. 2022
-     * @ORM\Column(name="pub_year", type="integer", nullable=true)
-     */
+
+    // eg. 2022
+    #[ORM\Column(name: 'pub_year', type: 'integer', nullable: true)]
     private $pubYear;
 
-    /**
-     * Conference component of the DOIs
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    // Conference component of the DOIs
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $doiCode;
 
-    /**
-     * Enable DOIs or not.
-     * @ORM\Column(type="boolean", nullable=true)
-     * @var boolean
-     */
+    // Enable DOIs or not.
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $useDoi;
 
-    /**
-     * @ORM\Column(type="string", nullable=true, length=1000)
-     * Path to conference website
-     * @var string
-     */
+    // Path to conference website
+    #[ORM\Column(type: 'string', nullable: true, length: 1000)]
     private $baseUrl;
 
-    /**
-     * Location of the conference, eg. Sydney, Australia
-     * @var string
-     * Assert\Regex("/^([A-Za-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ '\-]+, (?!USA)[A-Za-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ '\-]+|[A-Za-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ '\-]+, [A-Za-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ '\-]+, USA)$/")
-     * @ORM\Column(name="location", type="string", length=2000)
-     */
+    // Location of the conference, eg. Sydney, Australia
+    #[ORM\Column(name: 'location', type: 'string', length: 2000)]
     private $location;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reference", mappedBy="conference", cascade={"remove"})
      * @var ArrayCollection
      */
+    #[ORM\OneToMany(targetEntity: Reference::class, mappedBy: 'conference', cascade: ['remove'])]
     private $references;
 
-    /**
-     * Status of the conference proceedings
-     *
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+    // Status of the conference proceedings
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $isPublished;
 
-    /**
-     * Automatic import URL for unpublished conferences
-     * @var string
-     *
-     * @ORM\Column(type="string", length=2000, nullable=true)
-     */
+    // Automatic import URL for unpublished conferences
+    #[ORM\Column(type: 'string', length: 2000, nullable: true)]
     private $importUrl;
 
     /**

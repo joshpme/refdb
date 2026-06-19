@@ -7,7 +7,7 @@ use App\Entity\Favourite;
 use App\Entity\Reference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Service\AuthorService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,15 +16,14 @@ use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * Clean controller, for basic data cleansing purposes
- *
- * @Route("clean")
  */
+#[Route('clean')]
 class CleanController extends AbstractController
 {
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/talks/{id}/{talk}", name="talk_update", options={"expose"=true})
-     */
+    use DoctrineTrait;
+
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/talks/{id}/{talk}', name: 'talk_update', options: ['expose' => true])]
     public function updatePossibleTalkAction(Reference $reference, bool $talk) {
         $manager = $this->getDoctrine()->getManager();
         $reference->setInProc($talk);
@@ -33,10 +32,8 @@ class CleanController extends AbstractController
         return new JsonResponse();
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/talks", name="talk_clean")
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/talks', name: 'talk_clean')]
     public function talkAction(Request $request, PaginatorInterface $paginator)
     {
         $allPossibleTalks = $this->getDoctrine()->getManager()

@@ -9,19 +9,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 /**
  * Author controller.
- *
- * @Route("api/authors", name="api_author")
  */
+#[Route('api/authors', name: 'api_author')]
 class AuthorController extends ApiController
 {
-    /**
-     * @Route("/{id}", name="_get", methods={"GET"})
-     * @param Author $author
-     * @return JsonResponse
-     */
+    #[Route('/{id}', name: '_get', methods: ['GET'])]
     public function getAction(Author $author)
     {
         $response = new JsonResponse($author);
@@ -29,12 +24,8 @@ class AuthorController extends ApiController
         return $response;
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/", name="_post", methods={"POST"})
-     * @param Request $request
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/', name: '_post', methods: ['POST'])]
     public function postAction(Request $request) {
         $dto = $this->getDto($request);
 
@@ -55,13 +46,8 @@ class AuthorController extends ApiController
         return $this->responseFormErrors($form);
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="_put", methods={"PUT"})
-     * @param Request $request
-     * @param Author $author
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/{id}', name: '_put', methods: ['PUT'])]
     public function putAction(Request $request, Author $author) {
         $dto = $this->getDto($request);
 
@@ -80,12 +66,8 @@ class AuthorController extends ApiController
         return $this->responseFormErrors($form);
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="_delete", methods={"DELETE"})
-     * @param Author $author
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/{id}', name: '_delete', methods: ['DELETE'])]
     public function deleteAction(Author $author) {
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($author);
@@ -94,11 +76,7 @@ class AuthorController extends ApiController
         return $this->respondSuccess(ApiController::DELETE_CODE);
     }
 
-    /**
-     * @Route("/{id}/references", name="_list_references", methods={"GET"})
-     * @param Author $author
-     * @return JsonResponse
-     */
+    #[Route('/{id}/references', name: '_list_references', methods: ['GET'])]
     public function referencesAction(Author $author)
     {
         $references = $author->getReferences();

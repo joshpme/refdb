@@ -4,36 +4,27 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Favourite
- *
- * @ORM\Table(name="favourite")
- * @ORM\Entity(repositoryClass="App\Repository\FavouriteRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\FavouriteRepository::class)]
+#[ORM\Table(name: 'favourite')]
 class Favourite implements \JsonSerializable
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
-     * @var Reference     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Reference", inversedBy="favourites")
-     * @ORM\JoinColumn(nullable=false)
+     * @var Reference
      */
+    #[ORM\ManyToOne(targetEntity: Reference::class, inversedBy: 'favourites')]
+    #[ORM\JoinColumn(nullable: false)]
     private $reference;
 
     /**
      * @var User|null
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="favourites")
-     * @ORM\JoinColumn(nullable=true)
      */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'favourites')]
+    #[ORM\JoinColumn(nullable: true)]
     private $user;
 
     /**

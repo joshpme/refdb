@@ -1,0 +1,9 @@
+var/
+vendor/
+.git/
+.idea/
+.phpunit
+.phpunit.result.cache
+config/jwt/*.pem
+.env.local
+.env.*.local

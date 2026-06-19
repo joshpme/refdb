@@ -6,65 +6,45 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- *
  * Feedback, for users to alert admins of incorrect references
- *
- * @ORM\Table(name="feedback")
- * @ORM\Entity(repositoryClass="App\Repository\FeedbackRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\FeedbackRepository::class)]
+#[ORM\Table(name: 'feedback')]
 class Feedback
 {
-    /**
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(name="feedback", type="text", nullable=true)
-     */
+    #[ORM\Column(name: 'feedback', type: 'text', nullable: true)]
     private ?string $feedback = null;
 
-    /**
-     * @Assert\Length(max=500)
-     * @ORM\Column(name="title", type="string", length=500, nullable=true)
-     */
+    #[Assert\Length(max: 500)]
+    #[ORM\Column(name: 'title', type: 'string', length: 500, nullable: true)]
     private ?string $title = null;
 
-    /**
-     * @Assert\Length(max=500)
-     * @ORM\Column(name="author", type="string", length=500, nullable=true)
-     */
+    #[Assert\Length(max: 500)]
+    #[ORM\Column(name: 'author', type: 'string', length: 500, nullable: true)]
     private ?string $author = null;
 
-    /**
-     * @Assert\Length(max=255)
-     * @ORM\Column(name="position", type="string", length=255, nullable=true)
-     */
+    #[Assert\Length(max: 255)]
+    #[ORM\Column(name: 'position', type: 'string', length: 255, nullable: true)]
     private ?string $position = null;
 
-    /**
-     * @Assert\Length(max=100)
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
+    #[Assert\Length(max: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private ?string $customDoi = null;
 
-    /**
-     * @Assert\Email()
-     * @Assert\Length(max=100)
-     * @ORM\Column(name="email", type="string", length=100, nullable=true)
-     */
+    #[Assert\Email]
+    #[Assert\Length(max: 100)]
+    #[ORM\Column(name: 'email', type: 'string', length: 100, nullable: true)]
     private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default": false})
-     */
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $resolved = false;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Reference", inversedBy="feedback")
-     */
+    #[ORM\ManyToOne(targetEntity: Reference::class, inversedBy: 'feedback')]
     private Reference $reference;
 
     public function isResolved(): bool

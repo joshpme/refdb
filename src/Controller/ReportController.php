@@ -15,15 +15,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Author controller.
- *
- * @Route("report")
  */
+#[Route('report')]
 class ReportController extends AbstractController
 {
+    use DoctrineTrait;
+
     /**
      * Lists all author entities.
-     * @Route("/", name="report_index")
      */
+    #[Route('/', name: 'report_index')]
     public function indexAction(Request $request)
     {
         $manager = $this->getDoctrine()->getManager();
@@ -118,13 +119,7 @@ class ReportController extends AbstractController
     }
 
 
-    /**
-     * Lists all author entities.
-     * @Route("/ref/id", name="id_report")
-     * @param Request $request
-     * @param PaginatorInterface $paginator
-     * @return Response
-     */
+    #[Route('/ref/id', name: 'id_report')]
     public function reportAction(Request $request, PaginatorInterface $paginator)
     {
         $ids = explode(",", $request->get("filter"));
@@ -145,13 +140,7 @@ class ReportController extends AbstractController
         return $this->render('report/reference.html.twig', array('pagination' => $pagination));
     }
 
-    /**
-     * Lists all author entities.
-     * @Route("/conf/id", name="id_conference")
-     * @param Request $request
-     * @param PaginatorInterface $paginator
-     * @return Response
-     */
+    #[Route('/conf/id', name: 'id_conference')]
     public function conferenceAction(Request $request, PaginatorInterface $paginator)
     {
         $ids = explode(",", $request->get("filter"));
@@ -173,13 +162,7 @@ class ReportController extends AbstractController
     }
 
 
-    /**
-     * Lists all author entities.
-     * @Route("/pages", name="pages_report")
-     * @param Request $request
-     * @param PaginatorInterface $paginator
-     * @return Response
-     */
+    #[Route('/pages', name: 'pages_report')]
     public function pagesAction(Request $request, PaginatorInterface $paginator)
     {
         $manager = $this->getDoctrine()->getManager();

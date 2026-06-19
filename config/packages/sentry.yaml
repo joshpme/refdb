@@ -2,5 +2,6 @@ sentry:
   dsn: "%env(resolve:SENTRY_DSN)%"
   options:
     environment: "%env(resolve:APP_ENV)%"
-    integrations:
-      - 'Sentry\Integration\IgnoreErrorsIntegration'
+    ignore_exceptions:
+      - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+      - Symfony\Component\Security\Core\Exception\AccessDeniedException

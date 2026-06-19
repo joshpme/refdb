@@ -18,7 +18,28 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('latin', [$this, 'latinReplace'], ['is_safe' => ['html']]),
+            new TwigFilter('ordinal', [$this, 'ordinal']),
         ];
+    }
+
+    public function ordinal($number)
+    {
+        if ($number === null || $number === '') {
+            return $number;
+        }
+
+        $number = (int) $number;
+        $suffix = 'th';
+        if (!in_array($number % 100, [11, 12, 13], true)) {
+            $suffix = match ($number % 10) {
+                1 => 'st',
+                2 => 'nd',
+                3 => 'rd',
+                default => 'th',
+            };
+        }
+
+        return $number . $suffix;
     }
 
     private function endsWith($string, $endString)

@@ -1,0 +1,79 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - composer_cache:/root/.composer
+    environment:
+      APP_ENV: dev
+      APP_DEBUG: "1"
+      APP_SECRET: local-dev-secret-change-me
+      DATABASE_URL: mysql://refdb:refdb@db:3306/refdb?serverVersion=10.11&charset=utf8mb4
+      SEARCH_DB: mongodb://mongodb:27017
+      ROOT_FOLDER: /var/www/html
+      FROM_ADDRESS: noreply@localhost
+      MAILER_DSN: smtp://mailpit:1025
+      SENTRY_DSN: ""
+      JWT_PASSPHRASE: ""
+    depends_on:
+      db:
+        condition: service_healthy
+      mongodb:
+        condition: service_started
+      mailpit:
+        condition: service_started
+    restart: unless-stopped
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: refdb
+      MYSQL_USER: refdb
+      MYSQL_PASSWORD: refdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 256M
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  mongodb_data:
+  composer_cache:

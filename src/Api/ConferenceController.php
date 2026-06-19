@@ -9,18 +9,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 /**
  * Conference controller.
- *
- * @Route("api/conferences", name="api_conference")
  */
+#[Route('api/conferences', name: 'api_conference')]
 class ConferenceController extends ApiController
 {
-    /**
-     * @Route("/", name="_list", methods={"GET"})
-     * @return JsonResponse
-     */
+    #[Route('/', name: '_list', methods: ['GET'])]
     public function listAction()
     {
         $conferenceDb = $this->getDoctrine()->getManager()->getRepository(Conference::class)->findAll();
@@ -29,12 +25,8 @@ class ConferenceController extends ApiController
         return $response;
     }
 
-    /**
-     * @Route("/{id}", name="_get", methods={"GET"})
-     * @Route("/indico/{eventId}", name="_get_indico", methods={"GET"})
-     * @param Conference $conference
-     * @return JsonResponse
-     */
+    #[Route('/{id}', name: '_get', methods: ['GET'])]
+    #[Route('/indico/{eventId}', name: '_get_indico', methods: ['GET'])]
     public function getAction(Conference $conference)
     {
         $response = new JsonResponse($conference);
@@ -42,12 +34,8 @@ class ConferenceController extends ApiController
         return $response;
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/", name="_post", methods={"POST"})
-     * @param Request $request
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/', name: '_post', methods: ['POST'])]
     public function postAction(Request $request) {
         $dto = $this->getDto($request);
 
@@ -68,14 +56,9 @@ class ConferenceController extends ApiController
         return $this->responseFormErrors($form);
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="_put", methods={"PUT"})
-     * @Route("/indico/{eventId}", name="_put_indico", methods={"PUT"})
-     * @param Request $request
-     * @param Conference $conference
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/{id}', name: '_put', methods: ['PUT'])]
+    #[Route('/indico/{eventId}', name: '_put_indico', methods: ['PUT'])]
     public function putAction(Request $request, Conference $conference) {
         $dto = $this->getDto($request);
 
@@ -94,14 +77,9 @@ class ConferenceController extends ApiController
         return $this->responseFormErrors($form);
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="_patch", methods={"PATCH"})
-     * @Route("/indico/{eventId}", name="_patch_indico", methods={"PATCH"})
-     * @param Conference $conference
-     * @param Request $request
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/{id}', name: '_patch', methods: ['PATCH'])]
+    #[Route('/indico/{eventId}', name: '_patch_indico', methods: ['PATCH'])]
     public function patchAction(Request $request, Conference $conference) {
         $dto = $this->getDto($request);
         $conference->updateFromDto($dto);
@@ -113,13 +91,9 @@ class ConferenceController extends ApiController
             "api_conference_get");
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/{id}", name="_delete", methods={"DELETE"})
-     * @Route("/indico/{eventId}", name="_delete_indico", methods={"DELETE"})
-     * @param Conference $conference
-     * @return Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/{id}', name: '_delete', methods: ['DELETE'])]
+    #[Route('/indico/{eventId}', name: '_delete_indico', methods: ['DELETE'])]
     public function deleteAction(Conference $conference) {
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($conference);
@@ -128,12 +102,8 @@ class ConferenceController extends ApiController
         return $this->respondSuccess(ApiController::DELETE_CODE);
     }
 
-    /**
-     * @Route("/{id}/references", name="_list_references", methods={"GET"})
-     * @Route("/indico/{eventId}/references", name="_list_references_indico", methods={"GET"})
-     * @param Conference $conference
-     * @return JsonResponse
-     */
+    #[Route('/{id}/references', name: '_list_references', methods: ['GET'])]
+    #[Route('/indico/{eventId}/references', name: '_list_references_indico', methods: ['GET'])]
     public function referencesAction(Conference $conference)
     {
         $references = $this

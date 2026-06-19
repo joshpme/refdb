@@ -1,0 +1,10 @@
+<h1>Hi {{ user.username }}!</h1>
+
+<p>Please confirm your email address by clicking the following link:</p>
+
+<p><a href="{{ signedUrl }}">Confirm my email</a></p>
+
+<p>This link will expire {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</p>
+
+<p>Thanks,</p>
+<p>JaCoW Reference Search</p>

@@ -12,7 +12,7 @@ framework:
 
     form: ~
     csrf_protection: ~
-    validation: { enable_annotations: true }
+    validation: { enable_attributes: true }
     default_locale: 'en'
     trusted_hosts: ~
     trusted_proxies: '192.0.0.1,10.0.0.0/8'

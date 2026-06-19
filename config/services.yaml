@@ -36,30 +36,3 @@ services:
   App\Api\:
     resource: "../src/Api/"
     tags: ["controller.service_arguments"]
-
-  Fvozar\Twig\OrdinalNumberExtension:
-    tags:
-      - { name: twig.extension }
-
-  Sentry\Integration\IgnoreErrorsIntegration:
-    arguments:
-      $options:
-        ignore_exceptions:
-          - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-          - Symfony\Component\Security\Core\Exception\AccessDeniedException
-
-  App\Service\FOSUserMailer:
-    arguments:
-      - '@mailer'
-      - '@router'
-      - '@twig'
-      - {
-          template: {
-            confirmation: "%fos_user.registration.confirmation.template%",
-            resetting: "%fos_user.registration.confirmation.template%"
-          },
-          from_email: {
-            confirmation: "%fos_user.registration.confirmation.from_email%",
-            resetting: "%fos_user.resetting.email.from_email%"
-          }
-        }

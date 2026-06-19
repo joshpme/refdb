@@ -13,17 +13,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Author controller.
- *
- * @Route("favourite")
  */
+#[Route('favourite')]
 class FavouriteController extends AbstractController
 {
+    use DoctrineTrait;
+
     private $safeRef = "/^((?!\/\/)[a-zA-Z0-9\/._])+$/";
 
     /**
      * Lists all author entities.
-     * @Route("/show", name="favourite_show")
      */
+    #[Route('/show', name: 'favourite_show')]
     public function indexAction(FavouriteService $favouriteService, FormService $formService)
     {
         $favourites = $favouriteService->getFavourites();
@@ -97,12 +98,7 @@ class FavouriteController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/remove/{id}", name="favourite_toggle_redirect")
-     * @param FavouriteService $favouriteService
-     * @param Reference $reference
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
+    #[Route('/remove/{id}', name: 'favourite_toggle_redirect')]
     public function toggleUpdateAction(Request $request, FavouriteService $favouriteService, Reference $reference)
     {
         $favouriteService->toggle($reference);
@@ -112,12 +108,7 @@ class FavouriteController extends AbstractController
         return $this->redirectToRoute("favourite_show");
     }
 
-    /**
-     * @Route("/toggle/{id}", name="favourite_toggle", options={"expose"=true})
-     * @param FavouriteService $favouriteService
-     * @param Reference $reference
-     * @return JsonResponse
-     */
+    #[Route('/toggle/{id}', name: 'favourite_toggle', options: ['expose' => true])]
     public function toggleAction(FavouriteService $favouriteService, Reference $reference)
     {
         $results = $favouriteService->toggle($reference);

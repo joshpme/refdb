@@ -5,154 +5,91 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Reference
- *
- * @ORM\Table(name="reference",indexes={
- *     @ORM\Index(name="reference_paper_idx", columns={"cache"}) })
- * @ORM\Entity(repositoryClass="App\Repository\ReferenceRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\ReferenceRepository::class)]
+#[ORM\Table(name: 'reference')]
+#[ORM\Index(name: 'reference_paper_idx', columns: ['cache'])]
 class Reference implements \JsonSerializable
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
-    /**
-     * Numbers of hits a reference has
-     * @var int
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    // Numbers of hits a reference has
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $hits;
 
-    /**
-     * The original imported author string to help aid with correcting errors.
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
-     */
+    // The original imported author string to help aid with correcting errors.
+    #[ORM\Column(type: 'text', nullable: true)]
     private $originalAuthors;
 
-    /**
-     * @var int
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $contributionId;
 
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $paperId;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=500, nullable=true)
-     */
+    #[ORM\Column(name: 'title', type: 'string', length: 500, nullable: true)]
     private $title;
 
-    /**
-     * Author string component
-     * @var string
-     *
-     * @ORM\Column(name="author", type="string", length=500, nullable=true)
-     */
+    // Author string component
+    #[ORM\Column(name: 'author', type: 'string', length: 500, nullable: true)]
     private $author;
 
     /**
      * Associated authors
      * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Author", mappedBy="references")
      */
+    #[ORM\ManyToMany(targetEntity: Author::class, mappedBy: 'references')]
     private $authors;
 
     /**
      * @var Conference
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Conference", inversedBy="references")
      */
+    #[ORM\ManyToOne(targetEntity: Conference::class, inversedBy: 'references')]
     private $conference;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="position", type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(name: 'position', type: 'string', length: 255, nullable: true)]
     private $position;
 
-    /**
-     * Unused so far.
-     *
-     * @var bool
-     *
-     * @ORM\Column(name="in_proc", type="boolean", nullable=true)
-     */
+    // Unused so far.
+    #[ORM\Column(name: 'in_proc', type: 'boolean', nullable: true)]
     private $inProc;
 
-    /**
-     * Indicates whether or not Et al. is being used in the author string
-     * @var bool
-     *
-     * @ORM\Column(name="et_al", type="boolean", nullable=true)
-     */
+    // Indicates whether or not Et al. is being used in the author string
+    #[ORM\Column(name: 'et_al', type: 'boolean', nullable: true)]
     private $etAl;
 
-    /**
-     * Cached reference for string representation purposes.
-     * @var string
-     *
-     * @ORM\Column(name="cache", type="string", length=600, nullable=true)
-     */
+    // Cached reference for string representation purposes.
+    #[ORM\Column(name: 'cache', type: 'string', length: 600, nullable: true)]
     private $cache;
 
-    /**
-     * Whether or not the doi has been confirmed to exist over the web.
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+    // Whether or not the doi has been confirmed to exist over the web.
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private $doiVerified;
 
-    /**
-     * URL To paper
-     * @var string
-     *
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
+    // URL To paper
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $customDoi;
 
-    /**
-     * URL To paper
-     * @var string
-     *
-     * @ORM\Column(type="string", length=200, nullable=true)
-     */
+    // URL To paper
+    #[ORM\Column(type: 'string', length: 200, nullable: true)]
     private $paperUrl;
 
     /**
      * Any associated issues will be logged here.
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Feedback", mappedBy="reference", cascade={"remove"})
      * @var ArrayCollection
      */
+    #[ORM\OneToMany(targetEntity: Feedback::class, mappedBy: 'reference', cascade: ['remove'])]
     private $feedback;
-
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Favourite", mappedBy="reference", cascade={"remove"})
      */
+    #[ORM\OneToMany(targetEntity: Favourite::class, mappedBy: 'reference', cascade: ['remove'])]
     private $favourites;
 
-    /** 
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+    #[ORM\Column(type: 'boolean', nullable: true)]
     public $confirmedInProc;
 
     /**

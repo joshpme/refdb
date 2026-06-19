@@ -31,12 +31,10 @@
     </div>
     <br />
     <h3>For LaTeX</h3>
-    <p>{% apply spaceless %}
-            <textarea class="form-control latex-ref">
+    <p><textarea class="form-control latex-ref">
 {% for reference in references -%}
     {%- include "reference/latex.html.twig" %}{{ "\n" }}
 {% endfor %}</textarea>
-        {% endapply %}
     </p>
         <a class="btn btn-block" href="{{ path('conference_format', {"ref": path("favourite_show")}) }}">
             {% if form == "long" %}
@@ -48,12 +46,10 @@
     <br />
 
     <h3>For BibTeX</h3>
-    <p>{% apply spaceless %}
-            <textarea class="form-control latex-ref">
+    <p><textarea class="form-control latex-ref">
 {% for reference in references -%}
 {%- include "reference/bibtex.html.twig" %}{{ "\n" }}
 {% endfor %}</textarea>
-        {% endapply %}
     </p>
 
     <h3>References</h3>

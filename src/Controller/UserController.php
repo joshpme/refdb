@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,16 +15,17 @@ use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * User controller.
- *
- * @Route("admin/user")
  */
+#[Route('admin/user')]
 class UserController extends AbstractController
 {
+    use DoctrineTrait;
+
     /**
      * Lists all user entities.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/", name="user_index")
      */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/', name: 'user_index')]
     public function indexAction(Request $request, PaginatorInterface $paginator)
     {
         $manager = $this->getDoctrine()->getManager();
@@ -43,10 +44,8 @@ class UserController extends AbstractController
     }
 
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/edit/{id}", name="user_edit")
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/edit/{id}', name: 'user_edit')]
     public function editAction(Request $request, User $user, EntityManagerInterface $manager)
     {
         $form = $this->createFormBuilder($user)
@@ -81,9 +80,9 @@ class UserController extends AbstractController
 
     /**
      * Finds and displays a user entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/show/{id}", name="user_show")
      */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/show/{id}', name: 'user_show')]
     public function showAction(User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
@@ -96,9 +95,9 @@ class UserController extends AbstractController
 
     /**
      * Deletes a user entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/delete/{id}", name="user_delete")
      */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/delete/{id}', name: 'user_delete')]
     public function deleteAction(Request $request, User $user)
     {
         $form = $this->createDeleteForm($user);

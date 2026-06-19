@@ -6,7 +6,7 @@ use App\Entity\Author;
 use App\Entity\Reference;
 use App\Form\BasicSearchType;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,15 +14,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Author controller.
- *
- * @Route("author")
  */
+#[Route('author')]
 class AuthorController extends AbstractController
 {
+    use DoctrineTrait;
+
     /**
      * Lists all author entities.
-     * @Route("/", name="author_index")
      */
+    #[Route('/', name: 'author_index')]
     public function indexAction(Request $request, PaginatorInterface $paginator)
     {
         $form = $this->createForm(BasicSearchType::class, null, ["method"=>"GET"]);
@@ -86,11 +87,8 @@ class AuthorController extends AbstractController
         ));
     }
 
-    /**
-     * Creates a new author entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/new", name="author_new")
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/new', name: 'author_new')]
     public function newAction(Request $request)
     {
         $author = new Author();
@@ -111,11 +109,7 @@ class AuthorController extends AbstractController
         ));
     }
 
-    /**
-     * Finds and displays a author entity.
-     *
-     * @Route("/show/{id}", name="author_show")
-     */
+    #[Route('/show/{id}', name: 'author_show')]
     public function showAction(Request $request, Author $author, PaginatorInterface $paginator)
     {
         $form = $this->createForm(BasicSearchType::class, null, ["method"=>"GET"]);
@@ -148,11 +142,8 @@ class AuthorController extends AbstractController
 
     }
 
-    /**
-     * Displays a form to edit an existing author entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/edit/{id}", name="author_edit")
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/edit/{id}', name: 'author_edit')]
     public function editAction(Request $request, Author $author)
     {
         $deleteForm = $this->createDeleteForm($author);
@@ -172,14 +163,8 @@ class AuthorController extends AbstractController
         ));
     }
 
-    /**
-     * Deletes a author entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/delete/{id}", name="author_delete")
-     * @param Request $request
-     * @param Author $author
-     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/delete/{id}', name: 'author_delete')]
     public function deleteAction(Request $request, Author $author)
     {
         $form = $this->createDeleteForm($author);
@@ -213,9 +198,7 @@ class AuthorController extends AbstractController
             ;
     }
 
-    /**
-     * @Route("/search/{query}", name="author_search", options={"expose"=true})
-     */
+    #[Route('/search/{query}', name: 'author_search', options: ['expose' => true])]
     public function searchAction($query) {
         $results = $this->getDoctrine()->getManager()->getRepository(Author::class)
             ->search($query);

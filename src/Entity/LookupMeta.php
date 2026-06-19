@@ -4,45 +4,28 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table()
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'lookup_meta')]
 class LookupMeta
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     protected string $doi;
 
-    /**
-     * @ORM\Column(name="item_type", type="string", length=255)
-     */
+    #[ORM\Column(name: 'item_type', type: 'string', length: 255)]
     protected string $type;
 
-    /**
-     * @ORM\Column(type="string", nullable=true, length=1000)
-     */
+    #[ORM\Column(type: 'string', nullable: true, length: 1000)]
     protected ?string $journalName = null;
 
-
-    /**
-     * @var string|null
-     * @ORM\Column(type="string", nullable=true, length=255)
-     */
+    #[ORM\Column(type: 'string', nullable: true, length: 255)]
     protected ?string $publisher = null;
 
-    /**
-     * @var string|null
-     * @ORM\Column(type="string", nullable=true, length=1000)
-     */
+    #[ORM\Column(type: 'string', nullable: true, length: 1000)]
     protected ?string $eventName = null;
 
     public function getDoi(): string

@@ -13,23 +13,23 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Reference controller.
- *
- * @Route("reference")
  */
+#[Route('reference')]
 class ReferenceController extends AbstractController
 {
+    use DoctrineTrait;
+
     private $safeRef = "/^((?!\/\/)[a-zA-Z0-9\/._])+$/";
 
     /**
      * Clear the 'current conference' option
-     *
-     * @Route("/format", name="conference_format")
      */
+    #[Route('/format', name: 'conference_format')]
     public function formAction(Request $request, FormService $formService)
     {
         if ($request->get('ref') !== null && preg_match($this->safeRef, $request->get('ref'))) {
@@ -42,12 +42,9 @@ class ReferenceController extends AbstractController
 
     /**
      * Creates a new reference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/new/{id}", name="reference_new", defaults={"id": null})
-     * @param Request $request
-     * @param Conference|null $conference
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/new/{id}', name: 'reference_new', defaults: ['id' => null])]
     public function newAction(Request $request, Conference $conference = null)
     {
         $reference = new Reference();
@@ -72,11 +69,8 @@ class ReferenceController extends AbstractController
 
     /**
      * Finds and displays a reference entity.
-     *
-     * @Route("/show/{id}", name="reference_show", options={"expose"=true})
-     * @param Reference $reference
-     * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route('/show/{id}', name: 'reference_show', options: ['expose' => true])]
     public function showAction(Reference $reference, FormService $formService, EntityManagerInterface $manager) {
         $warning = "";
         if ($reference->hasTitleIssue()) {
@@ -108,11 +102,8 @@ class ReferenceController extends AbstractController
 
     /**
      * Generates word reference
-     *
-     * @Route("/show/{id}/word/{form}", name="reference_word", options={"expose"=true})
-     * @param Reference $reference
-     * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route('/show/{id}/word/{form}', name: 'reference_word', options: ['expose' => true])]
     public function wordAction(Reference $reference, string $form = "short")
     {
         if (!in_array($form, ["short", "long"])) {
@@ -127,11 +118,8 @@ class ReferenceController extends AbstractController
 
     /**
      * Generates latex reference
-     *
-     * @Route("/show/{id}/latex", name="reference_latex", options={"expose"=true})
-     * @param Reference $reference
-     * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route('/show/{id}/latex', name: 'reference_latex', options: ['expose' => true])]
     public function latexAction(Reference $reference)
     {
         return $this->render('reference/latex.html.twig', array(
@@ -141,11 +129,8 @@ class ReferenceController extends AbstractController
 
     /**
      * Generates bibtex reference
-     *
-     * @Route("/show/{id}/bibtex", name="reference_bibtex", options={"expose"=true})
-     * @param Reference $reference
-     * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route('/show/{id}/bibtex', name: 'reference_bibtex', options: ['expose' => true])]
     public function bibtexAction(Reference $reference)
     {
         return $this->render('reference/bibtex.html.twig', array(
@@ -155,9 +140,9 @@ class ReferenceController extends AbstractController
 
     /**
      * Displays a form to edit an existing reference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/edit/{id}", name="reference_edit")
      */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/edit/{id}', name: 'reference_edit')]
     public function editAction(Request $request, Reference $reference, DoiService $doiService)
     {
 
@@ -218,9 +203,9 @@ class ReferenceController extends AbstractController
 
     /**
      * Deletes a reference entity.
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/delete/{id}", name="reference_delete")
      */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/delete/{id}', name: 'reference_delete')]
     public function deleteAction(Request $request, Reference $reference)
     {
         $form = $this->createDeleteForm($reference);

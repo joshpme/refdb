@@ -8,14 +8,14 @@
 
 namespace App\Api;
 
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use App\Controller\DoctrineTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class ApiController extends AbstractController
 {
+    use DoctrineTrait;
 
     /**
      * @var integer HTTP status code - 200 (OK) by default

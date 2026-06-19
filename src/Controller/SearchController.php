@@ -21,11 +21,7 @@ use Twig\Environment;
 class SearchController extends AbstractController
 {
 
-    /**
-     * @Route("/external/{format}", name="external-query", defaults={"format": "text"})
-     * @param Request $request
-     * @return JsonResponse
-     */
+    #[Route('/external/{format}', name: 'external-query', defaults: ['format' => 'text'])]
     public function externalAction(Request $request, ExternalSearch $externalSearch, ?string $format = "text")
     {
         $query = $request->get('query');
@@ -44,11 +40,7 @@ class SearchController extends AbstractController
         return new JsonResponse(['query'=>$externalResult]);
     }
 
-    /**
-     * @Route("/internal/{format}", name="internal-query", defaults={"format": "text"})
-     * @param Request $request
-     * @return JsonResponse
-     */
+    #[Route('/internal/{format}', name: 'internal-query', defaults: ['format' => 'text'])]
     public function internalAction(Request $request, SearchService $searchService, Environment $twig, ?string $format = "text")
     {
         $query = $request->get('query');
@@ -64,11 +56,7 @@ class SearchController extends AbstractController
         return new JsonResponse(['query'=>$results]);
     }
 
-    /**
-     * @Route("/", name="homepage")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
+    #[Route('/', name: 'homepage')]
     public function indexAction(Request $request, SearchService $searchService, ExternalSearch $externalSearch, FavouriteService $favouriteService)
     {
         $search = new Search();

@@ -5,37 +5,25 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Author
- *
- * @ORM\Table(name="author",indexes={@ORM\Index(name="author_search_idx", columns={"name"})}))
- * @ORM\Entity(repositoryClass="App\Repository\AuthorRepository")
- */
+#[ORM\Entity(repositoryClass: \App\Repository\AuthorRepository::class)]
+#[ORM\Table(name: 'author')]
+#[ORM\Index(name: 'author_search_idx', columns: ['name'])]
 class Author implements \JsonSerializable
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
-    /**
-     * The authors name
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
+    // The authors name
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
     private $name;
 
     /**
      * Their associated references
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Reference", inversedBy="authors", cascade={"persist", "remove"})
      * @var ArrayCollection
      */
+    #[ORM\ManyToMany(targetEntity: Reference::class, inversedBy: 'authors', cascade: ['persist', 'remove'])]
     private $references;
 
     /**
