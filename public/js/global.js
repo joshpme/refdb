@@ -40,7 +40,7 @@ var ajaxModalShow = function($container) {
             console.log(textStatus);
             console.log(errorThrown);
             $container.find(".modal-content").html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title text-danger"><i class="material-icons">error</i> Something went wrong</h4></div>' +
-                '<div class="modal-body"><p>An error occurred trying to perform that task.</p><p>Try reloading the page and try again. If the problem persists, contact the service desk on x9200</p></div>' +
+                '<div class="modal-body"><p>An error occurred trying to perform that task.</p></div>' +
                 '<div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div>' +
                 '</div>')
         }
@@ -82,7 +82,7 @@ var ajaxForm = function () {
         }
     }).fail(function () {
         container.closest(".modal-content").html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title text-danger"><i class="material-icons">error</i> Something went wrong</h4></div>' +
-            '<div class="modal-body"><p>An error occurred trying to perform that task.</p><p>Try reloading the page and try again. If the problem persists, contact the service desk on x9200</p></div>' +
+            '<div class="modal-body"><p>An error occurred trying to perform that task.</p></div>' +
             '<div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div>' +
             '</div>');
     });
