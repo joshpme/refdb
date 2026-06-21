@@ -23,7 +23,7 @@ class ReferenceFixtures extends Fixture implements DependentFixtureInterface
         $this->importService = $importService;
     }
 
-    public function load($manager)
+    public function load(ObjectManager $manager): void
     {
         $path = $this->documentRoot . "/src/DataFixtures/";
         $conferences = $path . "Import/conferences.csv";

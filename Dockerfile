@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.3-apache
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     && docker-php-ext-configure intl \
     && docker-php-ext-install -j"$(nproc)" intl mysqli pdo_mysql \
-    && pecl install mongodb-1.17.0 \
+    && pecl install mongodb-1.21.0 \
     && docker-php-ext-enable mongodb \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*

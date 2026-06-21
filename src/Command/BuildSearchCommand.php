@@ -7,6 +7,7 @@ use App\Entity\Reference;
 use App\Service\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -14,13 +15,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
+#[AsCommand(name: 'app:build-search')]
 class BuildSearchCommand extends Command
 {
     private EntityManagerInterface $manager;
     private SearchService $searchService;
 
-    // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'app:build-search';
 
     public function __construct(EntityManagerInterface $manager, SearchService $searchService)
     {
@@ -29,13 +29,13 @@ class BuildSearchCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->addArgument("conf");
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 60 * 60 * 2);

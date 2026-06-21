@@ -8,6 +8,7 @@ use App\Entity\Reference;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -15,11 +16,11 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
+#[AsCommand(name: 'app:special-import-apac-98')]
 class SpecialImportAPac98 extends Command
 {
     private EntityManagerInterface $manager;
 
-    protected static $defaultName = 'app:special-import-apac-98';
 
     public function __construct(EntityManagerInterface $manager)
     {
@@ -27,7 +28,7 @@ class SpecialImportAPac98 extends Command
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $url = "http://accelconf.web.cern.ch/a98/Contents.html";
 

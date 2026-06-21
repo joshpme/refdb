@@ -6,6 +6,7 @@ use App\Entity\Conference;
 use App\Service\ImportService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -15,13 +16,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
+#[AsCommand(name: 'app:import-conference')]
 class ImportCommand extends Command
 {
     private $manager;
     private $importService;
 
-    // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'app:import-conference';
 
     public function __construct(EntityManagerInterface $manager, ImportService $importService)
     {
@@ -31,14 +31,14 @@ class ImportCommand extends Command
     }
 
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->addArgument("conf")
             ->addArgument("filename");
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $conf = $input->getArgument('conf');
         $filename = $input->getArgument('filename');
@@ -55,5 +55,7 @@ class ImportCommand extends Command
         }
 
         $this->importService->import($filename, $conference);
+
+        return Command::SUCCESS;
     }
 }

@@ -8,6 +8,7 @@ use App\Entity\Reference;
 use App\Service\AuthorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Twig\Environment;
@@ -21,14 +22,13 @@ use MongoDB\Driver\ServerApi;
  * Class ImportCommand
  * @package App\Command
  */
+#[AsCommand(name: 'app:conference-synonyms')]
 class ConferenceExport extends Command
 {
     private $manager;
     private $twig;
     private $searchDb;
 
-    // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'app:conference-synonyms';
 
     public function __construct(EntityManagerInterface $manager, Environment $twig, string $searchDb)
     {
@@ -39,12 +39,12 @@ class ConferenceExport extends Command
     }
 
 
-    protected function configure()
+    protected function configure(): void
     {
 
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $uri = $this->searchDb;
         $apiVersion = new ServerApi(ServerApi::V1);

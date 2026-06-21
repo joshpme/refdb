@@ -24,7 +24,7 @@ class TagTransformer implements DataTransformerInterface {
      * @param ArrayCollection|null $entities
      * @return mixed|string
      */
-    public function transform($entities) {
+    public function transform($entities): mixed {
         if(null === $entities) {
             return '';
         }
@@ -45,7 +45,7 @@ class TagTransformer implements DataTransformerInterface {
      * @throws TransformationFailedException
      * @throws Exception
      */
-    public function reverseTransform($value) {
+    public function reverseTransform($value): mixed {
         if(!$value) {
             return new ArrayCollection();
         }

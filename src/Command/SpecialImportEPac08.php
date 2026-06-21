@@ -6,6 +6,7 @@ use App\Entity\Conference;
 use App\Entity\Reference;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -13,11 +14,11 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
+#[AsCommand(name: 'app:special-import-epac-08')]
 class SpecialImportEPac08 extends Command
 {
     private EntityManagerInterface $manager;
 
-    protected static $defaultName = 'app:special-import-epac-08';
 
     public function __construct(EntityManagerInterface $manager)
     {
@@ -25,7 +26,7 @@ class SpecialImportEPac08 extends Command
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $url= "http://accelconf.web.cern.ch/e08/html/class1.htm";
         $papers = [];

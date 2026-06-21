@@ -15,7 +15,7 @@ class SearchType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('conference', null, ['label'=>"Conference Code / Name", "attr"=>["class"=>"conference-typeahead","autocomplete"=>"off"]])
@@ -30,7 +30,7 @@ class SearchType extends AbstractType
     }/**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => Search::class,
@@ -41,7 +41,7 @@ class SearchType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'appbundle_search';
     }

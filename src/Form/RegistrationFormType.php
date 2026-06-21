@@ -29,12 +29,12 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Password',
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank(['message' => 'Please enter a password']),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        'max' => 4096,
-                    ]),
+                    new NotBlank(message: 'Please enter a password'),
+                    new Length(
+                        min: 6,
+                        max: 4096,
+                        minMessage: 'Your password should be at least {{ limit }} characters',
+                    ),
                 ],
             ]);
     }

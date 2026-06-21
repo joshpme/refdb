@@ -19,23 +19,23 @@ class TagsAsInputType extends AbstractType {
         $this->manager = $manager;
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         parent::buildView($view, $form, $options);
         $view->vars["attr"]["data-source"] = $options['data_source'];
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
         parent::buildForm($builder, $options);
         $builder->addViewTransformer(new TagTransformer($this->manager, $options['entity_class']));
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return "entity_tags";
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults(array(
@@ -45,7 +45,7 @@ class TagsAsInputType extends AbstractType {
             ));
     }
 
-    public function getParent() {
+    public function getParent(): ?string {
         return TextType::class;
     }
 

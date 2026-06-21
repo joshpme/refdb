@@ -19,7 +19,7 @@ class ConferenceFixtures extends Fixture
         }
     }
 
-    public function load($manager)
+    public function load(ObjectManager $manager): void
     {
         ini_set('memory_limit','2G');
         ini_set('max_execution_time', 600);

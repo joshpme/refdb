@@ -7,6 +7,7 @@ use App\Entity\Reference;
 use App\Service\AuthorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -16,13 +17,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
+#[AsCommand(name: 'app:authors')]
 class AuthorCommand extends Command
 {
     private $manager;
     private $authorService;
 
-    // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'app:authors';
 
     public function __construct(EntityManagerInterface $manager, AuthorService $authorService)
     {
@@ -32,12 +32,12 @@ class AuthorCommand extends Command
     }
 
 
-    protected function configure()
+    protected function configure(): void
     {
 
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 900);
@@ -93,6 +93,8 @@ class AuthorCommand extends Command
         $output->writeln("Attempting to persist all " . count($newAuthors) . " authors with " . $i . " reference associations");
 
         $manager->flush();
+
+        return Command::SUCCESS;
     }
 
     private function findAuthors($references, AuthorService $authorService)

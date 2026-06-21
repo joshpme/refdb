@@ -7,6 +7,7 @@ use App\Entity\Reference;
 use App\Service\PaperService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -14,12 +15,11 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportCommand
  * @package App\Command
  */
+#[AsCommand(name: 'app:special-import-linac-02')]
 class SpecialImportLinac02 extends Command
 {
     private EntityManagerInterface $manager;
 
-    // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'app:special-import-linac-02';
 
     public function __construct(EntityManagerInterface $manager)
     {
@@ -27,7 +27,7 @@ class SpecialImportLinac02 extends Command
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         ini_set('memory_limit', '2G');
         ini_set('max_execution_time', 1800);
